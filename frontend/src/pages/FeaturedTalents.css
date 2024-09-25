@@ -1,0 +1,89 @@
+/* Container for featured talents */
+.featured-talents-container {
+ background-color: var(--primary-color);
+  padding: 2rem;
+}
+
+.featured-talents-heading {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #ffffff;
+}
+
+/* Carousel styling */
+.slick-track{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.carousel-slider .slick-slide {
+  display: flex;
+  justify-content: center;
+}
+.slick-slide > div:first-child{
+    width: 350px;
+    display: flex;
+    align-items: center;
+}
+.slick-slide {
+    display: flex;
+}
+.card-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  background: #ffffff56;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center; 
+}
+
+.card-icon {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  margin: 0.5rem 0;
+  color: #f7f4f4;
+}
+
+.card-rating {
+  font-size: 1rem;
+  color: #1974fc;
+  margin-bottom: 0.5rem;
+}
+
+.card-skills {
+  font-size: 0.875rem;
+  color: #ffffff;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .card-icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .featured-talents-heading {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .featured-talents-heading {
+    font-size: 1.25rem;
+  }
+}

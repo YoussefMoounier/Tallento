@@ -1,0 +1,148 @@
+
+/* Footer Container */
+.footer-container {
+background-color:var(--primary-color);
+  color: #f0f0f0;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-container > div {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Footer Links Section */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.footer-links ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  margin: 15px 20px;
+}
+
+.footer-links ul li {
+  margin: 10px 0;
+}
+
+.footer-link {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+.footer-link .icon {
+  margin-right: 8px;
+}
+
+.footer-link:hover {
+  color: #00bfa6;
+}
+
+/* Footer Contact Section */
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-contact h4 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #00bfa6;
+}
+
+.footer-contact ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-contact ul li {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-contact ul li .icon {
+  margin-right: 8px;
+}
+
+/* Footer Copyright Section */
+.footer-copy {
+  margin-top: 30px;
+  padding-top: 20px;
+  width: 100%;
+  border-top: 1px solid #333;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .footer-container {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 40px 60px;
+  }
+
+  .footer-container > div {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .footer-links {
+    justify-content: flex-start;
+  }
+
+  .footer-links ul {
+    align-items: flex-start;
+    margin: 0 40px;
+  }
+
+  .footer-contact {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .footer-copy {
+    margin-top: 0;
+    padding-top: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-container {
+    padding: 50px 80px;
+  }
+
+  .footer-links ul {
+    margin: 0 60px;
+  }
+
+  .footer-contact ul li {
+    font-size: 18px;
+  }
+
+  .footer-copy {
+    font-size: 16px;
+  }
+}
