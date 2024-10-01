@@ -1,8 +1,7 @@
 // src/socket.js
 import { io } from "socket.io-client";
 
-const socket = io("https://chatapp-2exa.onrender.com");
-// const socket = io("http://localhost:8000");
+const socket = io("https://tallento.onrender.com");
 
 export default socket;
    
