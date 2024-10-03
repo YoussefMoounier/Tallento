@@ -1,3 +1,5 @@
+import React, { useContext } from "react"; // Import useContext
+import { LanguageContext } from "../../context/LanguageContext"; // Import the context
 import {
   FaSearch,
   FaPlusCircle,
@@ -18,6 +20,31 @@ import { DiGhostSmall } from "react-icons/di";
 const Header = () => {
   const [SideMenuShow, setSideMenuShow] = useState(false);
   const { user } = useSelector((state) => state.auth);
+  const { language, toggleLanguage } = useContext(LanguageContext); // Use context
+
+  // Translations object
+  const translations = {
+    en: {
+      home: "Home",
+      search: "Search for Talents",
+      browsePosts: "Browse Posts",
+      browseProjects: "Browse Projects",
+      addProject: "Add Project",
+      myProjects: "My Projects",
+      newAccount: "New Account",
+      login: "Login",
+    },
+    ar: {
+      home: "الرئيسية",
+      search: "ابحث عن موهوبين",
+      browsePosts: "تصفح المنشورات",
+      browseProjects: "تصفح المشاريع",
+      addProject: "أضف مشروع",
+      myProjects: "مشاريعي",
+      newAccount: "حساب جديد",
+      login: "دخول",
+    },
+  };
 
   const toggleMenu = () => {
     setSideMenuShow(!SideMenuShow);
@@ -35,7 +62,7 @@ const Header = () => {
           <ul>
             <li>
               <Link onClick={closeMenu} className="navbar-link" to="/">
-                <span className="title">الرئيسية</span>
+                <span className="title">{translations[language].home}</span>
                 <span className="icon">
                   <FaCubes />
                 </span>
@@ -44,7 +71,7 @@ const Header = () => {
             {!user && (
               <li>
                 <Link onClick={closeMenu} className="navbar-link" to="/search">
-                  <span className="title">ابحث عن موهوبين</span>
+                  <span className="title">{translations[language].search}</span>
                   <span className="icon">
                     <FaUsers />
                   </span>
@@ -53,7 +80,7 @@ const Header = () => {
             )}
             <li>
               <Link onClick={closeMenu} className="navbar-link" to="/posts">
-                <span className="title">تصفح المنشورات</span>
+                <span className="title">{translations[language].browsePosts}</span>
                 <span className="icon">
                   <DiGhostSmall />
                 </span>
@@ -61,7 +88,7 @@ const Header = () => {
             </li>
             <li>
               <Link onClick={closeMenu} className="navbar-link" to="/projects">
-                <span className="title">تصفح المشاريع</span>
+                <span className="title">{translations[language].browseProjects}</span>
                 <span className="icon">
                   <FaCubes />
                 </span>
@@ -70,7 +97,7 @@ const Header = () => {
             {user && (
               <li onClick={closeMenu}>
                 <Link className="navbar-link" to="/add-project">
-                  <span className="title">أضف مشروع</span>
+                  <span className="title">{translations[language].addProject}</span>
                   <span className="icon">
                     <FaPlusCircle />
                   </span>
@@ -78,27 +105,21 @@ const Header = () => {
               </li>
             )}
             {user && (
-              <>
-                <li>
-                  <Link
-                    onClick={closeMenu}
-                    className="navbar-link"
-                    to="/my-projects"
-                  >
-                    <span className="title">مشاريعي</span>
-                    <span className="icon">
-                      <FaBriefcase />
-                    </span>
-                  </Link>
-                </li>
-              </>
+              <li>
+                <Link className="navbar-link" to="/my-projects">
+                  <span className="title">{translations[language].myProjects}</span>
+                  <span className="icon">
+                    <FaBriefcase />
+                  </span>
+                </Link>
+              </li>
             )}
           </ul>
         </div>
 
         <div className="navbar">
           <div className="main-icons">
-            <div className=" navbar-link" onClick={toggleMenu}>
+            <div className="navbar-link" onClick={toggleMenu}>
               <span className="icon">
                 <FiMenu />
               </span>
@@ -122,6 +143,9 @@ const Header = () => {
               <span className="logo-text">Tallento</span>
             </Link>
           </div>
+          <button onClick={toggleLanguage} className="lang-toggle-btn">
+            {language === "en" ? "ع" : "En"}
+          </button>
           <div className="navbar-links">
             <div className="links-list">
               <ul>
@@ -131,7 +155,7 @@ const Header = () => {
                       <span className="icon">
                         <FaUsers />
                       </span>
-                      <span className="title">ابحث عن موهوبين</span>
+                      <span className="title">{translations[language].search}</span>
                     </Link>
                   </li>
                 )}
@@ -140,7 +164,7 @@ const Header = () => {
                     <span className="icon">
                       <DiGhostSmall />
                     </span>
-                    <span className="title">تصفح المنشورات</span>
+                    <span className="title">{translations[language].browsePosts}</span>
                   </Link>
                 </li>
                 <li>
@@ -148,7 +172,7 @@ const Header = () => {
                     <span className="icon">
                       <FaCubes />
                     </span>
-                    <span className="title">تصفح المشاريع</span>
+                    <span className="title">{translations[language].browseProjects}</span>
                   </Link>
                 </li>
                 {user && (
@@ -157,21 +181,19 @@ const Header = () => {
                       <span className="icon">
                         <FaPlusCircle />
                       </span>
-                      <span className="title">أضف مشروع</span>
+                      <span className="title">{translations[language].addProject}</span>
                     </Link>
                   </li>
                 )}
                 {user && (
-                  <>
-                    <li>
-                      <Link className="navbar-link" to="/my-projects">
-                        <span className="icon">
-                          <FaBriefcase />
-                        </span>
-                        <span className="title">مشاريعي</span>
-                      </Link>
-                    </li>
-                  </>
+                  <li>
+                    <Link className="navbar-link" to="/my-projects">
+                      <span className="icon">
+                        <FaBriefcase />
+                      </span>
+                      <span className="title">{translations[language].myProjects}</span>
+                    </Link>
+                  </li>
                 )}
               </ul>
             </div>
@@ -186,15 +208,13 @@ const Header = () => {
                 </Link>
               </li>
               {user && (
-                <>
-                  <li>
-                    <Link className="navbar-link" to="/chat">
-                      <span className="icon">
-                        <IoMdMail />
-                      </span>
-                    </Link>
-                  </li>
-                </>
+                <li>
+                  <Link className="navbar-link" to="/chat">
+                    <span className="icon">
+                      <IoMdMail />
+                    </span>
+                  </Link>
+                </li>
               )}
             </ul>
 
@@ -204,10 +224,10 @@ const Header = () => {
                   <span className="icon">
                     <CgUserAdd />
                   </span>
-                  <span className="title">حساب جديد</span>
+                  <span className="title">{translations[language].newAccount}</span>
                 </Link>
                 <Link className="login-btn" to="/login">
-                  <span className="title">دخول</span>
+                  <span className="title">{translations[language].login}</span>
                   <span className="icon">
                     <FiLogIn />
                   </span>

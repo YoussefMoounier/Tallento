@@ -29,7 +29,7 @@ const PaymentForm = ({ clientSecret }) => {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "https://tallento-app.vercel.app/payment-complete",
+        return_url: "https://www.tallento.ae/payment-complete",
       },
     });
 

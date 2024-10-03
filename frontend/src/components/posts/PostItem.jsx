@@ -1,15 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useContext } from "react"; // Import useContext
 import { Link } from "react-router-dom";
 import { toggleLikePost } from "../../redux/apiCalls/postApiCall";
 import CommentList from "../comments/CommentList";
 import { toast } from "react-toastify";
+import { LanguageContext } from "../../context/LanguageContext"; // Import the context
 
 const PostItem = ({ post, username, userId }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const { language } = useContext(LanguageContext); // Use context for language
 
-  // الحالة المحلية للإعجابات
+  // Local state for likes
   const [likes, setLikes] = useState(post.likes);
   const [liked, setLiked] = useState(post.likes.includes(user?._id));
 
@@ -18,22 +20,22 @@ const PostItem = ({ post, username, userId }) => {
     : `/profile/${post?.user?._id}`;
 
   const handleToggleLike = () => {
-    if(user){
-    dispatch(toggleLikePost(post._id))
-      .then(() => {
-        // تحديث الحالة المحلية بعد نجاح العملية
-        if (liked) {
-          setLikes(likes.filter((id) => id !== user._id)); // إزالة إعجاب المستخدم
-        } else {
-          setLikes([...likes, user._id]); // إضافة إعجاب المستخدم
-        }
-        setLiked(!liked); // تبديل حالة الإعجاب
-      })
-      .catch((error) => {
-        console.error("Error toggling like:", error);
-      });
-    }else{
-      toast.warning("يجب تسجيل الدخول لتفعيل الإعجاب")
+    if (user) {
+      dispatch(toggleLikePost(post._id))
+        .then(() => {
+          // Update local state after successful operation
+          if (liked) {
+            setLikes(likes.filter((id) => id !== user._id)); // Remove user's like
+          } else {
+            setLikes([...likes, user._id]); // Add user's like
+          }
+          setLiked(!liked); // Toggle like state
+        })
+        .catch((error) => {
+          console.error("Error toggling like:", error);
+        });
+    } else {
+      toast.warning(language === "en" ? "You must be logged in to like" : "يجب تسجيل الدخول لتفعيل الإعجاب");
     }
   };
 
