@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react"; // Import useContext
 import { Link, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -7,6 +7,7 @@ import LoadingSpinner from "../../components/isLoading/LoadingSpinner";
 import { authActions } from "../../redux/slices/authSlice";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import google from "./google.png";
+import { LanguageContext } from "../../context/LanguageContext"; // Import the context
 import "./form.css";
 
 const Login = () => {
@@ -16,6 +17,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
+  const { language } = useContext(LanguageContext); // Use context for language
 
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
@@ -60,14 +62,14 @@ const Login = () => {
 
   const formSubmitHandler = async (e) => {
     e.preventDefault();
-    if (email.trim() === "") return toast.error("Email is required");
-    if (password.trim() === "") return toast.error("Password is required");
+    if (email.trim() === "") return toast.error(language === "en" ? "Email is required" : "البريد الالكتروني مطلوب");
+    if (password.trim() === "") return toast.error(language === "en" ? "Password is required" : "كلمة السر مطلوبة");
 
     setIsLoading(true);
     try {
       await dispatch(loginUser({ email, password }));
     } catch (error) {
-      toast.error("Failed to login");
+      toast.error(language === "en" ? "Failed to login" : "فشل تسجيل الدخول");
     } finally {
       setIsLoading(false);
     }
@@ -75,31 +77,31 @@ const Login = () => {
 
   return (
     <section className="form-container">
-      <h1 className="form-title">تسجيل الدخول</h1>
+      <h1 className="form-title">{language === "en" ? "Login" : "تسجيل الدخول"}</h1>
       <form onSubmit={formSubmitHandler} className="form">
         <div className="form-group">
           <label htmlFor="email" className="form-label">
-            البريد الالكتروني
+            {language === "en" ? "Email" : "البريد الالكتروني"}
           </label>
           <input
             type="email"
             className="form-input"
             id="email"
-            placeholder="ادخل البريد الالكتروني هنا"
+            placeholder={language === "en" ? "Enter your email here" : "ادخل البريد الالكتروني هنا"}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="form-group password-group">
           <label htmlFor="password" className="form-label">
-            كلمة السر
+            {language === "en" ? "Password" : "كلمة السر"}
           </label>
           <div className="password-input-container">
             <input
               type={showPassword ? "text" : "password"}
               className="form-input"
               id="password"
-              placeholder="ادخل كلمة السر"
+              placeholder={language === "en" ? "Enter your password" : "ادخل كلمة السر"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -109,20 +111,20 @@ const Login = () => {
           </div>
         </div>
         <button className="form-btn" type="submit" disabled={isLoading}>
-          {isLoading ? <LoadingSpinner /> : "تسجيل الدخول"}
+          {isLoading ? <LoadingSpinner /> : (language === "en" ? "Login" : "تسجيل الدخول")}
         </button>
         <button
           className="google_btn"
           onClick={googleAuth}
           disabled={isLoading}
         >
-          <span>تسجيل الدخول باستخدام Google</span>
+          <span>{language === "en" ? "Login with Google" : "تسجيل الدخول باستخدام Google"}</span>
           <img src={google} alt="google icon" />
         </button>
       </form>
 
       <div className="form-footer">
-        نسيت كلمة المرور? <Link to="/forgot-password">اضغط هنا</Link>
+        {language === "en" ? "Forgot Password?" : "نسيت كلمة المرور?"} <Link to="/forgot-password">{language === "en" ? "Click here" : "اضغط هنا"}</Link>
       </div>
     </section>
   );
