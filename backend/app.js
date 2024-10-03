@@ -79,13 +79,15 @@ app.use("/api/users", blockUsers);
 app.use("/blocklist", require("./routes/blockList"))
 
  
-const stripe = require("stripe")(
-  "pk_live_51OpznlE4CHNvX4azvl4FhVLDrI1foEI9OW6ENq1RfTAKJT3tiLRVnmcnwKb1O3kbimc4LZx0ugxUWwFOIQd40T2600IHch4FUT"
-);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 app.get("/config",(req,res)=>{
 
   res.send({publishableKey: process.env.STRIPE_PUBLISHABLE_KEY})
+})
+
+app.get("/hide", (req, res) => {
+  res.json({"Success":process.env.STRIPE_SECRET_KEY});
 })
 
 app.post("/create-payment-intent", async (req, res) => {
