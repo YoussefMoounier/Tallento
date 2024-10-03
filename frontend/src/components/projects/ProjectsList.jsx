@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react"; // Import useContext
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProjects } from "../../redux/slices/projectSlice";
 import { Link } from "react-router-dom";
+import { LanguageContext } from "../../context/LanguageContext"; // Import the context
 import "./projList.css";
 
 const ProjectsList = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { projects, loading, error } = useSelector((state) => state.project);
+  const { language } = useContext(LanguageContext); // Use context for language
 
   const [expandedProjectId, setExpandedProjectId] = useState(null);
 
@@ -15,7 +17,7 @@ const ProjectsList = () => {
     dispatch(fetchProjects());
   }, [dispatch]);
 
-  if (loading) return <p>Loading projects...</p>;
+  if (loading) return <p>{language === "en" ? "Loading projects..." : "جارٍ تحميل المشاريع..."}</p>;
   if (error) return <p>{error}</p>;
 
   // Ensure projects have a createdAt field and sort by it in descending order
@@ -24,9 +26,6 @@ const ProjectsList = () => {
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       )
     : [];
-
-console.log(sortedProjects);
-
 
   const toggleExpand = (projectId) => {
     if (expandedProjectId === projectId) {
@@ -39,7 +38,7 @@ console.log(sortedProjects);
   return (
     <div className="project-list-container">
       <div className="project-list-header">
-        <h2>المشاريع المفتوحة</h2>
+        <h2>{language === "en" ? "Open Projects" : "المشاريع المفتوحة"}</h2>
       </div>
       <div className="project-list-content">
         {sortedProjects.length > 0 ? (
@@ -54,27 +53,27 @@ console.log(sortedProjects);
                       : project.description.slice(0, 150) + "..."}
                   </p>
                   <p className="project-budget">
-                    الميزانية: <strong>{project.budget} $</strong>
+                    {language === "en" ? "Budget: " : "الميزانية: "} <strong>{project.budget} $</strong>
                   </p>
                   <p className="project-duration">
-                    مدة التنفيذ: <strong>{project.duration} أيام</strong>
+                    {language === "en" ? "Duration: " : "مدة التنفيذ: "} <strong>{project.duration} {language === "en" ? "days" : "أيام"}</strong>
                   </p>
                 </div>
 
                 {user ? (
                   <Link className="offer-button" to={`/project/${project._id}`}>
-                    اضف عرضك
+                    {language === "en" ? "Submit Offer" : "اضف عرضك"}
                   </Link>
                 ) : (
                   <button className="offer-button" disabled>
-                    اضف عرضك
+                    {language === "en" ? "Submit Offer" : "اضف عرضك"}
                   </button>
                 )}
               </div>
             </Link>
           ))
         ) : (
-          <h3>لا يوجد مشاريع حالياً لعرضها</h3>
+          <h3>{language === "en" ? "No projects available to display" : "لا يوجد مشاريع حالياً لعرضها"}</h3>
         )}
       </div>
       <div className="pagination">
