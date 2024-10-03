@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import "./PaymentForm.css";
+import request from "../../utils/request";
 
 const PaymentForm = () => {
   const stripe = useStripe();
@@ -21,7 +22,7 @@ const PaymentForm = () => {
     const cardElement = elements.getElement(CardElement);
 
     try {
-      const { data: clientSecret } = await axios.post(
+      const { data: clientSecret } = await request.post(
         "/api/create-escrow-payment",
         { amount }
       );
