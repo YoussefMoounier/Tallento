@@ -80,7 +80,7 @@ app.use("/blocklist", require("./routes/blockList"))
 
  
 const stripe = require("stripe")(
-  "sk_test_51PhhAcH9jGVokU56dfYIMeFozcqBUkd52jJ8rPASTTH66UW8cw3zQ7cZIg71Hz51ayfcdr8DqQhyyQRmMTHuGUj100ZUfwZZJj"
+  "pk_live_51OpznlE4CHNvX4azvl4FhVLDrI1foEI9OW6ENq1RfTAKJT3tiLRVnmcnwKb1O3kbimc4LZx0ugxUWwFOIQd40T2600IHch4FUT"
 );
 
 app.get("/config",(req,res)=>{
