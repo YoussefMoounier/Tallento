@@ -1,45 +1,43 @@
-import React from "react";
+import React, { useContext } from "react"; // Import useContext
 import "./CombinedSection.css"; // استيراد ملف CSS الموحد
-
-// التأكد من أن الصور موجودة في مجلد public أو استيرادها مباشرة
 import createAccoImage from "../components/Hero/img/create acco.jpg";
 import showingTalentImage from "../components/Hero/img/showing talent.jpg";
 import moneyImage from "../components/Hero/img/money.jpg";
-import growImage from "../components/Hero/img/grow.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { LanguageContext } from "../context/LanguageContext"; // Import the context
 
 const CombinedSection = () => {
   const { user } = useSelector((state) => state.auth);
+  const { language } = useContext(LanguageContext); // Use context for language
 
   return (
     <section className="combined-section">
       {/* قسم المزايا */}
       <div className="features-section">
         <div className="left">
-          <h1>كيف تبدو رحلتك معنا</h1>
-          
+          <h1>{language === "en" ? "What Your Journey Looks Like With Us" : "كيف تبدو رحلتك معنا"}</h1>
         </div>
         <div className="right">
           <div className="card card1">
             <div className="card__content">
-              <p className="card__title">انشئ حساب</p>
+              <p className="card__title">{language === "en" ? "Create Account" : "انشئ حساب"}</p>
             </div>
-            <img src={createAccoImage} alt="إنشاء حساب" />
+            <img src={createAccoImage} alt={language === "en" ? "Create Account" : "إنشاء حساب"} />
           </div>
 
           <div className="card card2">
             <div className="card__content">
-              <p className="card__title">أظهر موهبتك</p>
+              <p className="card__title">{language === "en" ? "Show Your Talent" : "أظهر موهبتك"}</p>
             </div>
-            <img src={showingTalentImage} alt="أظهر موهبتك" />
+            <img src={showingTalentImage} alt={language === "en" ? "Show Your Talent" : "أظهر موهبتك"} />
           </div>
 
           <div className="card card3">
             <div className="card__content">
-              <p className="card__title">إكسب المال</p>
+              <p className="card__title">{language === "en" ? "Earn Money" : "إكسب المال"}</p>
             </div>
-            <img src={moneyImage} alt="كسب المال" />
+            <img src={moneyImage} alt={language === "en" ? "Earn Money" : "كسب المال"} />
           </div>
         </div>
       </div>
@@ -47,20 +45,14 @@ const CombinedSection = () => {
       {/* قسم النمو */}
       <div className="grow-section">
         <div className="grow-right">
-          <h1>لا نستطيع الانتظار لرؤية اعمالك تزدهر!</h1>
-          
-          <p>لأي استفسار حول المنصة, يرجى التواصل معنا على</p>
-          
-          
-        <div className="subb">
-<a href="mailto:tallento@gmail.com" className="email-link">
-  tallento@gmail.com
-</a>
+          <h1>{language === "en" ? "We Can't Wait to See Your Work Thrive!" : "لا نستطيع الانتظار لرؤية اعمالك تزدهر!"}</h1>
+          <p>{language === "en" ? "For any inquiries about the platform, please contact us at" : "لأي استفسار حول المنصة, يرجى التواصل معنا على"}</p>
+          <div className="subb">
+            <a href="mailto:tallento@gmail.com" className="email-link">
+              tallento@gmail.com
+            </a>
+          </div>
         </div>
-
-        </div>
-
-        
       </div>
     </section>
   );

@@ -37,7 +37,6 @@ const FeaturedTalents = ({ categories }) => {
 
   return (
     <div className="featured-talents-container">
-      <h2 className="featured-talents-heading"> أفضل المواهب فى مكان واحد</h2>
       <Slider {...settings} className="carousel-slider">
         {categories.map((category, index) => (
           <div key={index} className="card-item">
