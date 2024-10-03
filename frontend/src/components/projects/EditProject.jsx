@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react"; // Import useContext
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProjects, updateProject } from "../../redux/slices/projectSlice";
 import { useParams, useNavigate } from "react-router-dom";
+import { LanguageContext } from "../../context/LanguageContext"; // Import the context
 import "./EditProject.css"; // Import the CSS file
 
 const EditProject = () => {
@@ -21,6 +22,8 @@ const EditProject = () => {
     offers: [],
     editor: "", // Added editor field
   });
+
+  const { language } = useContext(LanguageContext); // Use context for language
 
   useEffect(() => {
     dispatch(fetchProjects());
@@ -49,7 +52,7 @@ const EditProject = () => {
         budget: newBudget,
       }));
     } else {
-      alert("لا يوجد عرض مقابل لهذا المشرف");
+      alert(language === "en" ? "No offer found for this editor" : "لا يوجد عرض مقابل لهذا المشرف");
     }
   };
 
@@ -73,12 +76,12 @@ const EditProject = () => {
   };
 
   if (loading)
-    return <p className="edit-project-loading">Loading project...</p>;
+    return <p className="edit-project-loading">{language === "en" ? "Loading project..." : "جارٍ تحميل المشروع..."}</p>;
   if (error) return <p className="edit-project-error">{error}</p>;
 
   return (
     <div className="edit-project-container">
-      <h2 className="edit-project-title">Edit Project</h2>
+      <h2 className="edit-project-title">{language === "en" ? "Edit Project" : "تعديل المشروع"}</h2>
       <form className="edit-project-form" onSubmit={handleSubmit}>
         <div>
           <label className="edit-project-label">Title</label>

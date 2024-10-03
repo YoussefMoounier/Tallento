@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react"; // Import useContext
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -6,6 +6,7 @@ import { fetchProjects } from "../../redux/slices/projectSlice";
 import "./ProjectDetail.css";
 import request from "../../utils/request";
 import ProjectCard from "./projectCard/ProjectCard";
+import { LanguageContext } from "../../context/LanguageContext"; // Import the context
 
 const ProjectDetail = () => {
   const { id } = useParams();
@@ -21,6 +22,7 @@ const ProjectDetail = () => {
 
   const dispatch = useDispatch();
   const { projects, error } = useSelector((state) => state.project);
+  const { language } = useContext(LanguageContext); // Use context for language
 
   useEffect(() => {
     if (projects.length === 0) {
@@ -64,7 +66,7 @@ const ProjectDetail = () => {
     return <div>Loading...</div>;
   }
 
-const fee = offer.amount ? (offer.amount * 0.1).toFixed(2) : "0.00";
+  const fee = offer.amount ? (offer.amount * 0.1).toFixed(2) : "0.00";
 
   return (
     <>
@@ -83,29 +85,29 @@ const fee = offer.amount ? (offer.amount * 0.1).toFixed(2) : "0.00";
               document.getElementById("offer-form").scrollIntoView()
             }
           >
-            قدم عرضك الآن
+            {language === "en" ? "Submit Your Offer Now" : "قدم عرضك الآن"}
           </button>
         </div>
         <div className="project-info">
           <div className="project-info-left">
-            <h3>تفاصيل المشروع</h3>
+            <h3>{language === "en" ? "Project Details" : "تفاصيل المشروع"}</h3>
             <p>
-              <strong>حالة المشروع:</strong> {project.status}
+              <strong>{language === "en" ? "Project Status:" : "حالة المشروع:"}</strong> {project.status}
             </p>
             <p>
-              <strong>الميزانية:</strong> {project.budget}
+              <strong>{language === "en" ? "Budget:" : "الميزانية:"}</strong> {project.budget}
             </p>
             <p>
-              <strong>مدة التنفيذ:</strong> {project.duration} أيام
+              <strong>{language === "en" ? "Duration:" : "مدة التنفيذ:"}</strong> {project.duration} {language === "en" ? "days" : "أيام"}
             </p>
             <p>
-              <strong>عدد العروض:</strong> {project.offers.length}
+              <strong>{language === "en" ? "Number of Offers:" : "عدد العروض:"}</strong> {project.offers.length}
             </p>
           </div>
           <div className="project-info-right">
-            <h3>وصف المشروع</h3>
+            <h3>{language === "en" ? "Project Description" : "وصف المشروع"}</h3>
             <p>{project.description}</p>
-            <h3>المهارات المطلوبة</h3>
+            <h3>{language === "en" ? "Required Skills" : "المهارات المطلوبة"}</h3>
             <div className="skills">
               {project.skills.map((skill, index) => (
                 <span key={index} className="skill">
@@ -116,27 +118,27 @@ const fee = offer.amount ? (offer.amount * 0.1).toFixed(2) : "0.00";
           </div>
         </div>
         <div className="project-offers">
-          <h3>العروض المقدمة</h3>
+          <h3>{language === "en" ? "Submitted Offers" : "العروض المقدمة"}</h3>
           {project.offers.map((offer, index) => (
             <div key={index} className="offer">
               <p>
-                <strong>Amount:</strong> {offer.amount}
+                <strong>{language === "en" ? "Amount:" : "قيمة العرض:"}</strong> {offer.amount}
               </p>
               <p>
-                <strong>Duration:</strong> {offer.duration} أيام
+                <strong>{language === "en" ? "Duration:" : "مدة التسليم:"}</strong> {offer.duration} {language === "en" ? "days" : "أيام"}
               </p>
               <p>
-                <strong>Description:</strong> {offer.description}
+                <strong>{language === "en" ? "Description:" : "تفاصيل العرض:"}</strong> {offer.description}
               </p>
             </div>
           ))}
         </div>
         <div className="offer-form-container" id="offer-form">
-          <h3>قدم عرضك الآن</h3>
+          <h3>{language === "en" ? "Submit Your Offer Now" : "قدم عرضك الآن"}</h3>
           <form onSubmit={handleSubmit} className="offer-form">
             <div>
               <div>
-                <label htmlFor="amount">قيمة العرض</label>
+                <label htmlFor="amount">{language === "en" ? "Offer Amount" : "قيمة العرض"}</label>
                 <input
                   type="number"
                   id="amount"
@@ -147,11 +149,11 @@ const fee = offer.amount ? (offer.amount * 0.1).toFixed(2) : "0.00";
                 />
               </div>
               <p>
-                <strong>Fee (10%):</strong> {fee} $
+                <strong>{language === "en" ? "Fee (10%):" : "الرسوم (10%):"}</strong> {fee} $
               </p>
             </div>
             <div>
-              <label htmlFor="duration">مدة التسليم</label>
+              <label htmlFor="duration">{language === "en" ? "Delivery Duration" : "مدة التسليم"}</label>
               <input
                 type="number"
                 id="duration"
@@ -162,7 +164,7 @@ const fee = offer.amount ? (offer.amount * 0.1).toFixed(2) : "0.00";
               />
             </div>
             <div>
-              <label htmlFor="description">تفاصيل العرض</label>
+              <label htmlFor="description">{language === "en" ? "Offer Details" : "تفاصيل العرض"}</label>
               <textarea
                 id="description"
                 name="description"
@@ -171,7 +173,7 @@ const fee = offer.amount ? (offer.amount * 0.1).toFixed(2) : "0.00";
                 required
               ></textarea>
             </div>
-            <button type="submit">أضف عرضك</button>
+            <button type="submit">{language === "en" ? "Add Your Offer" : "أضف عرضك"}</button>
           </form>
         </div>
       </div>
@@ -180,3 +182,5 @@ const fee = offer.amount ? (offer.amount * 0.1).toFixed(2) : "0.00";
 };
 
 export default ProjectDetail;
+```
+</rewritten_file>
