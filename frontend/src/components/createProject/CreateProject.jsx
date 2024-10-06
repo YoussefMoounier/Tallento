@@ -18,6 +18,16 @@ const CreateProject = () => {
   const user = useSelector((state) => state.auth.user);
   const { language } = useContext(LanguageContext); // Use context for language
 
+  // Define categories
+  const categories = [
+    { value: "development", label: language === "en" ? "Development" : "برمجة" },
+    { value: "design", label: language === "en" ? "Design" : "تصميم" },
+    { value: "marketing", label: language === "en" ? "Marketing" : "تسويق" },
+    { value: "writing", label: language === "en" ? "Writing" : "كتابة" },
+    { value: "Voice", label: language === "en" ? "Voice Over" : "تعليق صوتي" },
+    { value: "other", label: language === "en" ? "Other" : "أخرى" },
+  ];
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     dispatch(setProjectField({ field: name, value }));
@@ -27,7 +37,7 @@ const CreateProject = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const projectPayload = { ...project, ownerId: user._id };
-    console.log("Submitting project payload:", project);
+    console.log("Submitting project payload:", projectPayload); 
     dispatch(createProject(projectPayload));
   };
 
@@ -55,6 +65,23 @@ const CreateProject = () => {
             onChange={handleChange}
             required
           />
+        </div>
+        <div className="form-group">
+          <label htmlFor="category">{language === "en" ? "Category" : "الفئة"}</label>
+          <select
+            id="category"
+            name="category"
+            value={project.category}
+            onChange={handleChange}
+            required
+          >
+            <option value="">{language === "en" ? "Select Category" : "اختر الفئة"}</option>
+            {categories.map((category) => (
+              <option key={category.value} value={category.value}>
+                {category.label}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="form-group">
           <label htmlFor="status">{language === "en" ? "Project Status" : "حالة المشروع"}</label>

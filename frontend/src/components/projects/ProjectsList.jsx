@@ -8,10 +8,12 @@ import "./projList.css";
 const ProjectsList = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+
   const { projects, loading, error } = useSelector((state) => state.project);
   const { language } = useContext(LanguageContext); // Use context for language
 
   const [expandedProjectId, setExpandedProjectId] = useState(null);
+  const [sortCriteria, setSortCriteria] = useState("createdAt"); // Default sorting by creation date
 
   useEffect(() => {
     dispatch(fetchProjects());
@@ -20,11 +22,20 @@ const ProjectsList = () => {
   if (loading) return <p>{language === "en" ? "Loading projects..." : "جارٍ تحميل المشاريع..."}</p>;
   if (error) return <p>{error}</p>;
 
-  // Ensure projects have a createdAt field and sort by it in descending order
+  // Ensure projects have a createdAt field and sort by it based on selected criteria
   const sortedProjects = projects
-    ? [...projects].sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      )
+    ? [...projects].sort((a, b) => {
+        if (sortCriteria === "createdAt") {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        } else if (sortCriteria === "title") {
+          return a.title.localeCompare(b.title);
+        } else if (sortCriteria === "budget") {
+          return b.budget - a.budget; // Assuming budget is a number
+        } else if (sortCriteria === "duration") {
+          return b.duration - a.duration; // Assuming duration is a number
+        }
+        return 0; // Default case
+      })
     : [];
 
   const toggleExpand = (projectId) => {
@@ -39,6 +50,15 @@ const ProjectsList = () => {
     <div className="project-list-container">
       <div className="project-list-header">
         <h2>{language === "en" ? "Open Projects" : "المشاريع المفتوحة"}</h2>
+        <div className="sort-options">
+          <label>{language === "en" ? "Sort by:" : "ترتيب حسب:"}</label>
+          <select onChange={(e) => setSortCriteria(e.target.value)} value={sortCriteria}>
+            <option value="createdAt">{language === "en" ? "Date Created" : "تاريخ الإنشاء"}</option>
+            <option value="title">{language === "en" ? "Title" : "العنوان"}</option>
+            <option value="budget">{language === "en" ? "Budget" : "الميزانية"}</option>
+            <option value="duration">{language === "en" ? "Duration" : "مدة التنفيذ"}</option>
+          </select>
+        </div>
       </div>
       <div className="project-list-content">
         {sortedProjects.length > 0 ? (

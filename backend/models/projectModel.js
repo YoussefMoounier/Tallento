@@ -67,6 +67,10 @@ const projectSchema = new mongoose.Schema(
       type: [offerSchema],
       default: [],
     },
+    category: { // New field for project category
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
