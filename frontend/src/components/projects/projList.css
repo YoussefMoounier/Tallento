@@ -1,4 +1,5 @@
 .project-list-container {
+  display: flex; /* Use flexbox to create a sidebar layout */
   width: 80%;
   margin: 0 auto;
   padding: 20px;
@@ -12,6 +13,11 @@
   margin-bottom: 20px;
 }
 
+.category-filter {
+  width: 200px; /* Fixed width for the category filter sidebar */
+  margin-right: 20px; /* Space between the filter and project list */
+}
+
 .filter-button {
   padding: 10px 20px;
   background-color: #007bff;
@@ -21,6 +27,7 @@
 }
 
 .project-list-content {
+  flex: 1; /* Allow the project list to take the remaining space */
   display: flex;
   flex-direction: column;
 }

@@ -9,6 +9,7 @@ import {
 } from "../../redux/slices/projectSlice";
 import SkillSelector from "../../SkillS";
 import { LanguageContext } from "../../context/LanguageContext"; // Import the context
+import { categories } from "../../utils/categories"; // Import categories
 
 const CreateProject = () => {
   const dispatch = useDispatch();
@@ -17,16 +18,6 @@ const CreateProject = () => {
   );
   const user = useSelector((state) => state.auth.user);
   const { language } = useContext(LanguageContext); // Use context for language
-
-  // Define categories
-  const categories = [
-    { value: "development", label: language === "en" ? "Development" : "برمجة" },
-    { value: "design", label: language === "en" ? "Design" : "تصميم" },
-    { value: "marketing", label: language === "en" ? "Marketing" : "تسويق" },
-    { value: "writing", label: language === "en" ? "Writing" : "كتابة" },
-    { value: "Voice", label: language === "en" ? "Voice Over" : "تعليق صوتي" },
-    { value: "other", label: language === "en" ? "Other" : "أخرى" },
-  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,7 +28,7 @@ const CreateProject = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const projectPayload = { ...project, ownerId: user._id };
-    console.log("Submitting project payload:", projectPayload); 
+    console.log("Submitting project payload:", projectPayload);
     dispatch(createProject(projectPayload));
   };
 
@@ -76,9 +67,9 @@ const CreateProject = () => {
             required
           >
             <option value="">{language === "en" ? "Select Category" : "اختر الفئة"}</option>
-            {categories.map((category) => (
+            {categories.map(category => (
               <option key={category.value} value={category.value}>
-                {category.label}
+                {language === "en" ? category.label.en : category.label.ar}
               </option>
             ))}
           </select>
