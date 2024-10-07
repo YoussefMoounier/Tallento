@@ -1,6 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&display=swap");
 .lang-toggle-btn{
   background-color: #33333363;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  color: var(--white-color);
+  font-size: 15px;
+  font-weight: 500;
+  gap: 5px;
 }
 .navbar-container {
   width: 100%;

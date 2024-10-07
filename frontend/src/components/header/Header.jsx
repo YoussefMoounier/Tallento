@@ -1,4 +1,5 @@
 import React, { useContext } from "react"; // Import useContext
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import FontAwesomeIcon
 import { LanguageContext } from "../../context/LanguageContext"; // Import the context
 import {
   FaSearch,
@@ -6,6 +7,7 @@ import {
   FaBriefcase,
   FaCubes,
   FaUsers,
+  
 } from "react-icons/fa";
 import { IoMdHome, IoMdMail } from "react-icons/io";
 import "./header.css";
@@ -144,7 +146,10 @@ const Header = () => {
             </Link>
           </div>
           <button onClick={toggleLanguage} className="lang-toggle-btn">
+            
+            <i class="fa-solid fa-language"></i>
             {language === "en" ? "ع" : "En"}
+            
           </button>
           <div className="navbar-links">
             <div className="links-list">
