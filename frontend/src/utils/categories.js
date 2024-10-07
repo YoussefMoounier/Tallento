@@ -3,7 +3,7 @@ export const categories = [
   { value: "design", label: { en: "Design", ar: "تصميم" } },
   { value: "marketing", label: { en: "Marketing", ar: "تسويق" } },
   { value: "writing", label: { en: "Writing", ar: "كتابة" } },
-  { value: "voice", label: { en: "Video", ar: "تصوير" } },
+  { value: "video", label: { en: "Video", ar: "تصوير" } },
   { value: "voice", label: { en: "Voice Over", ar: "تعليق صوتي" } },
   { value: "other", label: { en: "Other", ar: "أخرى" } },
 ];
