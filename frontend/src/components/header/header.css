@@ -534,3 +534,8 @@
     display: none;
 }
 }
+@media only screen and (max-width: 900px) {
+  .side-menu.show ul li a {
+      width: 100%;
+  }
+}
