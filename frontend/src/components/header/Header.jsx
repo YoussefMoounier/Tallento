@@ -16,7 +16,7 @@ import { useState } from "react";
 import { CgUserAdd } from "react-icons/cg";
 import HeaderRight from "./HeaderRight";
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png"
+import logo from "../../assets/logo.jpg"
 // import "./header.css";
 
 const Header = () => {

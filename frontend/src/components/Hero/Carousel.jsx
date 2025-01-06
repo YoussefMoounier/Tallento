@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react"; 
 import { LanguageContext } from "../../context/LanguageContext"; 
-import mic from "../../assets/mic.png"
+import mic from "../../assets/hero.png"
 import { useSelector } from "react-redux";
 import "./Carousel.css";
 
@@ -16,40 +16,17 @@ const Carousel = () => {
   return (
    
           
-<div>
-  <div className="relative h-screen bg-gradient-to-b from-white via-white to-purple-500">
-    {/* Content container */}
-    <div className="container mx-auto px-4 h-full flex items-center justify-center">
-      {/* Hero content */}
-      <div className="relative">
-        {/* Center microphone image */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        </div>
-        
-        {/* Circular text layout */}
-        <div className="relative w-[600px] h-[600px] rounded-full">
-          {/* Add your Arabic text elements positioned absolutely */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 text-3xl font-bold text-gray-800">
-            نجوم
-          </div>
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-3xl font-bold text-gray-800">
-            تالينتو
-          </div>
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 text-3xl font-bold text-gray-800">
-            مكانك
-          </div>
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 text-3xl font-bold text-gray-800">
-            ضمن
-          </div>
-          <img 
+
+  <div className="relative h-96 bg-gradient-to-b from-white via-white to-purple-500 bg-red-400 flex lg:h-screen justify-center items-end">
+ 
+        <img 
             src={mic} 
             alt="Microphone" 
-            className="w-[80%]  object-cover"
+            className="lg:w-[50%] object-contain md:w-96"
           />
-        </div>
-      </div>
-    </div>
-    
+          <div className="relative z-50 h-screen bg-gradient-to-b from-white to-purple-500 justify-center items-center flex ">
+
+          </div>
     {/* Decorative elements */}
     <div className="absolute inset-0 overflow-hidden">
       {/* Add musical notes, theater masks, and other icons as absolute positioned elements */}
@@ -58,7 +35,7 @@ const Carousel = () => {
       {/* Add more decorative elements as needed */}
     </div>
   </div>
-</div>
+
   );
 };
 

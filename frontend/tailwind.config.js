@@ -9,6 +9,9 @@ module.exports = {
       colors: {
         'primary': 'var(--primary-color)',
         'primary-hover': 'var(--primary-hover-color)',
+        customPink: '#fde4e4',
+        customPurple: '#d8a3e0',
+        deepPurple: '#690263',
       },
       backgroundImage: {
         'hero-gradient': 'linear-gradient(to bottom, #ffffff 60%, #a855f7 100%)',
