@@ -1,0 +1,156 @@
+/* General styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 0;
+}
+
+.form-container {
+  max-width: 600px; /* Increased width */
+  margin: 80px auto; /* Added more space around the form */
+  background-color: #fff;
+  padding: 40px; /* Increased padding for a larger feel */
+  border-radius: 15px; /* More rounded corners */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Increased shadow for depth */
+}
+
+.form-title {
+  text-align: center;
+  font-size: 32px; /* Larger title */
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 30px; /* Increased spacing */
+}
+
+/* Form group styles */
+.form-group {
+  margin-bottom: 25px; /* Increased spacing between inputs */
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 10px; /* Increased label spacing */
+  font-weight: 600;
+  font-size: 18px; /* Larger font for labels */
+  color: #555;
+}
+
+.form-input {
+  width: 100%;
+  padding: 16px; /* Larger padding for input fields */
+  border: 1px solid #ccc;
+  border-radius: 8px; /* More rounded input fields */
+  font-size: 18px; /* Larger font for inputs */
+  color: #333;
+  transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.password-group {
+  position: relative;
+}
+
+.password-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.password-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 22px; /* Larger icon size */
+  color: #007bff;
+}
+
+.form-btn {
+  width: 100%;
+  padding: 15px; /* Larger button padding */
+  border: none;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 20px; /* Larger button font */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-btn:hover {
+  background-color: #0056b3;
+}
+
+.google_btn {
+  width: 100%;
+  padding: 15px; /* Larger padding for Google button */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #333;
+  font-size: 18px; /* Larger font size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  margin-top: 20px; /* Increased margin */
+}
+
+.google_btn img {
+  width: 25px; /* Increased icon size */
+  height: 25px;
+  margin-left: 15px; /* Increased spacing */
+}
+
+.google_btn:hover {
+  background-color: #f7f7f7;
+  border-color: #007bff;
+}
+
+/* Form footer styles */
+.form-footer {
+  text-align: center;
+  margin-top: 30px; /* Increased spacing */
+  font-size: 16px; /* Larger font size */
+  color: #555;
+}
+
+.form-footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+.form-group .kind{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+
+}
+.kind-img{
+  height: 35px;
+}
+/* Responsive design */
+@media (max-width: 768px) {
+  .form-container {
+    max-width: 90%;
+    padding: 30px; /* Adjusted padding for smaller screens */
+  }
+
+  .form-title {
+    font-size: 28px; /* Slightly smaller title on mobile */
+  }
+
+  .form-btn, .google_btn {
+    font-size: 18px; /* Adjusted button size on mobile */
+  }
+}

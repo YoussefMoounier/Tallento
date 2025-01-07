@@ -1,0 +1,101 @@
+.payments-container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.payments-top-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px 100px;
+}
+
+.cta-btns {
+    display: flex;
+    gap: 20px;
+}
+
+.payments-top-header button {
+    cursor: pointer;
+    border: none;
+    color: var(--white-color);
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: background 0.3s;
+}
+
+.add-money {
+    background-color: var(--primary-color);
+}
+
+.add-money:hover {
+    background-color: var(--primary-color-dark);
+}
+
+.get-money {
+    background-color: var(--primary-color-dark);
+}
+
+.get-money:hover {
+    background-color: var(--primary-color);
+}
+
+.payments-content {
+    height: 150px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.balance {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1024px) {
+    .payments-top-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 30px 50px;
+    }
+
+    .cta-btns {
+        margin-top: 20px;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .payments-top-header button {
+        font-size: 18px;
+        padding: 8px 16px;
+    }
+
+    .payments-content {
+        flex-direction: column;
+        height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .payments-container {
+        width: 90%;
+    }
+
+    .payments-top-header {
+        padding: 20px 30px;
+    }
+
+    .payments-top-header button {
+        font-size: 16px;
+        padding: 6px 12px;
+    }
+}

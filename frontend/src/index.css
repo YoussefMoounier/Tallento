@@ -1,8 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 :root {
   --main-color: #d3effa;
-  --primary-color: #d33333;
+  --primary-color: #690263;
   --primary-color-dark: #610bb1;
   --secondary-color: #544974;
   --gray-color: #778697;
@@ -10,7 +15,7 @@
   --blue-color: #0275d8;
   --green-color: #27ae60;
   --green-sea-color: #16a085;
-  --pumpkin-color: #d35400;
+  --pumpkin-color: #690263;
   --red-color: #d9534f;
   --white-color: #fff;
   --primary-hover-color: #cd9cfc;
@@ -296,4 +301,13 @@ input {
   .btn-update {
     padding: 1rem;
   }
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
