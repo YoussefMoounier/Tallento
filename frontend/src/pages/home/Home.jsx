@@ -1,12 +1,19 @@
-import React, { useEffect, useRef, useCallback, useState, useContext } from "react"; // Import useContext
+import React, {
+  useEffect,
+  useRef,
+  useCallback,
+  useState,
+  useContext,
+} from "react"; // Import useContext
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts, getPostsCount } from "../../redux/apiCalls/postApiCall";
 import PostList from "../../components/posts/PostList";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { Link } from "react-router-dom";
 import { FaPlusCircle } from "react-icons/fa";
-import { LanguageContext } from "../../context/LanguageContext"; // Import the context
+import { LanguageContext } from "../../context/LanguageContext";
 import "./home.css";
+import Sorting from "../../components/sidebar/Sorting";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -26,10 +33,9 @@ const Home = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    dispatch(fetchPosts(pageNumber, sortType))
-      .finally(() => {
-        setIsLoading(false);
-      });
+    dispatch(fetchPosts(pageNumber, sortType)).finally(() => {
+      setIsLoading(false);
+    });
   }, [dispatch, pageNumber, sortType]);
 
   const lastPostRef = useCallback(
@@ -49,47 +55,18 @@ const Home = () => {
     [isLoading, posts.length, postsCount]
   );
 
-  const handleSortChange = (e) => {
-    setSortType(e.target.value);
-    setPageNumber(1);
-    // Reset the posts array and fetch the first page with the new sort type
-    dispatch(fetchPosts(1, e.target.value));
-  };
-
   return (
-    <section className="home">
+    <section className="home mt-8">
       <div className="home-container">
-    
         <div className="posts-cont">
-          <div className="add-post">
-            <Link className="add-post-link" to={user ? `/post-form` : `/login`}>
-              <span className="add-post-title">{language === "en" ? "Add Post" : "إضافة منشور"}</span>
-              <span className="add-post-icon">
-                <FaPlusCircle />
-              </span>
-            </Link>
-            
-          </div>
-          
-      
-      <div>
-
-<label htmlFor="sort">{language === "en" ? "Sort Posts: " : "ترتيب المنشورات: "}</label>
-     
-          <select
-  className="select-sort"
-  onChange={handleSortChange}
-  value={sortType} // Ensure the correct option is selected
->
-  <option value="latest"> {language === "en" ? "Latest" : "الاحدث"} </option>
-  <option value="oldest"> {language === "en" ? "Oldest" : "الاقدم"} </option>
-  <option value="most_liked"> {language === "en" ? "Most Liked" : "الاكثر اعجاب"} </option>
-</select>
- </div>
           <PostList posts={posts} lastPostRef={lastPostRef} />
           {isLoading && <div className="spinner">Loading...</div>}
         </div>
-        <Sidebar />
+        <Sidebar
+          sortType={sortType}
+          setSortType={setSortType}
+          fetchPosts={fetchPosts}
+        />
       </div>
     </section>
   );

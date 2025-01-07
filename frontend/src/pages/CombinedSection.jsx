@@ -85,23 +85,23 @@ const CombinedSection = () => {
       {/* New Section */}
       <section className="text-center bg-customPink py-10 h-[700px] relative items-center justify-center gap-10">
         <h2 className="text-3xl font-bold text-deepPurple mb-4">
-          كيف تبدو رحلتك معنا
+          {language === "en" ? "What Your Journey Looks Like With Us" : "كيف تبدو رحلتك معنا"}
         </h2>
         <div className="flex justify-center gap-8 mb-10 mt-28">
           <div className="bg-white p-4 shadow-lg mb-4 shadow-deepPurple h-48 rounded-2xl items-center justify-center flex flex-col gap-8">
             <h3 className="font-semibold text-2xl text-gray-600">
-              اظهر/ابحث عن موهبة
+              {language === "en" ? "Show/Search for Talent" : "اظهر/ابحث عن موهبة"}
             </h3>
             <p className="text-gray-500 w-2/3">
-              قم بالبحث عن الموهبة او اظهر مواهبك
+              {language === "en" ? "Search for talent or showcase your own" : "قم بالبحث عن الموهبة او اظهر مواهبك"}
             </p>
           </div>
           <div className="bg-white p-4 shadow-lg mb-4 shadow-deepPurple h-48 rounded-2xl items-center justify-center flex flex-col gap-8">
             <h3 className="font-semibold text-2xl text-gray-600">
-              سجل في المنصة
+              {language === "en" ? "Register on the Platform" : "سجل في المنصة"}
             </h3>
             <p className="text-gray-500  w-2/3">
-              سواء كنت تبحث عن موهبة او انت الموهبة
+              {language === "en" ? "Whether you're looking for talent or you are the talent" : "سواء كنت تبحث عن موهبة او انت الموهبة"}
             </p>
           </div>
         </div>
@@ -109,11 +109,11 @@ const CombinedSection = () => {
           href="/register"
           className="bg-deepPurple text-white py-2 px-4 rounded"
         >
-          سجل الان
+          {language === "en" ? "Register Now" : "سجل الان"}
         </a>
         <img
           src={mic}
-          alt="Create Account"
+          alt={language === "en" ? "Create Account" : "إنشاء حساب"}
           className="mb-1 absolute top-0 z-0"
         />
       </section>
@@ -121,29 +121,29 @@ const CombinedSection = () => {
       {/* Features Section */}
       <section className="text-center bg-customPink py-10 h-[500px]">
         <h2 className="text-3xl font-bold text-deepPurple mb-4">
-          مزايا تالينتو
+          {language === "en" ? "Talento Features" : "مزايا تالينتو"}
         </h2>
         <div className="flex justify-center gap-8 mb-6">
           <div className=" p-4 w-1/4 items-center flex flex-col mb-4 shadow-deepPurple">
             <span className="text-6xl mb-2">
               <RiLoginCircleFill />
             </span>
-            <h3 className="font-semibold">تسجيل سريع</h3>
-            <p>يمكنك التسجيل في المنصة بشكل سريع.</p>
+            <h3 className="font-semibold">{language === "en" ? "Quick Registration" : "تسجيل سريع"}</h3>
+            <p>{language === "en" ? "You can register on the platform quickly." : "يمكنك التسجيل في المنصة بشكل سريع."}</p>
           </div>
           <div className=" p-4 w-1/4 items-center flex flex-col mb-4 shadow-deepPurple">
             <span className="text-6xl mb-2">
               <TbSettingsCheck />
             </span>
-            <h3 className="font-semibold">سهولة التعامل</h3>
-            <p>تجربة مستخدم سلسة ومريحة.</p>
+            <h3 className="font-semibold">{language === "en" ? "Ease of Use" : "سهولة التعامل"}</h3>
+            <p>{language === "en" ? "A smooth and comfortable user experience." : "تجربة مستخدم سلسة ومريحة."}</p>
           </div>
           <div className=" p-4 w-1/4 items-center flex flex-col mb-4 shadow-deepPurple">
             <span className="text-6xl mb-2">
               <MdOutlineSupportAgent />
             </span>
-            <h3 className="font-semibold">دعم فني</h3>
-            <p>يمكنك التواصل معنا بكل سهولة في حال وجود أي استفسار.</p>
+            <h3 className="font-semibold">{language === "en" ? "Technical Support" : "دعم فني"}</h3>
+            <p>{language === "en" ? "You can easily contact us if you have any inquiries." : "يمكنك التواصل معنا بكل سهولة في حال وجود أي استفسار."}</p>
           </div>
         </div>
         <a
@@ -157,52 +157,44 @@ const CombinedSection = () => {
       {/* FAQ Section */}
       <section className="bg-customPink py-10">
         <h2 className="text-center text-3xl font-bold text-deepPurple mb-6">
-          الأسئلة الشائعة
+          {language === "en" ? "Frequently Asked Questions" : "الأسئلة الشائعة"}
         </h2>
         <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 overflow-hidden">
           
           <div className="p-4 rounded mb-4">
             <h3 className="font-semibold bg-deepPurple rounded-lg text-white p-1 text-center mb-1">
-              هل أموالي وحقوقي محفوظة عند استخدام تالينتو؟
+              {language === "en" ? "Are my funds and rights protected when using Talento?" : "هل أموالي وحقوقي محفوظة عند استخدام تالينتو؟"}
               <FaPlusCircle className="inline text-[#cfa93a] h-6 w-6 mr-3" />
             </h3>
             <p className="bg-deepPurple rounded-lg text-white p-1 text-center mb-1">
-              نعم، في تالينتو نضمن لك الأمان الكامل. يتم التعاملات المالية عبر
-              وسائل دفع آمنة، مع نظام تقييم ومراجعات يضمن المصداقية بين الأطراف.
-              فريق الدعم لدينا مستعد للتدخل وحل أي مشكلة لضمان حقوقك وعدم تعرضك
-              لأي عملية نصب.
+              {language === "en" ? "Yes, at Talento we guarantee complete security. Financial transactions are handled through secure payment methods, with a rating and review system that ensures credibility between parties. Our support team is ready to intervene and resolve any issues to ensure your rights and protect you from fraud." : "نعم، في تالينتو نضمن لك الأمان الكامل. يتم التعاملات المالية عبر وسائل دفع آمنة، مع نظام تقييم ومراجعات يضمن المصداقية بين الأطراف. فريق الدعم لدينا مستعد للتدخل وحل أي مشكلة لضمان حقوقك وعدم تعرضك لأي عملية نصب."}
             </p>
           </div>
           <div className="p-4 rounded mb-4">
             <h3 className="font-semibold bg-deepPurple rounded-lg text-white p-1 text-center mb-1">
-              كيف أبحث عن موهبة معينة؟
+              {language === "en" ? "How do I search for a specific talent?" : "كيف أبحث عن موهبة معينة؟"}
               <FaPlusCircle className="inline text-[#cfa93a] h-6 w-6 mr-3" />
             </h3>
             <p className="bg-deepPurple rounded-lg text-white p-1 text-center mb-1">
-              قم بنشر طلبك مع تفاصيل الموهبة المطلوبة وسيتمكن أصحاب المواهب من
-              الرد عليك بعروضهم.
+              {language === "en" ? "Post your request with the talent's details and they will respond with offers." : "قم بنشر طلبك مع تفاصيل الموهبة المطلوبة وسيتمكن أصحاب المواهب من الرد عليك بعروضهم."}
             </p>
           </div>
           <div className="p-4 rounded mb-4">
             <h3 className="font-semibold bg-deepPurple rounded-lg text-white p-1 text-center mb-1">
-              هل يمكنني التعامل مع الطرف الآخر خارج منصة تالينتو؟
+              {language === "en" ? "Can I interact with the other party outside of Talento?" : "هل يمكنني التعامل مع الطرف الآخر خارج منصة تالينتو؟"}
               <FaPlusCircle className="inline text-[#cfa93a] h-6 w-6 mr-3" />
             </h3>
             <p className="bg-deepPurple rounded-lg text-white p-1 text-center mb-1">
-              لضمان أمانك وحفظ حقوق جميع المستخدمين، يُمنع تمامًا إجراء أي
-              تعاملات خارج منصة تالينتو. أي اتفاق يتم خارج المنصة يعرضك لمخاطر
-              فقدان الحقوق، وسيؤدي ذلك إلى حظر حسابك بشكل نهائي. نحن نوفر نظامًا
-              آمنًا للتواصل والدفع لضمان تجربة موثوقة للطرفين.
+              {language === "en" ? "To ensure your security and protect your rights, any transactions outside of the platform are strictly prohibited. Any agreement made outside the platform will result in the permanent ban of your account." : "لضمان أمانك وحفظ حقوق جميع المستخدمين، يُمنع تمامًا إجراء أي تعاملات خارج منصة تالينتو. أي اتفاق يتم خارج المنصة يعرضك لمخاطر فقدان الحقوق، وسيؤدي ذلك إلى حظر حسابك بشكل نهائي. نحن نوفر نظامًا آمنًا للتواصل والدفع لضمان تجربة موثوقة للطرفين."}
             </p>
           </div>
           <div className="p-4 rounded mb-4">
             <h3 className="font-semibold bg-deepPurple rounded-lg text-white p-1 text-center mb-1">
-              كيف يتم الدفع واستخدام الأموال؟
+              {language === "en" ? "How are payments made and used?" : "كيف يتم الدفع واستخدام الأموال؟"}
               <FaPlusCircle className="inline text-[#cfa93a] h-6 w-6 mr-3" />
             </h3>
             <p className="bg-deepPurple rounded-lg text-white p-1 text-center mb-1">
-              يتم الدفع عبر طرق آمنة مثل المحافظ الرقمية أو التحويل البنكي،
-              ونوصي بعدم استخدام أي وسيلة دفع خارج النظام لضمان حقوقك.
+              {language === "en" ? "Payments are made through secure methods such as digital wallets or bank transfers, and we advise against using any payment methods outside the platform to ensure your rights." : "يتم الدفع عبر طرق آمنة مثل المحافظ الرقمية أو التحويل البنكي، ونوصي بعدم استخدام أي وسيلة دفع خارج النظام لضمان حقوقك."}
             </p>
           </div>
         </div>
@@ -211,7 +203,7 @@ const CombinedSection = () => {
       {/* Footer Section */}
       <footer className="bg-deepPurple text-white py-6">
         <div className="flex justify-center items-center gap-2 mb-6">
-          <span>تابع Tallento</span>
+          <span>{language === "en" ? "Follow Talento" : "تابع Tallento"}</span>
           <a href="#" className="hover:text-white text-2xl">
             <FaFacebook className="text-[#CFA93A]" />
           </a>
@@ -226,30 +218,28 @@ const CombinedSection = () => {
             <div className="flex flex-col items-center w-1/4">
               <img
                 src={logo}
-                alt="Showing Talent Logo"
+                alt={language === "en" ? "Showing Talent Logo" : "شعار تالينتو"}
                 className="h-8 w-8 rounded-full"
               />
               <p>
-                تالينتو - وجهتك الأولى لاكتشاف المواهب، وبناء جسور التواصل بين
-                المبدعين وأصحاب الفرص. نعمل على تمكين كل موهبة وتحقيق التميز من
-                خلال بيئة آمنة وموثوقة تجمع بين الإبداع والاحترافية
+                {language === "en" ? "Talento - Your first destination to discover talents and build bridges of communication between creators and opportunity owners. We work to empower every talent and achieve excellence through a safe and reliable environment that combines creativity and professionalism." : "تالينتو - وجهتك الأولى لاكتشاف المواهب، وبناء جسور التواصل بين المبدعين وأصحاب الفرص. نعمل على تمكين كل موهبة وتحقيق التميز من خلال بيئة آمنة وموثوقة تجمع بين الإبداع والاحترافية"}
               </p>
             </div>
 
             <div className="flex flex-col items-center gap-4">
-              <b>روابط تهمك</b>
+              <b>{language === "en" ? "Important Links" : "روابط تهمك"}</b>
               <a href="/about" className="text-white">
-                من نحن
+                {language === "en" ? "About Us" : "من نحن"}
               </a>
               <a href="/contact" className="text-white">
-                تواصل معنا
+                {language === "en" ? "Contact Us" : "تواصل معنا"}
               </a>
               <a href="/join" className="text-white">
-                انضم الينا
+                {language === "en" ? "Join Us" : "انضم الينا"}
               </a>
             </div>
             <p className="text-center w-1/3">
-              © جميع الحقوق محفوظة: Tallento ltd
+              © {language === "en" ? "All rights reserved: Tallento ltd" : "جميع الحقوق محفوظة: Tallento ltd"}
             </p>
           </div>
         </div>

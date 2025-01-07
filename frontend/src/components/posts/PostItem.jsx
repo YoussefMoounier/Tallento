@@ -35,7 +35,11 @@ const PostItem = ({ post, username, userId }) => {
           console.error("Error toggling like:", error);
         });
     } else {
-      toast.warning(language === "en" ? "You must be logged in to like" : "يجب تسجيل الدخول لتفعيل الإعجاب");
+      toast.warning(
+        language === "en"
+          ? "You must be logged in to like"
+          : "يجب تسجيل الدخول لتفعيل الإعجاب"
+      );
     }
   };
 
@@ -47,11 +51,17 @@ const PostItem = ({ post, username, userId }) => {
           controls
           src={post.media?.url}
           alt="Post video"
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
       );
     } else if (post.media?.resourceType === "image") {
       return (
-        <img src={post.media?.url} alt="Post" className="post-item-image" />
+        <img
+          src={post.media?.url}
+          alt="Post"
+          className="post-item-image"
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
       );
     } else {
       return null;
@@ -59,29 +69,18 @@ const PostItem = ({ post, username, userId }) => {
   };
 
   return (
-    <div className="post-item" key={post._id}>
-      <div className="post-item-image-wrapper">{renderMedia()}</div>
+    <div
+      className="h-[500px] w-[600px] bg-white rounded-2xl p-4 mb-14 flex flex-col"
+      key={post._id}
+    >
+      <div
+        className="post-item-image-wrapper"
+        style={{ height: "100%", width: "100%", overflow: "hidden" }}
+      >
+        {renderMedia()}
+      </div>
       <div className="post-item-info-wrapper">
         <div className="post-item-info">
-          <div className="post-item-likes" >
-            
-              <i
-                onClick={handleToggleLike}
-                className={liked ? "bi bi-heart-fill" : "bi bi-heart"}
-              ></i>
-            
-            <small>{likes.length} اعجاب</small>
-          </div>
-          <div className="post-item-comments" >
-            {user && (
-              <i
-                // onClick={handleToggleLike}
-                className={liked ? "bi bi-chat-right-text" : "bi bi-chat-right-text-fill"}
-              ></i>
-            )}
-            {/* <CommentList comments ={post?.comments}/> */}
-            <small>{post?.comments?.length} تعليق</small>
-          </div>
           <div className="post-item-author">
             <Link className="post-item-username" to={profileLink}>
               <img src={post?.user?.profilePhoto?.url} alt="" />
@@ -94,23 +93,55 @@ const PostItem = ({ post, username, userId }) => {
               </Link>
             </Link>
           </div>
-          <div className="post-item-date">
+
+          <div className="flex flex-col items-center">
+            <div className="post-item-details">
+              <h4 className="post-item-title">{post.title}</h4>
+            </div>
+            <p className="post-item-description">{post.description}</p>
+
+            <Link
+              className="bg-deepPurple text-white py- px-4 rounded-md"
+              to={`/posts/details/${post._id}`}
+            >
+              {language === "en" ? "More..." : "أكثر..."}
+            </Link>
+          </div>
+
+          <div className="post-item-date flex flex-col">
             {new Date(post.createdAt).toDateString()}
+            <Link
+              className="post-item-category text-center"
+              to={`/posts/categories/${post.category}`}
+            >
+              {post.category}
+            </Link>
           </div>
         </div>
-        <div className="post-item-details">
-          <h4 className="post-item-title">{post.title}</h4>
-          <Link
-            className="post-item-category"
-            to={`/posts/categories/${post.category}`}
-          >
-            {post.category}
-          </Link>
+      </div>
+      <div className="w-full flex flex-row justify-center gap-8">
+        <div className="post-item-likes">
+          <i
+            onClick={handleToggleLike}
+            className={liked ? "bi bi-heart-fill" : "bi bi-heart"}
+          ></i>
+          <small>
+            {likes.length} {language === "en" ? "likes" : "اعجاب"}
+          </small>
         </div>
-        <p className="post-item-description">{post.description}</p>
-        <Link className="post-item-link" to={`/posts/details/${post._id}`}>
-          المزيد...
-        </Link>
+        <div className="post-item-comments">
+          {user && (
+            <i
+              className={
+                liked ? "bi bi-chat-right-text" : "bi bi-chat-right-text-fill"
+              }
+            ></i>
+          )}
+          <i className="bi bi-chat-right-text-fill text-deepPurple"></i>
+          <small>
+            {post?.comments?.length} {language === "en" ? "comments" : "تعليق"}
+          </small>
+        </div>
       </div>
     </div>
   );
