@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./create-post.css";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,11 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { createPost } from "../../redux/apiCalls/postApiCall";
 import { RotatingLines } from "react-loader-spinner";
 import { fetchCategories } from "../../redux/apiCalls/categoryApiCall";
+import { LanguageContext } from "../../context/LanguageContext";
 
 const CreatePost = () => {
   const dispatch = useDispatch();
   const { loading, isPostCreated } = useSelector((state) => state.post);
   const { categories } = useSelector((state) => state.category);
+  const { language } = useContext(LanguageContext);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -20,11 +22,22 @@ const CreatePost = () => {
   // Form Submit Handler
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    if (title.trim() === "") return toast.error("Post Title is required");
-    if (category.trim() === "") return toast.error("Post Category is required");
+    if (title.trim() === "")
+      return toast.error(
+        language === "en" ? "Post Title is required" : "عنوان المنشور مطلوب"
+      );
+    if (category.trim() === "")
+      return toast.error(
+        language === "en" ? "Post Category is required" : "فئة المنشور مطلوبة"
+      );
     if (description.trim() === "")
-      return toast.error("Post Description is required");
-    if (!file) return toast.error("Post Image is required");
+      return toast.error(
+        language === "en" ? "Post Description is required" : "وصف المنشور مطلوب"
+      );
+    if (!file)
+      return toast.error(
+        language === "en" ? "Post Image is required" : "صورة المنشور مطلوبة"
+      );
 
     const formData = new FormData();
     formData.append("image", file);
@@ -44,26 +57,38 @@ const CreatePost = () => {
 
   useEffect(() => {
     dispatch(fetchCategories());
-  }, []);
+  }, [dispatch]);
 
   return (
     <section className="create-post">
-      <h1 className="create-post-title">Create New Post</h1>
-      <form onSubmit={formSubmitHandler} className="create-post-form">
+      <h1 className="create-post-title font-bold">
+        {language === "en" ? "Create New Post" : "إنشاء منشور جديد"}
+      </h1>
+      <form
+        onSubmit={formSubmitHandler}
+        className="create-post-form bg-white p-10 rounded-3xl"
+      >
         <input
           type="text"
-          placeholder="Post Title"
-          className="create-post-input"
+          placeholder={language === "en" ? "Post Title" : "ادخل عنوان المنشور"}
+          className="border-2 border-secodColor bg-white p-4 rounded-2xl mb-4"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
+        <textarea
+          className=" border-2 border-secodColor bg-white rounded-2xl"
+          rows="6"
+          placeholder={language === "en" ? "Post Description" : "وصف المنشور"}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        ></textarea>
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="create-post-input"
+          className="border-2 border-secodColor bg-white p-4 rounded-2xl mt-4 mb-4"
         >
           <option disabled value="">
-            Select A Category
+            {language === "en" ? "Select A Category" : "تصنيف موهبتك"}
           </option>
           {categories.map((category) => (
             <option key={category._id} value={category.title}>
@@ -71,21 +96,25 @@ const CreatePost = () => {
             </option>
           ))}
         </select>
-        <textarea
-          className="create-post-textarea"
-          rows="5"
-          placeholder="Post Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        ></textarea>
-        <input
-          type="file"
-          name="file"
-          id="file"
-          className="create-post-upload"
-          onChange={(e) => setFile(e.target.files[0])}
-        />
-        <button type="submit" className="create-post-btn">
+
+        <label
+          htmlFor="file"
+          className="border-2 border-secodColor bg-white p-4 rounded-2xl mb-4 cursor-pointer block text-center"
+        >
+          {language === "en" ? "Choose a file" : "رفع ملف: صورة\\فيديو"}
+          <input
+            type="file"
+            name="file"
+            id="file"
+            className="hidden"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+        </label>
+
+        <button
+          type="submit"
+          className="bg-secodColor rounded-full w-1/2 py-1 mx-auto mt-4"
+        >
           {loading ? (
             <RotatingLines
               strokeColor="white"
@@ -94,8 +123,10 @@ const CreatePost = () => {
               width="40"
               visible={true}
             />
-          ) : (
+          ) : language === "en" ? (
             "Create"
+          ) : (
+            "انشر موهبتك"
           )}
         </button>
       </form>
