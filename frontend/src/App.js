@@ -10,7 +10,6 @@ import Register from "./pages/forms/Register";
 import PostsPage from "./pages/posts-page/PostsPage";
 import CreatePosts from "./pages/create-post/CreatePost";
 import AdminDashboard from "./pages/admin/AdminDashboard";
-import Footer from "./components/footer/Footer";
 import PostDetails from "./pages/post-details/PostDetails";
 import Category from "./pages/category/Category";
 import Profile from "./pages/profile/Profile";
@@ -153,7 +152,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
-        <Footer />
+        
       </BrowserRouter>
     </LanguageProvider>
   );

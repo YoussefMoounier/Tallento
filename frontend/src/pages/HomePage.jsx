@@ -125,60 +125,6 @@ const HomePage = () => {
       <div className="home-page-container">
         <FeaturedTalents categories={categories} />
         <CombinedSection />
-        <div className="browse-by-category">
-          <h2>{language === "en" ? "All Talents in One Place" : "كل المواهب فى مكان واحد"}</h2>
-          <p>
-            {language === "en" ? "Looking For work?" : "Looking For work?"} <a href="#">{language === "en" ? "Browse Jobs" : "استعرض الوظائف"}</a>
-          </p>
-          <div className="categories">
-            {categories.map((category, index) => (
-              <div key={index} className="category-card">
-                <img
-                  src={category.icon}
-                  alt={category.title}
-                  className="category-icon"
-                />
-                <h3>{category.title}</h3>
-                <p className="rating">{category.rating}</p>
-                <p className="skills">{category.skills}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="how-it-works">
-          <h2>{language === "en" ? "How It Works?" : "كيف يعمل؟"}</h2>
-          <div className="steps">
-            <div className="step">
-              <h3>{language === "en" ? "1. Join Us" : "1. انضم إلينا"}</h3>
-              <p>
-                {language === "en" ? "Create your account and start showcasing your talents or searching for the best talents for your project." : "أنشئ حسابك وابدأ في عرض مواهبك أو البحث عن أفضل المواهب لمشروعك."}
-              </p>
-            </div>
-            <div className="step">
-              <h3>{language === "en" ? "2. Discover Talents" : "2. اكتشف المواهب"}</h3>
-              <p>{language === "en" ? "Browse the list of available talents and compare skills and ratings." : "استعرض قائمة المواهب المتاحة وقم بمقارنة المهارات والتقييمات."}</p>
-            </div>
-            <div className="step">
-              <h3>{language === "en" ? "3. Start Working" : "3. ابدأ العمل"}</h3>
-              <p>{language === "en" ? "Connect with the right talent to start your project and achieve your goals." : "تواصل مع الموهبة المناسبة لبدء مشروعك وتحقيق أهدافك."}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Testimonials Section */}
-        <div className="testimonials">
-          <h2>{language === "en" ? "What Our Clients Say" : "ماذا يقول عملاؤنا"}</h2>
-          <Slider {...testimonialSliderSettings} className="testimonials-carousel">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="testimonial-card">
-                <p>"{testimonial.quote}"</p>
-                <h4>- {testimonial.author}</h4>
-                <img src={testimonial.img} alt="" />
-              </div>
-            ))}
-          </Slider>
-        </div>
       </div>
     </>
   );
