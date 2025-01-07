@@ -55,6 +55,8 @@ const Home = () => {
     [isLoading, posts.length, postsCount]
   );
 
+
+  
   return (
     <section className="home mt-8">
       <div className="home-container">
