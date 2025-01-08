@@ -77,7 +77,13 @@ const PostItem = ({ post, username, userId }) => {
         className="post-item-image-wrapper"
         style={{ height: "100%", width: "100%", overflow: "hidden" }}
       >
+        <Link
+          to={`/posts/details/${post._id}`}
+          className="post-item-image-link"
+        >
+
         {renderMedia()}
+        </Link>
       </div>
       <div className="post-item-info-wrapper">
         <div className="post-item-info">
