@@ -64,7 +64,7 @@ const Header = () => {
         <div className="fixed inset-0 bg-black/50 z-40" onClick={closeMenu} />
       )}
       <header className="fixed top-0 w-full bg-white/80 backdrop-blur-sm z-50">
-        <div className="container mx-auto px- py-2 flex items-center justify-between">
+        <div className="container mx-auto px- py-2 flex items-center justify-around">
           {/* Mobile Menu Button - Only shows on small screens */}
           <FiMenu
             className="text-purple-800 text-xl lg:hidden"
@@ -100,6 +100,20 @@ const Header = () => {
           >
             <nav className="flex flex-col p-4 ">
               <Link
+                to="/posts"
+                className="py-3 hover:text-purple-600 hover:bg-purple-200"
+                onClick={closeMenu}
+              >
+                {translations[language].browsePosts}
+              </Link>
+              <Link
+                to="/projects"
+                className="py-3 hover:text-purple-600 hover:bg-purple-200"
+                onClick={closeMenu}
+              >
+                {translations[language].browseProjects}
+              </Link>
+              <Link
                 to="/my-projects"
                 className="py-3 hover:text-purple-600 hover:bg-purple-200"
                 onClick={closeMenu}
@@ -112,20 +126,6 @@ const Header = () => {
                 onClick={closeMenu}
               >
                 {translations[language].addProject}
-              </Link>
-              <Link
-                to="/projects"
-                className="py-3 hover:text-purple-600 hover:bg-purple-200"
-                onClick={closeMenu}
-              >
-                {translations[language].browseProjects}
-              </Link>
-              <Link
-                to="/posts"
-                className="py-3 hover:text-purple-600 hover:bg-purple-200"
-                onClick={closeMenu}
-              >
-                {translations[language].browsePosts}
               </Link>
               {/* Mobile-only links */}
               <Link
@@ -165,20 +165,20 @@ const Header = () => {
           </div>
           {/* Center Navigation - Hidden on mobile */}
           <nav className="hidden lg:flex items-center gap-8 text-gray-700 font-medium">
+            <Link to="/posts" className="hover:text-purple-600">
+              {translations[language].browsePosts}
+            </Link>
+            <Link to="/projects" className="hover:text-purple-600">
+              {translations[language].browseProjects}
+            </Link>
+            <Link to={"/"}>
+              <img src={logo} className="h-14 w-14 rounded-full" alt="logo" />
+            </Link>
             <Link to="/my-projects" className="hover:text-purple-600">
               {translations[language].myProjects}
             </Link>
             <Link to="/add-project" className="hover:text-purple-600">
               {translations[language].addProject}
-            </Link>
-            <Link to={"/"}>
-              <img src={logo} className="h-14 w-14 rounded-full" alt="logo" />
-            </Link>
-            <Link to="/projects" className="hover:text-purple-600">
-              {translations[language].browseProjects}
-            </Link>
-            <Link to="/posts" className="hover:text-purple-600">
-              {translations[language].browsePosts}
             </Link>
           </nav>
           {/* Right side icons - Hidden on mobile */}
