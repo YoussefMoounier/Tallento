@@ -60,15 +60,15 @@ const Home = () => {
   return (
     <section className="home mt-8">
       <div className="home-container">
-        <div className="posts-cont">
-          <PostList posts={posts} lastPostRef={lastPostRef} />
-          {isLoading && <div className="spinner">Loading...</div>}
-        </div>
         <Sidebar
           sortType={sortType}
           setSortType={setSortType}
           fetchPosts={fetchPosts}
         />
+        <div className="">
+          <PostList posts={posts} lastPostRef={lastPostRef} />
+          {isLoading && <div className="spinner">Loading...</div>}
+        </div>
       </div>
     </section>
   );

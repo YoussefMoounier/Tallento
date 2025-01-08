@@ -10,6 +10,7 @@ module.exports = {
         customPurple: "#d8a3e0",
         deepPurple: "#690263",
         secodColor: "#CFA93A",
+        bg: "#F7EBE7",
       },
       backgroundImage: {
         "hero-gradient":

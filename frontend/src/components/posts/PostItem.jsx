@@ -70,7 +70,7 @@ const PostItem = ({ post, username, userId }) => {
 
   return (
     <div
-      className="h-96 w bg-white rounded-2xl p-4 mb-14 flex flex-col"
+      className="h-[500px]  bg-white rounded-2xl p-4 flex flex-col"
       key={post._id}
     >
       <div
@@ -137,7 +137,7 @@ const PostItem = ({ post, username, userId }) => {
               }
             ></i>
           )}
-          <i className="bi bi-chat-right-text-fill text-deepPurple"></i>
+          {/* <i className="bi bi-chat-right-text-fill text-deepPurple"></i> */}
           <small>
             {post?.comments?.length} {language === "en" ? "comments" : "تعليق"}
           </small>

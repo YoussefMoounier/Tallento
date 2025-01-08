@@ -7,7 +7,7 @@ const PostList = ({ posts, lastPostRef }) => {
   }
 
   return (
-    <div className="post-list">
+    <div className="w-1/2 mx-auto flex flex-col gap-4 rounded-2xl p-4">
       {posts.map((post, index) => {
         if (posts.length === index + 1) {
           return (
