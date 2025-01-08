@@ -1,34 +1,49 @@
-import React from "react";
+import img from "../../assets/tallento_app_default_image_with_custompink_fde4e4 (1).png";
 import { useSelector } from "react-redux";
+import React from "react";
 
-export const PostCard = () => {
-  const {posts} = useSelector((state) => state.post);
-  console.log("Posts:", posts);
+export const PostCard = ({ project }) => {
+  const defaultImageUrl = img; 
+
   return (
-    <div className="bg-customPink rounded-2xl w-80 h-96 p-4 mb-14 flex flex-col justify-between ">
+    <div className="bg-customPink rounded-2xl w-80 h-96 p-4 mb-14 flex flex-col justify-between">
       <div className="flex w-full justify-between mb-4">
         <i className="bi bi-three-dots"></i>
         <img
-          className="w-6 h-6 rounded-full"
-          src="https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&w=600"
-          alt=""
+          className="w-8 h-8 rounded-full"
+          src={project.owner.profilePhoto?.url || "default_image_url"}
+          alt={project.owner.username}
         />
       </div>
-      <div className="w-full rounded-md overflow-hidden bg-gray-400 h-4/5">
+      <div className="w-full rounded-md overflow-hidden bg-gray-400 h-32">
         <img
           className="w-full h-full object-cover"
-          src="https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&w=600"
-          alt=""
+          src={project.media?.url || defaultImageUrl}
+          alt={project.title}
         />
       </div>
-
-    
-
-      <div className="flex justify-between">
-  <div className="flex items-center">
-        <i className="bi bi-bookmark" title="Save"></i>
+      <h3 className="text-lg font-bold mt-2">{project.title}</h3>
+      <p className="text-sm text-gray-600 truncate">{project.description}</p>
+      <div className="flex justify-between mt-2">
+        <span className="text-sm font-semibold">Budget: ${project.budget}</span>
+        <span className="text-sm font-semibold">
+          Duration: {project.duration} days
+        </span>
       </div>
-
+      <div className="flex flex-wrap mt-2">
+        {project.skills.map((skill) => (
+          <span
+            key={skill}
+            className="bg-gray-300 text-gray-700 text-xs font-semibold mr-1 px-2.5 py-0.5 rounded"
+          >
+            {skill}
+          </span>
+        ))}
+      </div>
+      <div className="flex justify-between mt-4">
+        <div className="flex items-center">
+          <i className="bi bi-bookmark" title="Save"></i>
+        </div>
         <div className="flex justify-between mt-4 w-2/5">
           <div className="flex items-center">
             <i className="bi bi-heart" title="Like"></i>

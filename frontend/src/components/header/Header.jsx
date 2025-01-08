@@ -10,10 +10,8 @@ import {
 } from "react-icons/fa";
 import { IoMdHome, IoMdMail } from "react-icons/io";
 import { FiLogIn, FiMenu } from "react-icons/fi";
-import { DiGhostSmall } from "react-icons/di";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import { CgUserAdd } from "react-icons/cg";
 import HeaderRight from "./HeaderRight";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
