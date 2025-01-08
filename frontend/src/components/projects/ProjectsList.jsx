@@ -63,8 +63,8 @@ const ProjectsList = () => {
   };
 
   return (
-    <div className="project-list-container">
-      <div className="category-filter">
+    <div className="m-10 flex flex-col bg-white rounded-2xl p-4 gap-4 sm:flex-row">
+      <div className="category-filter bg-secodColor rounded-2xl px-2 py-1 text-white">
         <h3>{language === "en" ? "Filter by Category" : "تصفية حسب الفئة"}</h3>
         {categories.map(category => (
           <div key={category.value}>
@@ -79,12 +79,12 @@ const ProjectsList = () => {
           </div>
         ))}
       </div>
-      <div className="project-list-content">
-        <div className="project-list-header">
+      <div className="project-list-content sm:items-center">
+        <div className="project-list-header bg-secodColor rounded-2xl px-2 py-1 text-white flex flex-col">
           <h2>{language === "en" ? "Open Projects" : "المشاريع المفتوحة"}</h2>
           <div className="sort-options">
             <label>{language === "en" ? "Sort by:" : "ترتيب حسب:"}</label>
-            <select onChange={(e) => setSortCriteria(e.target.value)} value={sortCriteria}>
+            <select onChange={(e) => setSortCriteria(e.target.value)} value={sortCriteria} className="text-white bg-secodColor rounded-2xl px-2 py-1 ml-2">
               <option value="createdAt">{language === "en" ? "Date Created" : "تاريخ الإنشاء"}</option>
               <option value="title">{language === "en" ? "Title" : "العنوان"}</option>
               <option value="budget">{language === "en" ? "Budget" : "الميزانية"}</option>
@@ -95,8 +95,8 @@ const ProjectsList = () => {
         <div className="project-list-content">
           {sortedProjects.length > 0 ? (
             sortedProjects.map((project) => (
-              <Link to={`/project/${project._id}`} key={project._id}>
-                <div className="project-item">
+              <Link to={`/project/${project._id}`} key={project._id} >
+                <div className="mb-4 flex flex-col rounded-2xl p-4 bg-secodColor text-white">
                   <div className="project-details">
                     <h3 className="project-title">{project.title}</h3>
                     <p className="project-description">
@@ -104,7 +104,7 @@ const ProjectsList = () => {
                         ? project.description // Show full description if expanded
                         : project.description.slice(0, 150) + "..." }
                     </p>
-                    <p className="project-budget">
+                    <p className="project-budget text-deepPurple">
                       {language === "en" ? "Budget: " : "الميزانية: "} <strong>{project.budget} $</strong>
                     </p>
                     <p className="project-duration">
@@ -117,7 +117,7 @@ const ProjectsList = () => {
                       {language === "en" ? "Submit Offer" : "اضف عرضك"}
                     </Link>
                   ) : (
-                    <button className="offer-button" disabled>
+                    <button className=" bg-deepPurple w-4/12 mx-auto px-1 py-2 rounded-2xl" disabled>
                       {language === "en" ? "Submit Offer" : "اضف عرضك"}
                     </button>
                   )}
