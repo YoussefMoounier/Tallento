@@ -29,7 +29,7 @@
 }
 
 body {
-  background-color: var(--main-color);
+  padding: 8px;
   overflow-x: hidden;
   direction: rtl;
   position: relative;
