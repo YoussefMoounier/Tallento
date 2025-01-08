@@ -45,31 +45,28 @@ const HeaderRight = () => {
             onClick={() => setDropdown((prev) => !prev)}
             ref={dropdownRef}
           >
-            <div className="user">
-            <span className="header-right-username">{user?.username}</span>
-            <p>{user?.bio}</p>
-            </div>
+            <div className="user"></div>
             <img
               src={user?.profilePhoto.url}
               alt="user"
-              className="header-right-user-photo"
+              className="h-14 w-14"
             />
             {dropdown && (
-              <div className="header-right-dropdown">
+              <div className="absolute left-0 z-10 mt-2 w-48 bg-white shadow-lg rounded-md">
                 <Link
                   to={`/profile/${user?._id}`}
-                  className="header-dropdown-item"
+                  className="header-dropdown-item flex items-center p-2 hover:bg-gray-100"
                   onClick={handleLinkClick}
                 >
-                  <i className="bi bi-file-person"></i>
+                  <i className="bi bi-file-person mr-2"></i>
                   <span>حسابي</span>
                 </Link>
                 <Link
                   to={`/payments`}
-                  className="header-dropdown-item"
+                  className="header-dropdown-item flex items-center p-2 hover:bg-gray-100"
                   onClick={handleLinkClick}
                 >
-                  <i className="bi bi-currency-dollar"></i>
+                  <i className="bi bi-currency-dollar mr-2"></i>
                   <span>رصيدي</span>
                 </Link>
                 <div
@@ -77,9 +74,9 @@ const HeaderRight = () => {
                     e.stopPropagation();
                     logoutHandler();
                   }}
-                  className="header-dropdown-item"
+                  className="header-dropdown-item flex items-center p-2 hover:bg-gray-100 cursor-pointer"
                 >
-                  <i className="bi bi-box-arrow-in-left"></i>
+                  <i className="bi bi-box-arrow-in-left mr-2"></i>
                   <span>تسجيل خروج</span>
                 </div>
               </div>
