@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import mic from "../assets/overlay.png";
 import logo from "../assets/logo.jpg";
 import { fetchProjects } from "../redux/slices/projectSlice";
-
+import { Link } from "react-router-dom";
 
 const CombinedSection = () => {
   const dispatch = useDispatch();
@@ -63,10 +63,13 @@ const CombinedSection = () => {
           ) : (
             projects.map((project) => (
               <div className="flex-none" key={project.id}>
-                {" "}
                 {/* Ensure to use a unique key */}
-                <PostCard project={project} />{" "}
-                {/* Pass project data to PostCard */}
+                <Link to={`/project/${project.id}`}>
+                  {" "}
+                  {/* Navigate to project page */}
+                  <PostCard project={project} />{" "}
+                  {/* Pass project data to PostCard */}
+                </Link>
               </div>
             ))
           )}
@@ -197,7 +200,7 @@ const CombinedSection = () => {
             <p className="bg-deepPurple rounded-lg text-white p-1 text-center mb-1">
               {language === "en"
                 ? "Yes, at Talento we guarantee complete security. Financial transactions are handled through secure payment methods, with a rating and review system that ensures credibility between parties. Our support team is ready to intervene and resolve any issues to ensure your rights and protect you from fraud."
-                : "نعم، في تالينتو نضمن لك الأمان الكامل. يتم التعاملات المالية عبر وسائل دفع آمنة، مع نظام تقييم ومراجعات يضمن المصداقية بين الأطراف. فريق الدعم لدينا مستعد للتدخل وحل أي مشكلة لضمان حقوقك وعدم تعرضك لأي عملية نصب."}
+                : "نعم، في تالينتو نضمن لك الأمان الكامل. يتم التعاملات المالية عبر وسائل دفع آمنة، مع نظام تقييم ومراجعات يضمن المصداقية بين الأطراف. فريق الدعم لدينا مستعد للتدخل وحل أي مشكلةة لضمان حقوقك وعدم تعرضك لأي عملية نصب."}
             </p>
           </div>
           <div className="p-4 rounded mb-4">

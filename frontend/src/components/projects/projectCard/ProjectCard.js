@@ -23,6 +23,7 @@ const ProjectCard = () => {
     duration: "",
     description: "",
   });
+  const [editingOffer, setEditingOffer] = useState(null);
 
   const { user } = useSelector((state) => state.auth);
   const userId = user?._id;
@@ -76,7 +77,6 @@ const ProjectCard = () => {
           ...offer,
         });
 
-       
         setProject(response.data);
         setOffer({ amount: "", duration: "", description: "" });
       } catch (error) {
@@ -114,6 +114,12 @@ const ProjectCard = () => {
     }
   };
 
+  const handleEditOffer = (offer) => {
+    setEditingOffer(offer);
+  };
+
+
+
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -134,8 +140,6 @@ const ProjectCard = () => {
   // Convert the FEE to a number
   const feePercentage = parseFloat(process.env.REACT_APP_FEE) || 0.5;
 
-
-
   return (
     <div className="m-4 flex flex-col items-center justify-between ">
       <div className="flex flex-col gap-6 sm:flex-row-reverse w-full">
@@ -153,7 +157,12 @@ const ProjectCard = () => {
         <h2 className="border-b border-black w-full">المهارات المطلوبة</h2>
         <div className="flex flex-wrap mt-2">
           {project.skills.map((skill, index) => (
-            <span className="bg-secodColor rounded-2xl px-2 py-1 text-white flex flex-row ml-2 " key={index}>{skill}</span>
+            <span
+              className="bg-secodColor rounded-2xl px-2 py-1 text-white flex flex-row ml-2 "
+              key={index}
+            >
+              {skill}
+            </span>
           ))}
         </div>
       </div>
@@ -167,12 +176,12 @@ const ProjectCard = () => {
           />
           <p>
             تاريخ التسجيل:{" "}
-            {new Date(project.editor.createdAt).toLocaleDateString()}
+            {new Date(project?.editor?.createdAt).toLocaleDateString()}
           </p>
         </div>
       )}
 
-      {userCanComment &&  (
+      {userCanComment && (
         <BidForm
           offer={offer}
           handleChange={handleChange}
@@ -228,6 +237,17 @@ const ProjectCard = () => {
                 >
                   قبول العرض
                 </button>
+              )}
+              {userId === offer.user?._id && (
+                <>
+                  <button
+                    className="btn edit-btn"
+                    onClick={() => handleEditOffer(offer)}
+                  >
+Edit                  
+                  </button>
+                  
+                </>
               )}
             </div>
           );
