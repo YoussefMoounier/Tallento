@@ -59,7 +59,7 @@ const Home = () => {
   
   return (
     <section className="home mt-8">
-      <div className="home-container">
+      <div className="">
         <Sidebar
           sortType={sortType}
           setSortType={setSortType}

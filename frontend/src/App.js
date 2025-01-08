@@ -48,7 +48,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <ToastContainer theme="colored" position="top-center" />
-        <div className="main-container">
+        <div className="main-container bg-bg">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/posts" element={<Home />} />

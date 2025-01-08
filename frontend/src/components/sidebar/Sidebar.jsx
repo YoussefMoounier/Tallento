@@ -18,10 +18,12 @@ const Sidebar = ({ sortType, setSortType, fetchPosts }) => {
   }, [dispatch]);
 
   return (
-    <div className="sidebar bg-white rounded-2xl mt-8 p-4 fixed right-4 top-1/2 transform -translate-y-1/2 shadow-lg ">
-
+    <div className="sidebar bg-white rounded-2xl mt-8 p-4 lg:fixed right-4 top-1/2 transform -translate-y-1/2 shadow-lg w-full sm:w-64">
       <div className="bg-secodColor rounded-2xl px-2 py-1 text-white flex flex-row mb-4">
-        <Link className="flex w-full justify-between" to={user ? `/post-form` : `/login`}>
+        <Link
+          className="flex w-full justify-between"
+          to={user ? `/post-form` : `/login`}
+        >
           <span className="text-xs">
             {language === "en" ? "Add Post" : "إضافة منشور"}
           </span>
@@ -30,11 +32,18 @@ const Sidebar = ({ sortType, setSortType, fetchPosts }) => {
           </span>
         </Link>
       </div>
-      <h5 className="font-bold ">CATEGORIES</h5>
+      <h5 className="font-bold text-lg">
+        {language === "en" ? "CATEGORIES" : "الفئات"}
+      </h5>
       <ul className="sidebar-links">
         {categories.map((category) => (
           <li className="" key={category._id}>
-            <input type="checkbox" id={category._id} name={category.title} value={category.title} />
+            <input
+              type="checkbox"
+              id={category._id}
+              name={category.title}
+              value={category.title}
+            />
             <Link
               className="sidebar-lin"
               to={`/posts/categories/${category.title}`}
@@ -44,14 +53,14 @@ const Sidebar = ({ sortType, setSortType, fetchPosts }) => {
           </li>
         ))}
       </ul>
-        
-              <Sorting
-                sortType={sortType}
-                setSortType={setSortType}
-                language={language}
-                dispatch={dispatch}
-                fetchPosts={fetchPosts}
-              />
+
+      <Sorting
+        sortType={sortType}
+        setSortType={setSortType}
+        language={language}
+        dispatch={dispatch}
+        fetchPosts={fetchPosts}
+      />
     </div>
   );
 };
