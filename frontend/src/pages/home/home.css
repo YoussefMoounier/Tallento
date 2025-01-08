@@ -142,9 +142,7 @@
 }
 @media (max-width: 900px) {
 
-    .home{
-        background-color: var(--main-color);
-    }
+    
 }
 
 @media (max-width: 520px) {

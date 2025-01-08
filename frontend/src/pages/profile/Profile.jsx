@@ -108,22 +108,22 @@ useEffect(() => {
           <Oval color="#00BFFF" height={80} width={80} />
         </div>
       ) : (
-        <div className="flex mx-auto justify-around">
-          <div className="bg-white rounded-2xl p-4">
-            <div className="profile-image-wrapper">
+        <div className="flex mx-auto justify-around flex-col md:flex-row">
+          <div className="bg-white rounded-2xl p-4 w-full md:w-3/5">
+            <div className="profile-image-wrapper w-1/2 mx-auto md:w-1/3">
               <img
                 src={
                   file ? URL.createObjectURL(file) : profile?.profilePhoto?.url
                 }
                 alt=""
-                className="h-16 w-16 rounded-full"
+                className="h-16 w-16 rounded-full mx-auto"
               />
               {user?._id === profile?._id && (
-                <form onSubmit={formSubmitHandler}>
+                <form onSubmit={formSubmitHandler} className="mt-2">
                   <abbr title="choose profile photo">
                     <label
                       htmlFor="file"
-                      className="bi bi-camera-fill upload-profile-photo-icon"
+                      className="bi bi-camera-fill upload-profile-photo-icon cursor-pointer"
                     ></label>
                   </abbr>
                   <input
@@ -133,14 +133,14 @@ useEffect(() => {
                     id="file"
                     onChange={(e) => setFile(e.target.files[0])}
                   />
-                  <button className="upload-profile-photo-btn" type="submit">
+                  <button className="upload-profile-photo-btn mt-2 w-full" type="submit">
                     تغيير الصورة
                   </button>
                 </form>
               )}
             </div>
-            <h1 className="profile-username">{profile?.username}</h1>
-            <div className="user-info">
+            <h1 className="profile-username text-xl md:text-2xl text-center">{profile?.username}</h1>
+            <div className="user-info text-sm md:text-base">
               <strong>اللقب: </strong>
               <span className="profile-bio">{profile?.bio}</span>
             </div>
@@ -183,7 +183,7 @@ useEffect(() => {
             {user?._id === profile?._id && (
               <button
                 onClick={() => setUpdateProfile(true)}
-                className="profile-update-btn"
+                className="profile-update-btn w-full mt-4"
               >
                 <i className="bi bi-file-person-fill"></i>
                 تحديث البيانات
@@ -192,29 +192,25 @@ useEffect(() => {
 
             {user?._id !== profile?._id && (
               <button
-                className="chat-btn"
+                className="chat-btn w-full mt-2"
                 onClick={() => handleStartChat(profile._id)}
               >
                 بدء محادثة<i className="bi bi-chat"></i>
               </button>
             )}
 
-{user?._id === profile?._id && (
-            <button
-              onClick={deleteAccountHandler}
-              className="delete-account-btn"
-            >
-              مسح حسابي
-            </button>
-          )}
+            {user?._id === profile?._id && (
+              <button
+                onClick={deleteAccountHandler}
+                className="delete-account-btn w-full mt-2"
+              >
+                مسح حسابي
+              </button>
+            )}
           </div>
 
-
-          <div className=" w-2/5">
-
-          
-          <div className="w-2/">
-            <h2 className="profile-posts-list-title">
+          <div className="w-full ">
+            <h2 className="profile-posts-list-title text-lg md:text-xl text-center">
               {profile?.username} منشورات
             </h2>
             {profile?.posts?.map((post) => (
@@ -226,14 +222,13 @@ useEffect(() => {
               />
             ))}
           </div>
-          
+
           {updateProfile && (
             <UpdateProfileModal
               profile={profile}
               setUpdateProfile={setUpdateProfile}
             />
           )}
-        </div>
         </div>
       )}
     </section>

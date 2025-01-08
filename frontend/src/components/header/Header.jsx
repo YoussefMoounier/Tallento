@@ -64,7 +64,7 @@ const Header = () => {
         <div className="fixed inset-0 bg-black/50 z-40" onClick={closeMenu} />
       )}
       <header className="fixed top-0 w-full bg-white/80 backdrop-blur-sm z-50">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+        <div className="container mx-auto px- py-2 flex items-center justify-between">
           {/* Mobile Menu Button - Only shows on small screens */}
           <FiMenu
             className="text-purple-800 text-xl lg:hidden"
@@ -145,11 +145,11 @@ const Header = () => {
                     {translations[language].messages}
                   </Link>
                   <Link
-                    to="/profile"
+                    
                     className="py-3 rounded-md p-2 hover:bg-purple-200 hover:text-purple-600"
-                    onClick={closeMenu}
                   >
                     {translations[language].profile}
+                    <HeaderRight />
                   </Link>
                 </>
               ) : (
@@ -182,26 +182,22 @@ const Header = () => {
             </Link>
           </nav>
           {/* Right side icons - Hidden on mobile */}
-          <div className="hidden lg:flex items-center gap-4">
-            <Link
-              to="/search"
-              className="w-8 h-8 rounded-full bg-black flex items-center justify-center hover:text-purple-600"
-            >
-              <FaSearch className="text-white h-5 w-5 hover:text-purple-600" />
-            </Link>
-            
+          <div className="flex items-center gap-4 ">
             {user ? (
               <>
+                <Link
+                  to="/search"
+                  className="w-8 h-8 rounded-full bg-black flex items-center justify-center hover:text-purple-600"
+                >
+                  <FaSearch className="text-white h-5 w-5 hover:text-purple-600" />
+                </Link>
                 <Link
                   to="/messages"
                   className="w-8 h-8 rounded-full bg-black flex items-center justify-center hover:text-purple-600"
                 >
                   <IoMdMail className="text-white w-5 h-5 hover:text-purple-600" />
                 </Link>
-              
-            <div className="">{user && <HeaderRight />}</div>
-          
-
+                <HeaderRight className="flex flex-col items-center" />
               </>
             ) : (
               <Link
