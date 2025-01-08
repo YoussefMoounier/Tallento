@@ -47,7 +47,7 @@ const HeaderRight = () => {
           >
             <div className="user">
             <span className="header-right-username">{user?.username}</span>
-            <p>{user.bio}</p>
+            <p>{user?.bio}</p>
             </div>
             <img
               src={user?.profilePhoto.url}
