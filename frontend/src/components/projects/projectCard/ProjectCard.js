@@ -75,6 +75,8 @@ const ProjectCard = () => {
           userId,
           ...offer,
         });
+
+       
         setProject(response.data);
         setOffer({ amount: "", duration: "", description: "" });
       } catch (error) {
@@ -130,23 +132,28 @@ const ProjectCard = () => {
     !project.offers.some((offer) => offer?.user?._id === userId);
 
   // Convert the FEE to a number
-  const feePercentage = parseFloat(process.env.REACT_APP_FEE) || 0.1;
+  const feePercentage = parseFloat(process.env.REACT_APP_FEE) || 0.5;
+
+
 
   return (
-    <div className="project-card">
-      <div className="project-details-section">
-        <ProjectDetails project={project} />
-        <ProjectOwner owner={project.owner} />
+    <div className="m-4 flex flex-col items-center justify-between ">
+      <div className="flex flex-col gap-6 sm:flex-row-reverse w-full">
+        <div className="bg-white p-4 rounded-2xl items-center justify-center flex flex-col md:w-1/3 sm:w-full">
+          <ProjectDetails project={project} />
+          <ProjectOwner owner={project.owner} />
+        </div>
+        <div className="bg-white p-4 rounded-2xl w-full">
+          <h2>وصف المشروع</h2>
+          <p>{project.description}</p>
+        </div>
       </div>
-      <div className="project-description">
-        <h2>وصف المشروع</h2>
-        <p>{project.description}</p>
-      </div>
-      <div className="project-skills">
-        <h2>المهارات المطلوبة</h2>
-        <div className="skills">
+
+      <div className="bg-white p-4 rounded-2xl w-full mt-6">
+        <h2 className="border-b border-black w-full">المهارات المطلوبة</h2>
+        <div className="flex flex-wrap mt-2">
           {project.skills.map((skill, index) => (
-            <span key={index}>{skill}</span>
+            <span className="bg-secodColor rounded-2xl px-2 py-1 text-white flex flex-row ml-2 " key={index}>{skill}</span>
           ))}
         </div>
       </div>
@@ -165,14 +172,14 @@ const ProjectCard = () => {
         </div>
       )}
 
-      {userCanComment && (
+      {userCanComment &&  (
         <BidForm
           offer={offer}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
         />
       )}
-      <div className="project-offers">
+      <div className="bg-white p-4 rounded-2xl w-full mt-6">
         <h3>العروض المقدمة</h3>
         {project.offers.map((offer, index) => {
           // Calculate the fee and total price
@@ -182,8 +189,9 @@ const ProjectCard = () => {
           ).toFixed(2);
 
           return (
-            <div key={index} className="offer">
-              {(userId === offer.user?._id || userId === project.owner?._id) && (
+            <div key={index} className="offe">
+              {(userId === offer.user?._id ||
+                userId === project.owner?._id) && (
                 <>
                   <p>
                     <strong>السعر:</strong> {offer.amount}$

@@ -5,7 +5,7 @@ const ProjectOwner = ({ owner }) => {
   const { language } = useContext(LanguageContext); // Use context for language
 
   return (
-    <div className="project-owner">
+    <div className="">
       <div className="owner">
         <h3>{language === "en" ? "Project Owner" : "صاحب المشروع"}</h3>
         <p>{owner?.username}</p>

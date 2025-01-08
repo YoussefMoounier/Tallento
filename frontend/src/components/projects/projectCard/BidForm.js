@@ -11,46 +11,69 @@ const BidForm = ({ offer, handleChange, handleSubmit }) => {
 
   const { language } = useContext(LanguageContext); // Use context for language
 
-  return (
-    <div className="bid-form">
-      <h3>{language === "en" ? "Submit Your Bid Now" : "أضف عرضك الآن"}</h3>
-      <form onSubmit={handleSubmit}>
-        <label>{language === "en" ? "Delivery Duration" : "مدة التسليم"}</label>
-        <input
-          type="number"
-          name="duration"
-          value={offer.duration}
-          onChange={handleChange}
-          placeholder={language === "en" ? "Days" : "أيام"}
-          required
-        />
+  // Common input class
+  const inputClass = "mb-4 border-secodColor border-2 rounded-2xl p-2";
 
-        <label>{language === "en" ? "Bid Amount" : "قيمة العرض"}</label>
-        <div className="amount-container">
+  return (
+    <div className="bg-white rounded-2xl p-4 mt-6 w-full">
+      <h3 className="font-bold mb-4">
+        {language === "en" ? "Submit Your Bid Now" : "أضف عرضك الآن"}
+      </h3>
+      <form onSubmit={handleSubmit} className="flex md:flex-row flex-col">
+        <div className="md:w-1/2 flex flex-col p-6">
+          <label>
+            {language === "en" ? "Delivery Duration" : "مدة التسليم"}
+          </label>
           <input
             type="number"
-            name="amount"
-            value={offer.amount}
+            name="duration"
+            value={offer.duration}
             onChange={handleChange}
-            placeholder="$"
+            placeholder={language === "en" ? "Days" : "أيام"}
             required
+            className={inputClass}
           />
-          <p className="fee-info">
-            <strong>{language === "en" ? "Fee:" : "+ العمولة :"}</strong> ${fee}
-          </p>
+
+          <label>{language === "en" ? "Bid Amount" : "قيمة العرض"}</label>
+          <div className="">
+            <input
+              type="number"
+              name="amount"
+              value={offer.amount}
+              onChange={handleChange}
+              placeholder="$"
+              required
+              className={inputClass}
+            />
+            <p className="text-deepPurple">
+              <strong className="text-black">
+                {language === "en" ? "Fee:" : "+ عمولة الموقع :"}
+              </strong>{" "}
+              ${fee}
+            </p>
+          </div>
+          <button type="submit" className="bg-secodColor rounded-2xl px-4 py-1 text-white mt-8">
+            {language === "en" ? "Submit Your Bid" : "أضف عرضك"}
+          </button>
         </div>
 
-        <label>{language === "en" ? "Bid Details" : "تفاصيل العرض"}</label>
-        <textarea
-          className="descr"
-          name="description"
-          value={offer.description}
-          onChange={handleChange}
-          placeholder={language === "en" ? "Write your bid details here..." : "اكتب تفاصيل العرض هنا..."}
-          required
-        ></textarea>
+        <div className="md:w-1/2 flex flex-col p-6">
+          <label>{language === "en" ? "Bid Details" : "تفاصيل العرض"}</label>
+          <textarea
+            className="descr"
+            name="description"
+            value={offer.description}
+            onChange={handleChange}
+            placeholder={
+              language === "en"
+                ? "Write your bid details here..."
+                : "اكتب تفاصيل العرض هنا..."
+            }
+            required
+          ></textarea>
 
-        <button type="submit">{language === "en" ? "Submit Your Bid" : "أضف عرضك"}</button>
+         
+        </div>
       </form>
     </div>
   );
