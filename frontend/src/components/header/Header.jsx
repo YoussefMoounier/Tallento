@@ -200,15 +200,9 @@ const Header = () => {
                 >
                   <IoMdMail className="text-white w-5 h-5 hover:text-purple-600" />
                 </Link>
-                <Link
-                  to="/profile"
-                  className="w-12 h-12 rounded-full flex items-center justify-center border border-black overflow-hidden"
-                >
-                  <FaUser className="text-black h-full w-full pt-1 hover:text-purple-600" />
-                </Link>
-                <div className="user-side">
-            <div className="nav-user-container">{user && <HeaderRight />}</div>
-          </div>
+              
+            <div className="">{user && <HeaderRight />}</div>
+          
 
               </>
             ) : (
