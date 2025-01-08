@@ -16,7 +16,9 @@ const CombinedSection = () => {
   const { user } = useSelector((state) => state.auth);
   const { language } = useContext(LanguageContext); // Use context for language
   const scrollRef = useRef(null);
-  const { projects, loading } = useSelector((state) => state.project); // Get projects from Redux state
+  const { projects, loading } = useSelector((state) => state.project); 
+
+  useSelector((state) => console.log(state))
 
   useEffect(() => {
     dispatch(fetchProjects()); // Fetch projects when the component mounts
