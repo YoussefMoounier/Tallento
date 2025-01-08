@@ -33,11 +33,17 @@ const CreateProject = () => {
   };
 
   return (
-    <div className="project-form-container">
-      <h2>{language === "en" ? "Create New Project" : "إنشاء مشروع جديد"}</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="title">{language === "en" ? "Project Title" : "عنوان المشروع"}</label>
+    <div className="w-full mx-auto flex flex-col gap-6 mt-8">
+      <h2 className="font-bold mb-6">{language === "en" ? "Create New Project" : "إنشاء مشروع جديد"}</h2>
+     <div className="flex md:flex-row flex-col gap-6 w-full p-4">
+
+    
+     
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6 w-full bg-white rounded-2xl p-4">
+        <div className="flex w-full flex-col gap-6">
+          <label htmlFor="title">
+            {language === "en" ? "Project Title" : "عنوان المشروع"}
+          </label>
           <input
             type="text"
             id="title"
@@ -45,70 +51,112 @@ const CreateProject = () => {
             value={project.title}
             onChange={handleChange}
             required
+            className="border-secodColor border-2 rounded-lg p-2 bg-white w-full"
           />
         </div>
-        <div className="form-group description-feild">
-          <label htmlFor="description">{language === "en" ? "Project Description" : "وصف المشروع"}</label>
+        <div className="flex flex-col gap-6">
+          <label htmlFor="description">
+            {language === "en" ? "Project Description" : "وصف المشروع"}
+          </label>
           <textarea
             id="description"
             name="description"
+            rows="5"
             value={project.description}
             onChange={handleChange}
             required
+            className="border-secodColor border-2 rounded-lg p-2"
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="category">{language === "en" ? "Category" : "الفئة"}</label>
+        <div className="flex flex-col gap-6">
+          <label htmlFor="category">
+            {language === "en" ? "Category" : "الفئة"}
+          </label>
           <select
             id="category"
             name="category"
             value={project.category}
             onChange={handleChange}
             required
+            className="border-secodColor border-2 rounded-lg p-2"
           >
-            <option value="">{language === "en" ? "Select Category" : "اختر الفئة"}</option>
-            {categories.map(category => (
+            <option value="" >
+              {language === "en" ? "Select Category" : "اختر الفئة"}
+            </option>
+            {categories.map((category) => (
               <option key={category.value} value={category.value}>
                 {language === "en" ? category.label.en : category.label.ar}
               </option>
             ))}
           </select>
         </div>
-        <div className="form-group">
-          <label htmlFor="status">{language === "en" ? "Project Status" : "حالة المشروع"}</label>
+        <div className="flex flex-col gap-6">
+          <label htmlFor="status">
+            {language === "en" ? "Project Status" : "حالة المشروع"}
+          </label>
           <select
             id="status"
             name="status"
             value={project.status}
             onChange={handleChange}
+            className="border-secodColor border-2 rounded-lg p-2"
           >
-            <option value="مفتوح">{language === "en" ? "Open" : "مفتوح"}</option>
-            <option value="مغلق">{language === "en" ? "Closed" : "مغلق"}</option>
-            <option value="قيد التنفيذ">{language === "en" ? "In Progress" : "قيد التنفيذ"}</option>
+            <option value="مفتوح">
+              {language === "en" ? "Open" : "مفتوح"}
+            </option>
+            <option value="مغلق">
+              {language === "en" ? "Closed" : "مغلق"}
+            </option>
+            <option value="قيد التنفيذ">
+              {language === "en" ? "In Progress" : "قيد التنفيذ"}
+            </option>
           </select>
         </div>
-        <div className="form-group">
-          <label htmlFor="budget">{language === "en" ? "Budget" : "الميزانية"}</label>
+        <div className="flex flex-col gap-6">
+          <label htmlFor="budget">
+            {language === "en" ? "Budget" : "الميزانية"}
+          </label>
           <select
             id="budget"
             name="budget"
             value={project.budget}
             onChange={handleChange}
             required
+            className="border-secodColor border-2 rounded-lg p-2"
           >
-            <option value="">{language === "en" ? "Select Budget" : "اختر الميزانية"}</option>
-            <option value="50">25-50 {language === "en" ? "USD" : "دولار"}</option>
-            <option value="100">50-100 {language === "en" ? "USD" : "دولار"}</option>
-            <option value="250">100-250 {language === "en" ? "USD" : "دولار"}</option>
-            <option value="500">250-500 {language === "en" ? "USD" : "دولار"}</option>
-            <option value="1000">500-1000 {language === "en" ? "USD" : "دولار"}</option>
-            <option value="2500">1000-2500 {language === "en" ? "USD" : "دولار"}</option>
-            <option value="5000">2500-5000 {language === "en" ? "USD" : "دولار"}</option>
-            <option value="10000">5000-10000 {language === "en" ? "USD" : "دولار"}</option>
+            <option value="">
+              {language === "en" ? "Select Budget" : "اختر الميزانية"}
+            </option>
+            <option value="50">
+              25-50 {language === "en" ? "USD" : "دولار"}
+            </option>
+            <option value="100">
+              50-100 {language === "en" ? "USD" : "دولار"}
+            </option>
+            <option value="250">
+              100-250 {language === "en" ? "USD" : "دولار"}
+            </option>
+            <option value="500">
+              250-500 {language === "en" ? "USD" : "دولار"}
+            </option>
+            <option value="1000">
+              500-1000 {language === "en" ? "USD" : "دولار"}
+            </option>
+            <option value="2500">
+              1000-2500 {language === "en" ? "USD" : "دولار"}
+            </option>
+            <option value="5000">
+              2500-5000 {language === "en" ? "USD" : "دولار"}
+            </option>
+            <option value="10000">
+              5000-10000 {language === "en" ? "USD" : "دولار"}
+            </option>
           </select>
         </div>
-        <div className="form-group">
-          <label htmlFor="duration">{language === "en" ? "Duration (in days)" : "مدة التنفيذ (بالأيام)"}</label>
+        <div className="flex flex-col gap-6">
+          <label htmlFor="duration">
+            {language === "en" ? "Duration (in days)" : "مدة التنفيذ (بالأيام)"}
+          </label>
           <input
             type="number"
             id="duration"
@@ -116,16 +164,21 @@ const CreateProject = () => {
             value={project.duration}
             onChange={handleChange}
             required
+            className="border-secodColor border-2 rounded-lg p-2"
           />
         </div>
-        <SkillSelector
+        
+        <div className="w-full flex items-center justify-center">
+          <button type="submit" className=" bg-secodColor text-white rounded-2xl py-1  px-48">
+            {language === "en" ? "Create Project" : "إنشاء مشروع"}
+          </button>
+        </div>
+      </form>
+      <SkillSelector
           selectedSkills={project.skills}
           onSkillChange={(skills) => dispatch(setProjectSkills({ skills }))}
         />
-        <div className="form-group">
-          <button type="submit">{language === "en" ? "Create Project" : "إنشاء مشروع"}</button>
-        </div>
-      </form>
+         </div>
     </div>
   );
 };

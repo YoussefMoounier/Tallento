@@ -70,7 +70,7 @@ const PostItem = ({ post, username, userId }) => {
 
   return (
     <div
-      className="h-[500px] w-[600px] bg-white rounded-2xl p-4 mb-14 flex flex-col"
+      className="h-96 w bg-white rounded-2xl p-4 mb-14 flex flex-col"
       key={post._id}
     >
       <div
