@@ -33,14 +33,14 @@ const CreateProject = () => {
   };
 
   return (
-    <div className="w-full mx-auto flex flex-col gap-6 mt-8">
+    <div className="w-full mx-auto flex flex-col gap-4 mt-8">
       <h2 className="font-bold mb-6">{language === "en" ? "Create New Project" : "إنشاء مشروع جديد"}</h2>
-     <div className="flex md:flex-row flex-col gap-6 w-full p-4">
+     <div className="flex md:flex-row flex-col gap-4 w-full p-4">
 
     
      
-      <form onSubmit={handleSubmit} className="flex flex-col gap-6 w-full bg-white rounded-2xl p-4">
-        <div className="flex w-full flex-col gap-6">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full bg-white rounded-2xl p-4">
+        <div className="flex w-full flex-col gap-4">
           <label htmlFor="title">
             {language === "en" ? "Project Title" : "عنوان المشروع"}
           </label>
@@ -54,7 +54,7 @@ const CreateProject = () => {
             className="border-secodColor border-2 rounded-lg p-2 bg-white w-full"
           />
         </div>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           <label htmlFor="description">
             {language === "en" ? "Project Description" : "وصف المشروع"}
           </label>
@@ -68,7 +68,7 @@ const CreateProject = () => {
             className="border-secodColor border-2 rounded-lg p-2"
           />
         </div>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           <label htmlFor="category">
             {language === "en" ? "Category" : "الفئة"}
           </label>
@@ -90,7 +90,7 @@ const CreateProject = () => {
             ))}
           </select>
         </div>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           <label htmlFor="status">
             {language === "en" ? "Project Status" : "حالة المشروع"}
           </label>
@@ -112,7 +112,7 @@ const CreateProject = () => {
             </option>
           </select>
         </div>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           <label htmlFor="budget">
             {language === "en" ? "Budget" : "الميزانية"}
           </label>
@@ -153,7 +153,7 @@ const CreateProject = () => {
             </option>
           </select>
         </div>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           <label htmlFor="duration">
             {language === "en" ? "Duration (in days)" : "مدة التنفيذ (بالأيام)"}
           </label>
