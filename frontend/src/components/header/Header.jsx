@@ -191,6 +191,7 @@ const Header = () => {
             >
               <FaSearch className="text-white h-5 w-5 hover:text-purple-600" />
             </Link>
+            
             {user ? (
               <>
                 <Link
@@ -205,6 +206,10 @@ const Header = () => {
                 >
                   <FaUser className="text-black h-full w-full pt-1 hover:text-purple-600" />
                 </Link>
+                <div className="user-side">
+            <div className="nav-user-container">{user && <HeaderRight />}</div>
+          </div>
+
               </>
             ) : (
               <Link

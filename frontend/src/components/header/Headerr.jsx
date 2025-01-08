@@ -10,9 +10,9 @@ const Header = () => {
 
     return ( 
         <header className="header">
-            <HeaderLeft toggle={toggle} setToggle={setToggle} />
-            <Navbar toggle={toggle} setToggle={setToggle} />
-            <HeaderRight />
+            {/* <HeaderLeft toggle={toggle} setToggle={setToggle} /> */}
+            {/* <Navbar toggle={toggle} setToggle={setToggle} /> */}
+            {/* <HeaderRight /> */}
 
         </header>
      );
