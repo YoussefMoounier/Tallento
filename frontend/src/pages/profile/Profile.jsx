@@ -102,21 +102,21 @@ useEffect(() => {
   );
 
   return (
-    <section className="profile">
+    <section className="p-4 mx-auto flex w-full">
       {loading ? (
         <div className="loading-spinner">
           <Oval color="#00BFFF" height={80} width={80} />
         </div>
       ) : (
-        <>
-          <div className="profile-header">
+        <div className="flex mx-auto justify-around">
+          <div className="bg-white rounded-2xl p-4">
             <div className="profile-image-wrapper">
               <img
                 src={
                   file ? URL.createObjectURL(file) : profile?.profilePhoto?.url
                 }
                 alt=""
-                className="profile-image"
+                className="h-16 w-16 rounded-full"
               />
               {user?._id === profile?._id && (
                 <form onSubmit={formSubmitHandler}>
@@ -198,8 +198,22 @@ useEffect(() => {
                 بدء محادثة<i className="bi bi-chat"></i>
               </button>
             )}
+
+{user?._id === profile?._id && (
+            <button
+              onClick={deleteAccountHandler}
+              className="delete-account-btn"
+            >
+              مسح حسابي
+            </button>
+          )}
           </div>
-          <div className="profile-posts-list">
+
+
+          <div className=" w-2/5">
+
+          
+          <div className="w-2/">
             <h2 className="profile-posts-list-title">
               {profile?.username} منشورات
             </h2>
@@ -212,21 +226,15 @@ useEffect(() => {
               />
             ))}
           </div>
-          {user?._id === profile?._id && (
-            <button
-              onClick={deleteAccountHandler}
-              className="delete-account-btn"
-            >
-              مسح حسابي
-            </button>
-          )}
+          
           {updateProfile && (
             <UpdateProfileModal
               profile={profile}
               setUpdateProfile={setUpdateProfile}
             />
           )}
-        </>
+        </div>
+        </div>
       )}
     </section>
   );

@@ -48,7 +48,7 @@ const SkillSelector = ({ selectedSkills, onSkillChange }) => {
   };
 
   return (
-    <div className="form-group">
+    <div className="flex flex-col gap-6 md:w-1/3 bg-white rounded-2xl p-4">
       <label htmlFor="skills">المهارات المطلوبة</label>
 
       <select
