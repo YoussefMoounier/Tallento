@@ -2,8 +2,7 @@ import React, { useState, useEffect, useContext } from "react"; // Import useCon
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProjects, updateProject } from "../../redux/slices/projectSlice";
 import { useParams, useNavigate } from "react-router-dom";
-import { LanguageContext } from "../../context/LanguageContext"; // Import the context
-import "./EditProject.css"; // Import the CSS file
+import { LanguageContext } from "../../context/LanguageContext"; 
 
 const EditProject = () => {
   const { id } = useParams();
@@ -52,7 +51,11 @@ const EditProject = () => {
         budget: newBudget,
       }));
     } else {
-      alert(language === "en" ? "No offer found for this editor" : "لا يوجد عرض مقابل لهذا المشرف");
+      alert(
+        language === "en"
+          ? "No offer found for this editor"
+          : "لا يوجد عرض مقابل لهذا المشرف"
+      );
     }
   };
 
@@ -76,58 +79,81 @@ const EditProject = () => {
   };
 
   if (loading)
-    return <p className="edit-project-loading">{language === "en" ? "Loading project..." : "جارٍ تحميل المشروع..."}</p>;
+    return (
+      <p className="edit-project-loading">
+        {language === "en" ? "Loading project..." : "جارٍ تحميل المشروع..."}
+      </p>
+    );
   if (error) return <p className="edit-project-error">{error}</p>;
 
   return (
-    <div className="edit-project-container">
-      <h2 className="edit-project-title">{language === "en" ? "Edit Project" : "تعديل المشروع"}</h2>
-      <form className="edit-project-form" onSubmit={handleSubmit}>
+    <div className="m-6 p-4 flex flex-col items-center gap-8">
+      <h2 className="font-bold text-deepPurple text-3xl">
+        {language === "en" ? "Edit Project" : "تعديل المشروع"}
+      </h2>
+      <form className="bg-white flex flex-col mx-auto rounded-xl md:w-4/6 p-6" onSubmit={handleSubmit}>
         <div>
-          <label className="edit-project-label">Title</label>
+          <label className="font-bold">
+            {language === "en" ? "Title" : "العنوان"}
+          </label>
           <input
             type="text"
             name="title"
             value={projectData.title}
             onChange={handleChange}
-            className="edit-project-input"
+            className="edit-project-input border-secodColor border-2 rounded-xl p-2 w-full "
             required
           />
         </div>
         <div>
-          <label className="edit-project-label">Description</label>
+          <label className="font-bold">
+            {language === "en" ? "Description" : "الوصف"}
+          </label>
           <textarea
             name="description"
             value={projectData.description}
             onChange={handleChange}
-            className="edit-project-textarea"
+            rows="6"
+            className="edit-project-textarea border-secodColor border-2 rounded-xl p-2 w-full "
             required
           ></textarea>
         </div>
         <div>
-          <label className="edit-project-label">Status</label>
+          <label className="font-bold">
+            {language === "en" ? "Status" : "الحالة"}
+          </label>
           <select
             name="status"
             value={projectData.status}
             onChange={handleChange}
-            className="edit-project-select"
+            className="edit-project-select border-secodColor border-2 rounded-xl p-2 w-full "
           >
-            <option value="مفتوح">مفتوح</option>
-            <option value="مغلق">مغلق</option>
-            <option value="قيد التنفيذ">قيد التنفيذ</option>
+            <option value="مفتوح">
+              {language === "en" ? "Open" : "مفتوح"}
+            </option>
+            <option value="مغلق">
+              {language === "en" ? "Closed" : "مغلق"}
+            </option>
+            <option value="قيد التنفيذ">
+              {language === "en" ? "In Progress" : "قيد التنفيذ"}
+            </option>
           </select>
         </div>
         {projectData.status === "قيد التنفيذ" && (
           <div>
-            <label className="edit-project-label">Editor</label>
+            <label className="font-bold">
+              {language === "en" ? "Editor" : "المشرف"}
+            </label>
             <select
               name="editor"
               value={projectData.editor}
               onChange={handleEditorChange}
-              className="edit-project-select"
+              className="edit-project-select border-secodColor border-2 rounded-xl p-2 w-full "
               required
             >
-              <option value="">Select Editor</option>
+              <option value="">
+                {language === "en" ? "Select Editor" : "اختر المشرف"}
+              </option>
               {users?.map((user) => (
                 <option key={user?._id} value={user?._id}>
                   {user?.username}
@@ -137,41 +163,47 @@ const EditProject = () => {
           </div>
         )}
         <div>
-          <label className="edit-project-label">Budget</label>
+          <label className="font-bold">
+            {language === "en" ? "Budget" : "الميزانية"}
+          </label>
           <input
             type="text"
             name="budget"
             value={projectData.budget}
             onChange={handleChange}
-            className="edit-project-input"
+            className="edit-project-input border-secodColor border-2 rounded-xl p-2 w-full "
             required
           />
         </div>
         <div>
-          <label className="edit-project-label">Duration</label>
+          <label className="font-bold">
+            {language === "en" ? "Duration" : "مدة التنفيذ"}
+          </label>
           <input
             type="number"
             name="duration"
             value={projectData.duration}
             onChange={handleChange}
-            className="edit-project-input"
+            className="edit-project-input border-secodColor border-2 rounded-xl p-2 w-full "
             required
           />
         </div>
         <div>
-          <label className="edit-project-label">Skills</label>
+          <label className="font-bold">
+            {language === "en" ? "Skills" : "المهارات"}
+          </label>
           <input
             type="text"
             name="skills"
             value={projectData.skills.join(", ")}
             onChange={handleSkillsChange}
-            className="edit-project-input"
+            className="edit-project-input border-secodColor border-2 rounded-xl p-2 w-full "
             required
           />
         </div>
-        <div>
-          <button type="submit" className="edit-project-button">
-            Update Project
+        <div className="flex flex-col">
+          <button type="submit" className="px-12 py-1 self-center mt-4 bg-secodColor rounded-full">
+            {language === "en" ? "Update Project" : "تحديث المشروع"}
           </button>
         </div>
       </form>
