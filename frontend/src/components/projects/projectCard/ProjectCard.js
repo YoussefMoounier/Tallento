@@ -201,21 +201,21 @@ const ProjectCard = () => {
             <div key={index} className="offe">
               {(userId === offer.user?._id ||
                 userId === project.owner?._id) && (
-                <>
-                  <p>
-                    <strong>السعر:</strong> {offer.amount}$
-                  </p>
-                  <p>
-                    <strong>العمولة (10%):</strong> {fee}$
-                  </p>
-                  <p>
-                    <strong>المبلغ الإجمالي للدفع:</strong> {totalPrice}$
-                  </p>
-                  <p>
-                    <strong>مدة التنفيذ:</strong> {offer.duration} أيام
-                  </p>
-                </>
-              )}
+                  <>
+                    <p>
+                      <strong>السعر:</strong> {offer.amount}$
+                    </p>
+                    <p>
+                      <strong>العمولة (10%):</strong> {fee}$
+                    </p>
+                    <p>
+                      <strong>المبلغ الإجمالي للدفع:</strong> {totalPrice}$
+                    </p>
+                    <p>
+                      <strong>مدة التنفيذ:</strong> {offer.duration} أيام
+                    </p>
+                  </>
+                )}
               <p>
                 <strong>تفاصيل العرض:</strong> {offer.description}
               </p>
@@ -244,9 +244,9 @@ const ProjectCard = () => {
                     className="btn edit-btn"
                     onClick={() => handleEditOffer(offer)}
                   >
-Edit                  
+                    Edit
                   </button>
-                  
+
                 </>
               )}
             </div>

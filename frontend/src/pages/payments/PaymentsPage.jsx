@@ -10,8 +10,8 @@ const PaymentsPage = () => {
       <div className="payments-top-header">
         <h2>{language === "en" ? "Account Balance" : "رصيد الحساب"}</h2>
         <div className="cta-btns">
-          <button className="get-money">{language === "en" ? "Request Withdrawal" : "طلب سحب"}</button>
-          <button className="add-money">{language === "en" ? "Add Balance" : "شحن الرصيد"}</button>
+          <button className="bg-deepPurple text-white px-4 py-2 rounded-2xl flex items-center justify-center hover:bg-customBlue">{language === "en" ? "Request Withdrawal" : "طلب سحب"}</button>
+          <a href="/stripe" className="bg-deepPurple text-white px-4 py-2 rounded-2xl flex items-center justify-center hover:bg-customBlue">{language === "en" ? "Add Balance" : "شحن الرصيد"}</a>
         </div>
       </div>
       <div className="payments-content">

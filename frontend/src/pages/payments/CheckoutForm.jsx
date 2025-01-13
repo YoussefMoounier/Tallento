@@ -114,7 +114,7 @@ const CheckoutForm = () => {
   }
 
   return (
-    <div>
+    <div className="h-full w-full p-4 mt-40 bg-customPink flex items-center justify-center">
       {stripePromise && clientSecret && (
         <Elements stripe={stripePromise} options={{ clientSecret }}>
           <PaymentForm clientSecret={clientSecret} />
