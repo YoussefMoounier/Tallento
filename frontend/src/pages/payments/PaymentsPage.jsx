@@ -11,7 +11,7 @@ const PaymentsPage = () => {
         <h2>{language === "en" ? "Account Balance" : "رصيد الحساب"}</h2>
         <div className="cta-btns">
           <button className="get-money">{language === "en" ? "Request Withdrawal" : "طلب سحب"}</button>
-          <button className="add-money">{language === "en" ? "Add Balance" : "شحن الرصيد"}</button>
+          <button className="add-money" >{language === "en" ? "Add Balance" : "شحن الرصيد"}</button>
         </div>
       </div>
       <div className="payments-content">

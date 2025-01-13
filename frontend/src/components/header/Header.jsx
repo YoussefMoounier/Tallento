@@ -7,6 +7,7 @@ import {
   FaCubes,
   FaUsers,
   FaUser,
+  FaUserCircle,
 } from "react-icons/fa";
 import { IoMdHome, IoMdMail } from "react-icons/io";
 import { FiLogIn, FiMenu } from "react-icons/fi";
@@ -200,12 +201,20 @@ const Header = () => {
                 <HeaderRight className="flex flex-col items-center" />
               </>
             ) : (
+              <>
               <Link
                 to="/login"
                 className="w-8 h-8 rounded-full bg-black flex items-center justify-center hover:text-purple-600"
               >
                 <FiLogIn className="text-white w-5 h-5 hover:text-purple-600" />
               </Link>
+              <Link
+                to="/register"
+                className="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:text-purple-600"
+              >
+                <FaUserCircle className="text-white w-12 h-12 hover:text-purple-600"/>
+              </Link>
+              </>
             )}
           </div>
         </div>
