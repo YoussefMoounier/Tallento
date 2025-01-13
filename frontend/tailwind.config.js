@@ -11,6 +11,7 @@ module.exports = {
         deepPurple: "#690263",
         secodColor: "#CFA93A",
         bg: "#F7EBE7",
+        customBlue: "#4F46E5",
       },
       backgroundImage: {
         "hero-gradient":
