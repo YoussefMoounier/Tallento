@@ -22,7 +22,7 @@ export function fetchAllUsers() {
 export function updateUserRole(userId, role) {
     return async (dispatch, getState) => {
       try {
-        const  data  = await request.put(`/api/users/${userId}/role`, { role }, {
+        const  {data } = await request.put(`/api/users/${userId}/role`, { role }, {
           headers: {
             Authorization: "Bearer " + getState().auth.user.token,
           },
