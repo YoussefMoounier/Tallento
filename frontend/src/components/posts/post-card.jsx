@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import React from "react";
 
 export const PostCard = ({ project }) => {
-  const defaultImageUrl = img; 
+  const defaultImageUrl = img;
 
   return (
     <div className="bg-customPink rounded-2xl w-80 h-96 p-4 mb-14 flex flex-col justify-between">
@@ -11,23 +11,23 @@ export const PostCard = ({ project }) => {
         <i className="bi bi-three-dots"></i>
         <img
           className="w-8 h-8 rounded-full"
-          src={project.owner.profilePhoto?.url || "default_image_url"}
-          alt={project.owner.username}
+          src={project?.owner?.profilePhoto?.url || "default_image_url"}
+          alt={project?.owner?.username}
         />
       </div>
       <div className="w-full rounded-md overflow-hidden bg-gray-400 h-32">
         <img
           className="w-full h-full object-cover"
-          src={project.media?.url || defaultImageUrl}
-          alt={project.title}
+          src={project?.media?.url || defaultImageUrl}
+          alt={project?.title}
         />
       </div>
-      <h3 className="text-lg font-bold mt-2">{project.title}</h3>
-      <p className="text-sm text-gray-600 truncate">{project.description}</p>
+      <h3 className="text-lg font-bold mt-2">{project?.title}</h3>
+      <p className="text-sm text-gray-600 truncate">{project?.description}</p>
       <div className="flex justify-between mt-2">
-        <span className="text-sm font-semibold">Budget: ${project.budget}</span>
+        <span className="text-sm font-semibold">Budget: ${project?.budget}</span>
         <span className="text-sm font-semibold">
-          Duration: {project.duration} days
+          Duration: {project?.duration} days
         </span>
       </div>
       <div className="flex flex-wrap mt-2">
@@ -59,4 +59,3 @@ export const PostCard = ({ project }) => {
     </div>
   );
 };
-
