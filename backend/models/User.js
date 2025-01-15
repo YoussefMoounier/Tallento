@@ -43,6 +43,10 @@ const UserSchema = new mongoose.Schema(
         publicId: null,
       },
     },
+    balance: {
+        type: Number,
+        default: 0,
+      },
     bio: {
       type: String,
       default: "",
