@@ -35,8 +35,10 @@ const UsersTable = () => {
 
   // Toggle Admin Role Handler
   const toggleAdminRoleHandler = (userId, isAdmin) => {
-    const newRole = isAdmin ? "user" : "admin";
+    console.log(userId, isAdmin);
+    const newRole = isAdmin ? false : true;
     dispatch(updateUserRole(userId, newRole));
+    console.log(newRole)
   };
 
   return (

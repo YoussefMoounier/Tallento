@@ -18,7 +18,6 @@ const CombinedSection = () => {
   const scrollRef = useRef(null);
   const { projects, loading } = useSelector((state) => state.project);
 
-  useSelector((state) => console.log(state))
 
   useEffect(() => {
     dispatch(fetchProjects()); // Fetch projects when the component mounts
