@@ -16,7 +16,7 @@ const CombinedSection = () => {
   const { user } = useSelector((state) => state.auth);
   const { language } = useContext(LanguageContext); // Use context for language
   const scrollRef = useRef(null);
-  const { projects, loading } = useSelector((state) => state.project); 
+  const { projects, loading } = useSelector((state) => state.project);
 
   useSelector((state) => console.log(state))
 
@@ -63,7 +63,7 @@ const CombinedSection = () => {
           {loading ? (
             <p>Loading...</p> // Show loading state
           ) : (
-            projects.map((project) => (
+            projects?.map((project) => (
               <div className="flex-none" key={project.id}>
                 {/* Ensure to use a unique key */}
                 <Link to={`/project/${project.id}`}>
