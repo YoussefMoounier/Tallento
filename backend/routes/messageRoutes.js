@@ -3,6 +3,7 @@ const router = express.Router();
 const Chat = require("../models/Chat");
 const Message = require("../models/Message");
 const Blocklist = require("../models/Blocklist");
+const { protect, admin } = require("../middleware/authMiddleware");
 
 // POST create a new message in a chat
 // Define a regex pattern for phone numbers
@@ -41,23 +42,6 @@ console.log(chatId, sender)
     res.status(500).json({ message: error.message });
   }
 });
-// router.post("/", async (req, res, next) => {
-    
-//   try {
-//     const { chatId, sender, content } = req.body;
-//     const newMessage = new Message({ chat: chatId, sender, content });
-//     await newMessage.save();
-
-//     // Update chat with the new message
-//     await Chat.findByIdAndUpdate(chatId, {
-//       $push: { messages: newMessage._id },
-//     });
-
-//     res.status(201).json(newMessage);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 router.get("/messages/:chatId", async (req, res) => {
   try {
@@ -67,6 +51,20 @@ router.get("/messages/:chatId", async (req, res) => {
         select: "username email", // Adjust fields as needed
       }
     );
+
+    res.status(200).json(messages);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// New route to get all messages (admin only)
+router.get("/all-messages", protect, admin, async (req, res) => {
+  try {
+    const messages = await Message.find().populate({
+      path: "sender",
+      select: "username email", // Adjust fields as needed
+    });
 
     res.status(200).json(messages);
   } catch (error) {

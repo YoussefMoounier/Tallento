@@ -8,6 +8,8 @@ import { profileReducer } from "./slices/profileSlice";
 import projectReducer from "./slices/projectSlice";
 import chatReducer from "./slices/chatSlice";
 import userReducer from "./slices/userSlice";
+import messageReducer from "./slices/messageSlice";
+import skillReducer from "./slices/skillSlice";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +22,8 @@ const store = configureStore({
     project: projectReducer,
     chat: chatReducer,
     user: userReducer,
+    message: messageReducer,
+    skill: skillReducer,
   },
 });
 

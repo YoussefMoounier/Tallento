@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { LanguageProvider } from "./context/LanguageContext"; // Import the LanguageProvider
@@ -37,6 +37,8 @@ import axios from "axios";
 import { authActions } from "./redux/slices/authSlice";
 import UserList from "./components/users/UserList";
 import HomePage from "./pages/HomePage";
+import MessagesTable from "./pages/admin/MessagesTable";
+import SkillsTable from "./pages/admin/SkillsTable";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -45,7 +47,7 @@ function App() {
 
   return (
     <LanguageProvider>
-      <BrowserRouter>
+      <Router>
         <Header />
         <ToastContainer theme="colored" position="top-center" />
         <div className="main-container bg-bg">
@@ -149,11 +151,19 @@ function App() {
               path="/admin-dashboard/comments-table"
               element={user?.isAdmin ? <CommentsTable /> : <Navigate to="/" />}
             />
+            <Route
+              path="/admin-dashboard/messages-table"
+              element={user?.isAdmin ? <MessagesTable /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/admin-dashboard/skills-table"
+              element={user?.isAdmin ? <SkillsTable /> : <Navigate to="/" />}
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
         
-      </BrowserRouter>
+      </Router>
     </LanguageProvider>
   );
 }
