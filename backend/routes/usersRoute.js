@@ -50,6 +50,6 @@ router.post("/block", async (req, res) => {
   }
 });
 
-
+router.route('/:id/role').put(protect, admin, updateUserRole);
 
 module.exports = router;

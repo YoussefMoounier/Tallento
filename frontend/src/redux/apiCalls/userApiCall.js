@@ -20,17 +20,17 @@ export function fetchAllUsers() {
 
 // Update user role
 export function updateUserRole(userId, role) {
-  return async (dispatch, getState) => {
-    try {
-      const { data } = await request.put(`/api/users/${userId}/role`, { role }, {
-        headers: {
-          Authorization: "Bearer " + getState().auth.user.token,
-        },
-      });
-      dispatch(updateUser(data));
-      toast.success("User role updated successfully");
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
-  };
-}
+    return async (dispatch, getState) => {
+      try {
+        const { data } = await request.put(`/api/users/${userId}/role`, { role }, {
+          headers: {
+            Authorization: "Bearer " + getState().auth.user.token,
+          },
+        });
+        dispatch(updateUser(data));
+        toast.success("User role updated successfully");
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    };
+  }

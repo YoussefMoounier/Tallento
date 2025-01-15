@@ -11,6 +11,29 @@ const {
 const { Comment } = require("../models/Comment");
 const { Post } = require("../models/Post");
 
+
+// @desc    Update user role
+// @route   PUT /api/users/:id/role
+// @access  Private/Admin
+const updateUserRole = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+
+    if (user) {
+      user.isAdmin = req.body.role === 'admin';
+      const updatedUser = await user.save();
+      res.json(updatedUser);
+    } else {
+      res.status(404);
+      throw new Error('User not found');
+    }
+  });
+
+  module.exports = {
+    updateUserRole,
+  };
+
+
+
 /**-----------------------------------------------
  * @desc    Get All Users Profile
  * @route   /api/users/profile
@@ -170,7 +193,7 @@ module.exports.deleteUserProfileCtrl = asyncHandler(async (req, res) => {
   if(user.profilePhoto.publicId !== null) {
     await cloudinaryRemoveImage(user.profilePhoto.publicId);
   }
-  
+
   // 6. Delete user posts & comments
   await Post.deleteMany({ user: user._id });
   await Comment.deleteMany({ user: user._id });
