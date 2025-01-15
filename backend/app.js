@@ -75,7 +75,7 @@ app.use("/api/search", require("./routes/search"));
 app.use("/api/chats", chatRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Hello World    !");
 });
 
 app.post("/create-payment-intent", async (req, res) => {
