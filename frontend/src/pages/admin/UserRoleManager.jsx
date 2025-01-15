@@ -21,7 +21,7 @@ const UserRoleManager = () => {
     const userId = e.target.value;
     const user = users.find((user) => user._id === userId);
     setSelectedUser(user);
-    setRole(user.isAdmin ? "admin" : "user");
+    setRole(user.isAdmin ? "true" : "false");
   };
 
   const handleSubmit = (e) => {
