@@ -16,8 +16,6 @@ const sendEmail = require("../utils/sendEmail");
  * @access  public
  ------------------------------------------------*/
 module.exports.registerUserCtrl = asyncHandler(async (req, res) => {
-  console.log(req.body); // Log the incoming request body to debug
-
   const { error } = validateRegisterUser(req.body);
   if (error) {
     return res.status(400).json({ message: error.details[0].message });
@@ -134,7 +132,8 @@ module.exports.loginUserCtrl = asyncHandler(async (req, res) => {
     profilePhoto: user.profilePhoto,
     token,
     username: user.username,
-    gender: user.gender
+    gender: user.gender,
+    balance: user.balance,
   });
 });
 
@@ -208,4 +207,3 @@ module.exports.updateUserProfileCtrl = asyncHandler(async (req, res) => {
     profilePhoto: user.profilePhoto,
   });
 });
-
