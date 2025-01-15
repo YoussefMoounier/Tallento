@@ -3,16 +3,14 @@ const router = express.Router();
 const Chat = require("../models/Chat");
 const Message = require("../models/Message");
 const Blocklist = require("../models/Blocklist");
-const {  admin } = require("../middleware/authMiddleware");
+const { admin } = require("../middleware/authMiddleware");
 
 // POST create a new message in a chat
-// Define a regex pattern for phone numbers
 const phoneNumberRegex = /\b\d{10,}\b/g;
-
 
 router.post("/", async (req, res) => {
   const { chatId, sender, content } = req.body;
-console.log(chatId, sender)
+  console.log(chatId, sender);
   try {
     const newMessage = new Message({ chat: chatId, sender, content });
     await newMessage.save();
@@ -45,12 +43,10 @@ console.log(chatId, sender)
 
 router.get("/messages/:chatId", async (req, res) => {
   try {
-    const messages = await Message.find({ chatId: req.params.chatId }).populate(
-      {
-        path: "senderId",
-        select: "username email", // Adjust fields as needed
-      }
-    );
+    const messages = await Message.find({ chatId: req.params.chatId }).populate({
+      path: "senderId",
+      select: "username email", // Adjust fields as needed
+    });
 
     res.status(200).json(messages);
   } catch (error) {
@@ -59,7 +55,7 @@ router.get("/messages/:chatId", async (req, res) => {
 });
 
 // New route to get all messages (admin only)
-router.get("/all-messages",  admin, async (req, res) => {
+router.get("/all-messages", admin, async (req, res) => {
   try {
     const messages = await Message.find().populate({
       path: "sender",
