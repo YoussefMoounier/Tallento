@@ -1,4 +1,7 @@
 const router = require("express").Router();
+// const { updateUserRole } = require('../controllers/usersController');
+// const { verifyTokenAndAdmin } = require('../middlewares/verifyToken');
+
 const {
   getAllUsersCtrl,
   getUserProfileCtrl,
@@ -6,6 +9,7 @@ const {
   getUsersCountCtrl,
   profilePhotoUploadCtrl,
   deleteUserProfileCtrl,
+  updateUserRole,
 } = require("../controllers/usersController");
 const {
   verifyTokenAndAdmin,
@@ -50,6 +54,6 @@ router.post("/block", async (req, res) => {
   }
 });
 
-router.route('/:id/role').put(protect, admin, updateUserRole);
+router.put('/:id/role', verifyTokenAndAdmin, updateUserRole);
 
 module.exports = router;
