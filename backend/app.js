@@ -74,42 +74,55 @@ app.use("/api", projectRoutes);
 app.use("/api/search", require("./routes/search"));
 app.use("/api/chats", chatRoutes);
 app.use("/api/messages", messageRoutes);
-app.use("/api/google", googleRoutes);
-app.use("/api/blocklist", blockUsers);
+app.use("/api/auth", googleRoutes);
+app.use("/api/users", blockUsers);
+app.use("/blocklist", require("./routes/blockList"))
 
 
+app.use("/", (req, res) => {
+  res.send("API is running");
+});
+
+
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
+app.get("/config",(req,res)=>{
+
+  res.send({publishableKey: process.env.STRIPE_PUBLISHABLE_KEY})
+})
+
+app.get("/hide", (req, res) => {
+  res.json({"Success":process.env.STRIPE_SECRET_KEY});
+})
 
 app.post("/create-payment-intent", async (req, res) => {
-  const { amount, currency, userId } = req.body;
-  try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount * 100, // amount in cents
-      currency,
-    });
+    const { amount, currency, userId } = req.body;
+    try {
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: amount * 100, // amount in cents
+        currency,
+      });
 
-    // Fetch the user from the database
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).send({ error: "User not found" });
+      // Fetch the user from the database
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).send({ error: "User not found" });
+      }
+
+      // Update the user's balance
+      user.balance = (user.balance || 0) + amount;
+      await user.save();
+
+      // Send the client secret and updated balance back to the frontend
+      res.send({ clientSecret: paymentIntent.client_secret, balance: user.balance });
+    } catch (error) {
+      res.status(500).send({ error: error.message });
     }
-
-    // Update the user's balance
-    user.balance = (user.balance || 0) + amount;
-    await user.save();
-
-    // Send the client secret and updated balance back to the frontend
-    res.send({ clientSecret: paymentIntent.client_secret, balance: user.balance });
-  } catch (error) {
-    res.status(500).send({ error: error.message });
-  }
-});
+  });
 
 // Error Handlers
 app.use(notFound);
 app.use(errorHandler);
-app.use("/", (req, res) => {
-    res.send("Hello World ...!");
-  });
 // Start the Server
 const PORT = process.env.PORT || 8000;
 const server = app.listen(PORT, () => {
