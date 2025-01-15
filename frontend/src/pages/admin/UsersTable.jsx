@@ -8,6 +8,7 @@ import {
   deleteProfile,
   getAllUsersProfile,
 } from "../../redux/apiCalls/profileApiCall";
+import { updateUserRole } from "../../redux/apiCalls/userApiCall"; // Import the updateUserRole function
 
 const UsersTable = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,12 @@ const UsersTable = () => {
         dispatch(deleteProfile(userId));
       }
     });
+  };
+
+  // Toggle Admin Role Handler
+  const toggleAdminRoleHandler = (userId, isAdmin) => {
+    const newRole = isAdmin ? "user" : "admin";
+    dispatch(updateUserRole(userId, newRole));
   };
 
   return (
@@ -68,6 +75,9 @@ const UsersTable = () => {
                     </button>
                     <button onClick={() => deleteUserHandler(item._id)}>
                       Delete User
+                    </button>
+                    <button onClick={() => toggleAdminRoleHandler(item._id, item.isAdmin)}>
+                      {item.isAdmin ? "Revoke Admin" : "Make Admin"}
                     </button>
                   </div>
                 </td>

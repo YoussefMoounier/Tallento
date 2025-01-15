@@ -81,7 +81,6 @@ const AdminMain = () => {
         </div>
       </div>
       <AddCategoryForm />
-      <UserRoleManager /> {/* Add the UserRoleManager component */}
     </div>
   );
 };
