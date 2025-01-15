@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import AddCategoryForm from "./AddCategoryForm";
+import UserRoleManager from "./UserRoleManager"; // Import the new component
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchCategories } from "../../redux/apiCalls/categoryApiCall";
@@ -8,94 +9,81 @@ import { getPostsCount } from "../../redux/apiCalls/postApiCall";
 import { fetchAllComments } from "../../redux/apiCalls/commentApiCall";
 
 const AdminMain = () => {
-    const dispatch = useDispatch();
-    const { categories } = useSelector(state => state.category);
-    const { usersCount } = useSelector(state => state.profile);
-    const { postsCount } = useSelector(state => state.post);
-    const { comments } = useSelector(state => state.comment);
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.category);
+  const { usersCount } = useSelector((state) => state.profile);
+  const { postsCount } = useSelector((state) => state.post);
+  const { comments } = useSelector((state) => state.comment);
 
-    useEffect(() => {
-     dispatch(fetchCategories());
-     dispatch(getUsersCount());
-     dispatch(getPostsCount());
-     dispatch(fetchAllComments());
-    }, []);
+  useEffect(() => {
+    dispatch(fetchCategories());
+    dispatch(getUsersCount());
+    dispatch(getPostsCount());
+    dispatch(fetchAllComments());
+  }, [dispatch]);
 
-    return ( 
-        <div className="amdin-main">
-            <div className="admin-main-header">
-                <div className="admin-main-card">
-                    <h5 className="admin-card-title">المستخدمين</h5>
-                    <div className="admin-card-count">
-                        {usersCount}
-                    </div>
-                    <div className="admin-card-link-wrapper">
-                        <Link 
-                         to="/admin-dashboard/users-table"
-                         className="admin-card-link"
-                        >
-                           See all users
-                        </Link>
-                        <div className="admin-card-icon">
-                            <i className="bi bi-person"></i>
-                        </div>
-                    </div>
-                </div>
-                <div className="admin-main-card">
-                    <h5 className="admin-card-title">المنشورات</h5>
-                    <div className="admin-card-count">
-                        {postsCount}
-                    </div>
-                    <div className="admin-card-link-wrapper">
-                        <Link 
-                         to="/admin-dashboard/posts-table"
-                         className="admin-card-link"
-                        >
-                           See all posts
-                        </Link>
-                        <div className="admin-card-icon">
-                            <i className="bi bi-file-post"></i>
-                        </div>
-                    </div>
-                </div>
-                <div className="admin-main-card">
-                    <h5 className="admin-card-title">الاقسام</h5>
-                    <div className="admin-card-count">
-                        {categories.length}
-                    </div>
-                    <div className="admin-card-link-wrapper">
-                        <Link 
-                         to="/admin-dashboard/categories-table"
-                         className="admin-card-link"
-                        >
-                           See all categories
-                        </Link>
-                        <div className="admin-card-icon">
-                            <i className="bi bi-tag-fill"></i>
-                        </div>
-                    </div>
-                </div>
-                <div className="admin-main-card">
-                    <h5 className="admin-card-title">التعليقات</h5>
-                    <div className="admin-card-count">
-                        {comments.length}
-                    </div>
-                    <div className="admin-card-link-wrapper">
-                        <Link 
-                         to="/admin-dashboard/comments-table"
-                         className="admin-card-link"
-                        >
-                           See all comments
-                        </Link>
-                        <div className="admin-card-icon">
-                            <i className="bi bi-chat-left-text"></i>
-                        </div>
-                    </div>
-                </div>
+  return (
+    <div className="admin-main">
+      <div className="admin-main-header">
+        <div className="admin-main-card">
+          <h5 className="admin-card-title">المستخدمين</h5>
+          <div className="admin-card-count">{usersCount}</div>
+          <div className="admin-card-link-wrapper">
+            <Link to="/admin-dashboard/users-table" className="admin-card-link">
+              See all users
+            </Link>
+            <div className="admin-card-icon">
+              <i className="bi bi-person"></i>
             </div>
-            <AddCategoryForm />
+          </div>
         </div>
-     );
-}
- 
+        <div className="admin-main-card">
+          <h5 className="admin-card-title">المنشورات</h5>
+          <div className="admin-card-count">{postsCount}</div>
+          <div className="admin-card-link-wrapper">
+            <Link to="/admin-dashboard/posts-table" className="admin-card-link">
+              See all posts
+            </Link>
+            <div className="admin-card-icon">
+              <i className="bi bi-file-post"></i>
+            </div>
+          </div>
+        </div>
+        <div className="admin-main-card">
+          <h5 className="admin-card-title">الاقسام</h5>
+          <div className="admin-card-count">{categories.length}</div>
+          <div className="admin-card-link-wrapper">
+            <Link
+              to="/admin-dashboard/categories-table"
+              className="admin-card-link"
+            >
+              See all categories
+            </Link>
+            <div className="admin-card-icon">
+              <i className="bi bi-tag-fill"></i>
+            </div>
+          </div>
+        </div>
+        <div className="admin-main-card">
+          <h5 className="admin-card-title">التعليقات</h5>
+          <div className="admin-card-count">{comments.length}</div>
+          <div className="admin-card-link-wrapper">
+            <Link
+              to="/admin-dashboard/comments-table"
+              className="admin-card-link"
+            >
+              See all comments
+            </Link>
+            <div className="admin-card-icon">
+              <i className="bi bi-chat-left-text"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <AddCategoryForm />
+      <UserRoleManager /> {/* Add the UserRoleManager component */}
+    </div>
+  );
+};
+
 export default AdminMain;
