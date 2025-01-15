@@ -55,9 +55,12 @@ router.get("/messages/:chatId", async (req, res) => {
 });
 
 // New route to get all messages (admin only)
-router.get("/all-messages", async (req, res) => {
+router.get("/all-messages", admin, async (req, res) => {
   try {
-    const messages = await Message.find().populate();
+    const messages = await Message.find().populate({
+      path: "sender",
+      select: "username email", // Adjust fields as needed
+    });
 
     res.status(200).json(messages);
   } catch (error) {

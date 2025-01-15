@@ -13,9 +13,7 @@ const UserSchema = new mongoose.Schema(
     },
     username: {
       type: String,
-      required: function () {
-        return !this.googleId; // Username is required only if googleId is not present
-      },
+      required: true,
       trim: true,
       minlength: 2,
       maxlength: 100,
@@ -32,9 +30,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       trim: true,
       minlength: 8,
-      required: function () {
-        return !this.googleId; // Password is required only if googleId is not present
-      },
+      required: true,
     },
     profilePhoto: {
       type: Object,
