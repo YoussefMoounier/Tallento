@@ -10,32 +10,17 @@ import {
 } from "../../redux/slices/chatSlice";
 import { setOnlineUsers } from "../../redux/slices/authSlice";
 import socket from "../../socket";
-import "./ChatApp.css";
-import { toast } from "react-toastify";
-
-
 
 const Chat = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const { messages, activeChat, notifications, chats, loading } = useSelector(
+  const { messages, activeChat, chats, notifications, loading } = useSelector(
     (state) => state.chat
   );
   const [message, setMessage] = useState("");
   const [otherUserImg, setOtherUserImg] = useState("");
   const messagesEndRef = useRef(null);
 
-
-  useEffect(() => {
-    socket.on("messageBlocked", (data) => {
-      toast(data.reason); // Show an alert or handle this appropriately in your UI
-    });
-
-    return () => {
-      socket.off("messageBlocked");
-    };
-  }, [dispatch]);
-  
   useEffect(() => {
     if (user) {
       dispatch(fetchUserChats(user._id));
@@ -43,34 +28,25 @@ const Chat = () => {
   }, [dispatch, user]);
 
   useEffect(() => {
-    const handleOnlineUsers = (users) => {
-      dispatch(setOnlineUsers(users));
-    };
-
-    const handleNewMessage = (newMessage) => {
+    socket.on("getMessage", (newMessage) => {
       dispatch(addMessage({ chatId: newMessage.chatId, message: newMessage }));
       if (newMessage.senderId !== user._id) {
         dispatch(addNotification(newMessage));
       }
-    };
+    });
 
-    const handleNotification = (notification) => {
-      dispatch(addNotification(notification));
-    };
-
-    socket.on("getOnlineUsers", handleOnlineUsers);
-    socket.on("getMessage", handleNewMessage);
-    socket.on("getNotifications", handleNotification);
+    socket.on("getOnlineUsers", (users) => {
+      dispatch(setOnlineUsers(users));
+    });
 
     return () => {
-      socket.off("getOnlineUsers", handleOnlineUsers);
-      socket.off("getMessage", handleNewMessage);
-      socket.off("getNotifications", handleNotification);
+      socket.off("getMessage");
+      socket.off("getOnlineUsers");
     };
   }, [dispatch, user._id]);
 
   useEffect(() => {
-    // messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, activeChat]);
 
   const handleSendMessage = useCallback(() => {
@@ -80,7 +56,7 @@ const Chat = () => {
         senderId: user._id,
         content: message.trim(),
         createdAt: new Date().toISOString(),
-      }
+      };
       socket.emit("sendMessage", newMessage);
       dispatch(addMessage({ chatId: activeChat, message: newMessage }));
       setMessage("");
@@ -100,54 +76,65 @@ const Chat = () => {
   );
 
   const renderChatList = () => (
-    <ul>
-      {chats.map((chat) => {
-        const otherParticipant = chat.participants.find(
-          (participant) => participant._id !== user._id
-        );
-        return (
-          <li
-            key={chat._id}
-            onClick={() => handleOpenChat(chat._id, otherParticipant)}
-            className="chat-avatar"
-          >
-           
-            <img
-              className="other-user-img"
-              src={otherParticipant?.profilePhoto?.url}
-              alt=""
-            />
-            {notifications.some((notif) => notif.chatId === chat._id) && (
-              <span className="chat-notification-dot">•</span>
-            )} 
-            {otherParticipant?.username}
-          </li>
-        );
-      })}
-    </ul>
+    <div className="p-4 bg-white h-full overflow-y-auto">
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        chats.map((chat) => {
+          const otherParticipant = chat.participants.find(
+            (participant) => participant._id !== user._id
+          );
+          return (
+            <div
+              key={chat._id}
+              onClick={() => handleOpenChat(chat._id, otherParticipant)}
+              className="flex items-center p-3 hover:bg-gray-100 cursor-pointer"
+            >
+              <img
+                src={otherParticipant?.profilePhoto?.url}
+                alt=""
+                className="w-10 h-10 rounded-full"
+              />
+              <div className="ml-3 flex-1">
+                <div className="font-bold">{otherParticipant?.username}</div>
+                <p className="text-sm text-gray-500 truncate">
+                  {chat.lastMessage?.content || "No messages yet"}
+                </p>
+              </div>
+            </div>
+          );
+        })
+      )}
+    </div>
   );
 
   const renderChatMessages = () => {
     const chatMessages = messages[activeChat] || [];
     return (
-      <div className="chat-messages">
+      <div className="flex flex-col  p-4 bg-gray-50 overflow-y-auto">
         {chatMessages.map((msg, index) => (
           <div
-            key={msg._id || index}
-            className={`chat-message ${
-              msg.senderId === user._id
-                ? "chat-message-user"
-                : "chat-message-other"
-            }`}
+            key={index}
+            className={`flex items-end ${
+              msg.senderId === user._id ? "justify-end" : "justify-start"
+            } mb-3`}
           >
-            <img
-              className="other-user-img"
-              src={
-                msg.senderId === user._id ? user.profilePhoto.url : otherUserImg
-              }
-              alt=""
-            />
-            <span>{msg.content}</span>
+            {msg.senderId !== user._id && (
+              <img
+                src={otherUserImg}
+                alt=""
+                className="w-8 h-8 rounded-full mr-2"
+              />
+            )}
+            <div
+              className={`px-4 py-2 rounded-lg max-w-xs ${
+                msg.senderId === user._id
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-black"
+              }`}
+            >
+              {msg.content}
+            </div>
           </div>
         ))}
         <div ref={messagesEndRef} />
@@ -156,31 +143,55 @@ const Chat = () => {
   };
 
   return (
-    <div className="chat-container">
-      <div className="chat-sidebar">
-        <h2>Chats</h2>
-        {loading ? <p>Loading...</p> : renderChatList()}
+    <div className="flex bg-gray-100">
+      {/* Left Chat List */}
+      <div className="w-1/3 bg-white border-r border-gray-300">
+       
+        {renderChatList()}
       </div>
-      <div className="chat-room">
-        <h2>Chat Room</h2>
+
+      {/* Right Chat Window */}
+      <div className="w-2/3 flex flex-col">
         {activeChat ? (
           <>
+            {/* Header */}
+            <div className="p-4 bg-white flex items-center border-b">
+              <img
+                src={otherUserImg}
+                alt=""
+                className="w-10 h-10 rounded-full mr-3"
+              />
+              <div>
+                <h2 className="text-lg font-bold">Chat Name</h2>
+                <p className="text-sm text-gray-500">Online</p>
+              </div>
+            </div>
+
+            {/* Messages */}
             {renderChatMessages()}
-            <div className="chat-input-container">
+
+            {/* Input */}
+            <div className="p-4 bg-white flex items-center border-t">
               <input
                 type="text"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-                className="chat-input"
+                onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
+                placeholder="Type a message..."
+                className="flex-grow p-3 border rounded-full mr-3"
               />
-              <button onClick={handleSendMessage} className="chat-send-button">
+              <button
+                onClick={handleSendMessage}
+                className="bg-blue-500 text-white px-4 py-2 rounded-full"
+              >
                 Send
               </button>
             </div>
           </>
         ) : (
-          <p>Select a chat to view messages</p>
+          <div className="flex items-center justify-center flex-grow">
+            <p className="text-gray-500">Select a chat to start messaging</p>
+          </div>
         )}
       </div>
     </div>
