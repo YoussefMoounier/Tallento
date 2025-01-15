@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import AddCategoryForm from "./AddCategoryForm";
-import UserRoleManager from "./UserRoleManager"; // Import the new component
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchCategories } from "../../redux/apiCalls/categoryApiCall";
