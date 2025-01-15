@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const AdminSidebar = () => {
   return (
-    <div className="admin-sidebar">
+    <div className="p-4">
       <Link className="admin-sidebar-link" to="/admin-dashboard/users-table">
         <i className="bi bi-person"></i>
         المستخدمين
