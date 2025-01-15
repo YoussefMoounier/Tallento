@@ -28,7 +28,7 @@ const sendEmail = require("./utils/sendEmail");
 connectToDb();
 
 // Initialize App
-const app = express();  
+const app = express();
 
 // Middleware
 app.use(express.json());
@@ -74,31 +74,30 @@ app.use("/api", projectRoutes);
 app.use("/api/search", require("./routes/search"));
 app.use("/api/chats", chatRoutes);
 app.use("/api/messages", messageRoutes);
-app.use("/api/auth", googleRoutes);
-app.use("/api/users", blockUsers);
-app.use("/blocklist", require("./routes/blockList"))
-
- 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-
-app.get("/config",(req,res)=>{
-
-  res.send({publishableKey: process.env.STRIPE_PUBLISHABLE_KEY})
-})
-
-app.get("/hide", (req, res) => {
-  res.json({"Success":process.env.STRIPE_SECRET_KEY});
-})
+app.use("/", (req, res) => {
+  res.send("Hello World!");
+});
 
 app.post("/create-payment-intent", async (req, res) => {
-  const { amount, currency } = req.body;
+  const { amount, currency, userId } = req.body;
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount * 100, // amount in cents
       currency,
     });
 
-    res.send({ clientSecret: paymentIntent.client_secret });
+    // Fetch the user from the database
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
+
+    // Update the user's balance
+    user.balance = (user.balance || 0) + amount;
+    await user.save();
+
+    // Send the client secret and updated balance back to the frontend
+    res.send({ clientSecret: paymentIntent.client_secret, balance: user.balance });
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
@@ -197,12 +196,12 @@ io.on("connection", (socket) => {
     onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id);
     io.emit("getOnlineUsers", onlineUsers);
   });
-  
+
   socket.on("sendMessage", async (messageData) => {
     try {
       const phoneNumberRegex = /\b\d{10,}\b/g;
       const { senderId, receiverId, content } = messageData;
-      
+
       // Check if the sender is in the blocklist
       const isSenderBlocked = await Blocklist.findOne({ userId: senderId });
       if (isSenderBlocked) {
@@ -212,13 +211,13 @@ io.on("connection", (socket) => {
         });
         return; // Prevent sending the message
       }
-  
+
       // Extract phone numbers from message content
       const phoneNumbers = content.match(phoneNumberRegex) || [];
       if (phoneNumbers.length > 0) {
         // Add sender to blocklist if a phone number is found in the message
         let blocklistEntry = await Blocklist.findOne({ userId: senderId });
-  
+
         if (!blocklistEntry) {
           // Create a new blocklist entry if not found
           blocklistEntry = new Blocklist({
@@ -226,7 +225,7 @@ io.on("connection", (socket) => {
             reason: "Sent phone number",
           });
           await blocklistEntry.save();
-  
+
           // Send email to the user
           const user = await User.findById(senderId);
           if (user) {
@@ -238,19 +237,19 @@ io.on("connection", (socket) => {
           }
         }
       }
-  
+
       // Check if the receiver has blocked the sender
       const isReceiverBlocked = await Blocklist.findOne({ userId: receiverId });
       if (isReceiverBlocked) {
         console.log(`Receiver ${receiverId} has blocked the sender. Message not sent.`);
         return; // Prevent sending the message
       }
-  
+
       // Save the message if not blocked
       const message = new Message(messageData);
       await message.save();
       io.emit("getMessage", message); // Emit the message to all clients
-  
+
     } catch (error) {
       console.error("Error in sendMessage:", error);
     }
