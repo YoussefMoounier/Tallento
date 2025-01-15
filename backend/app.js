@@ -74,9 +74,9 @@ app.use("/api", projectRoutes);
 app.use("/api/search", require("./routes/search"));
 app.use("/api/chats", chatRoutes);
 app.use("/api/messages", messageRoutes);
-app.use("/", (req, res) => {
-  res.send("Hello World    !");
-});
+// app.use("/", (req, res) => {
+//   res.send("Hello World    !");
+// });
 
 app.post("/create-payment-intent", async (req, res) => {
   const { amount, currency, userId } = req.body;
