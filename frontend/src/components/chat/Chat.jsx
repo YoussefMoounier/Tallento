@@ -58,10 +58,9 @@ const Chat = () => {
         createdAt: new Date().toISOString(),
       };
       socket.emit("sendMessage", newMessage);
-      dispatch(addMessage({ chatId: activeChat, message: newMessage }));
       setMessage("");
     }
-  }, [message, activeChat, user._id, dispatch]);
+  }, [message, activeChat, user._id]);
 
   const handleOpenChat = useCallback(
     (chatId, other) => {
@@ -76,7 +75,7 @@ const Chat = () => {
   );
 
   const renderChatList = () => (
-    <div className="p-4 bg-white h-full overflow-y-auto">
+    <div className="p-4 bg-white overflow-y-auto">
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -111,7 +110,7 @@ const Chat = () => {
   const renderChatMessages = () => {
     const chatMessages = messages[activeChat] || [];
     return (
-      <div className="flex flex-col  p-4 bg-gray-50 overflow-y-auto">
+      <div className="flex flex-col p-4 bg-gray-50 overflow-y-auto flex-grow">
         {chatMessages.map((msg, index) => (
           <div
             key={index}
@@ -143,15 +142,14 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex bg-gray-100">
+    <div className="flex flex-col md:flex-row ">
       {/* Left Chat List */}
-      <div className="w-1/3 bg-white border-r border-gray-300">
-       
+      <div className="w-full md:w-1/3 bg-white border-r border-gray-300">
         {renderChatList()}
       </div>
 
       {/* Right Chat Window */}
-      <div className="w-2/3 flex flex-col">
+      <div className="w-full md:w-2/3 flex flex-col">
         {activeChat ? (
           <>
             {/* Header */}
@@ -171,7 +169,7 @@ const Chat = () => {
             {renderChatMessages()}
 
             {/* Input */}
-            <div className="p-4 bg-white flex items-center border-t">
+            <div className="p-4 bg-white flex items-center border-t sticky bottom-0">
               <input
                 type="text"
                 value={message}
