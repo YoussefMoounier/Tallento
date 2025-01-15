@@ -139,14 +139,14 @@ const Header = () => {
               {user ? (
                 <>
                   <Link
-                    to="/messages"
+                    to="/chat"
                     className="py-3 rounded-md p-2 hover:bg-purple-200 hover:text-purple-600"
                     onClick={closeMenu}
                   >
                     {translations[language].messages}
                   </Link>
                   <Link
-                    
+
                     className="py-3 rounded-md p-2 hover:bg-purple-200 hover:text-purple-600"
                   >
                     {translations[language].profile}
@@ -193,7 +193,7 @@ const Header = () => {
                   <FaSearch className="text-white h-5 w-5 hover:text-purple-600" />
                 </Link>
                 <Link
-                  to="/messages"
+                  to="/chat"
                   className="w-8 h-8 rounded-full bg-black flex items-center justify-center hover:text-purple-600"
                 >
                   <IoMdMail className="text-white w-5 h-5 hover:text-purple-600" />
