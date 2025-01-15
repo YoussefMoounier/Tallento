@@ -49,21 +49,23 @@ const userSlice = createSlice({
     setUsers: (state, action) => {
       state.users = action.payload;
     },
+    updateUser: (state, action) => {
+      const index = state.users.findIndex((user) => user._id === action.payload._id);
+      if (index !== -1) {
+        state.users[index] = action.payload;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(blockUser.fulfilled, (state, action) => {
-        const index = state.users.findIndex(
-          (user) => user._id === action.payload._id
-        );
+        const index = state.users.findIndex((user) => user._id === action.payload._id);
         if (index !== -1) {
           state.users[index] = action.payload;
         }
       })
       .addCase(unblockUser.fulfilled, (state, action) => {
-        const index = state.users.findIndex(
-          (user) => user._id === action.payload._id
-        );
+        const index = state.users.findIndex((user) => user._id === action.payload._id);
         if (index !== -1) {
           state.users[index] = action.payload;
         }
@@ -71,5 +73,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUsers } = userSlice.actions;
+export const { setUsers, updateUser } = userSlice.actions;
 export default userSlice.reducer;
