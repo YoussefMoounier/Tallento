@@ -147,6 +147,7 @@ function validateRegisterUser(obj) {
     hasBeard: Joi.boolean().optional(),
     wearsHijab: Joi.boolean().optional(),
     googleId: Joi.string().optional(),
+
   });
   return schema.validate(obj);
 }
