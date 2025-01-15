@@ -3,7 +3,7 @@ const router = express.Router();
 const Chat = require("../models/Chat");
 const Message = require("../models/Message");
 const Blocklist = require("../models/Blocklist");
-const { protect, admin } = require("../middleware/authMiddleware");
+const {  admin } = require("../middleware/authMiddleware");
 
 // POST create a new message in a chat
 // Define a regex pattern for phone numbers
@@ -59,7 +59,7 @@ router.get("/messages/:chatId", async (req, res) => {
 });
 
 // New route to get all messages (admin only)
-router.get("/all-messages", protect, admin, async (req, res) => {
+router.get("/all-messages",  admin, async (req, res) => {
   try {
     const messages = await Message.find().populate({
       path: "sender",
