@@ -77,9 +77,7 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/google", googleRoutes);
 app.use("/api/blocklist", blockUsers);
 
-app.use("/", (req, res) => {
-  res.send("Hello World ...!");
-});
+
 
 app.post("/create-payment-intent", async (req, res) => {
   const { amount, currency, userId } = req.body;
@@ -109,6 +107,9 @@ app.post("/create-payment-intent", async (req, res) => {
 // Error Handlers
 app.use(notFound);
 app.use(errorHandler);
+app.use("/", (req, res) => {
+    res.send("Hello World ...!");
+  });
 // Start the Server
 const PORT = process.env.PORT || 8000;
 const server = app.listen(PORT, () => {
