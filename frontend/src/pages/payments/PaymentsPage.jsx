@@ -1,9 +1,11 @@
 import React, { useContext } from 'react'; // Import useContext
 import { LanguageContext } from "../../context/LanguageContext"; // Import the context
 import './payments.css';
+import { useSelector } from 'react-redux';
 
 const PaymentsPage = () => {
-  const { language } = useContext(LanguageContext); // Use context for language
+  const { language } = useContext(LanguageContext);
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <div className="payments-container">
@@ -16,20 +18,8 @@ const PaymentsPage = () => {
       </div>
       <div className="payments-content">
         <div className="total-balance balance">
-          <p>{language === "en" ? "Total Balance" : "الرصيد الكلي"}</p>
-          <h4>$0.00</h4>
-        </div>
-        <div className="total-balance balance">
-          <p>{language === "en" ? "Pending Balance" : "الرصيد المعلق"}</p>
-          <h4>$0.00</h4>
-        </div>
-        <div className="total-balance balance">
-          <p>{language === "en" ? "Available Balance" : "الرصيد المتاح"}</p>
-          <h4>$0.00</h4>
-        </div>
-        <div className="total-balance balance">
-          <p>{language === "en" ? "Withdrawable Balance" : "الرصيد القابل للسحب"}</p>
-          <h4>$0.00</h4>
+          <p>{language === "en" ? "Total Balance" : "رصيد حسابي"}</p>
+          <h4>${user.balance}</h4>
         </div>
       </div>
     </div>
