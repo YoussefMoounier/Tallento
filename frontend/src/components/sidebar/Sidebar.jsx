@@ -18,7 +18,7 @@ const Sidebar = ({ sortType, setSortType, fetchPosts }) => {
   }, [dispatch]);
 
   return (
-    <div className="sidebar bg-white rounded-2xl mt-8 p-4 lg:fixed right-4 top-1/2 transform -translate-y-1/2 shadow-lg w-full sm:w-64">
+    <div className="sidebar bg-white rounded-2xl mt-48 md:mt-8 p-4 lg:fixed right-4 top-1/2 transform -translate-y-1/2 shadow-lg w-full sm:w-64">
       <div className="bg-secodColor rounded-2xl px-2 py-1 text-white flex flex-row mb-4">
         <Link
           className="flex w-full justify-between"
