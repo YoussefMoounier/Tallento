@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import PaymentsPage from '../../components/Payments';
+import Payments from '../../components/Payments';
+
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
@@ -48,7 +51,9 @@ const CheckoutForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 bg-white shadow-md rounded-lg mt-8">
+    <div className='flex flex-col items-center p-4 gap-4 w-2/4 mx-auto'>
+<Payments/>
+    <form onSubmit={handleSubmit} className="w-4/6 mx-auto p-8 bg-white shadow-md rounded-lg mt-8">
       <label className="block mb-4">
         <span className="text-gray-700">Amount:</span>
         <input
@@ -56,7 +61,7 @@ const CheckoutForm = () => {
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-        />
+          />
       </label>
       <div className="mb-4">
         <CardElement className="p-3 border border-gray-300 rounded-md" />
@@ -67,10 +72,11 @@ const CheckoutForm = () => {
         type="submit"
         disabled={!stripe}
         className="w-full px-4 py-2 bg-indigo-600 text-white font-semibold rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-      >
+        >
         Pay
       </button>
     </form>
+        </div>
   );
 };
 
