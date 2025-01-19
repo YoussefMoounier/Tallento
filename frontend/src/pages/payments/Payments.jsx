@@ -25,6 +25,8 @@ const Payments = () => {
           value={amount}
           onChange={handleAmountChange} // Attach it here
           placeholder="Enter amount"
+          min="0.01"  // Prevents 0 or negative values
+          step="0.01" // Allows decimal inputs
         />
       </div>
       <div className="paypal-button-container">
