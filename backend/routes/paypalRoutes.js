@@ -1,9 +1,9 @@
-// filepath: /d:/GitHub/Tallento/backend/routes/paypalRoutes.js
 const express = require('express');
 const router = express.Router();
 const { client } = require('../config/paypalConfig');
 const Payment = require('../models/Payment');
 const User = require('../models/User');
+const checkoutNodeJssdk = require('@paypal/checkout-server-sdk');
 
 router.post('/create-order', async (req, res) => {
   const { amount, currency, userId } = req.body;

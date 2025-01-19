@@ -81,7 +81,7 @@ app.use("/blocklist", require("./routes/blockList"))
 app.use('/api/paypal', paypalRoutes);
 
 app.use("/", (req, res) => {
-  res.send("API is running.....");
+  res.send("API is running PPAL.....");
 });
 
 

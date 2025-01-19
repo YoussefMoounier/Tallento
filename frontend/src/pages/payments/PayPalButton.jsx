@@ -1,7 +1,9 @@
 import { toast } from "react-toastify";
-import request from "../utils/request";
+import request from "../../utils/request";
 import { useDispatch, useSelector } from "react-redux";
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import React from 'react';
+
 
 
 const PayPalButton = ({ amount, currency }) => {
@@ -35,7 +37,7 @@ const PayPalButton = ({ amount, currency }) => {
   };
 
   return (
-    <PayPalScriptProvider options={{ "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID }}>
+    <PayPalScriptProvider options={{ 'client-id': process.env.REACT_APP_PAYPAL_CLIENT_ID }}>
       <PayPalButtons
         createOrder={createOrder}
         onApprove={onApprove}
