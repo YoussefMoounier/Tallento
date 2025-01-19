@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import PaymentsPage from '../../components/Payments';
-import Payments from '../../components/Payments';
+import PaymentsPage from './Payments';
+import Payments from './Payments';
 
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
