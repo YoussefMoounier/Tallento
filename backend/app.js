@@ -22,6 +22,7 @@ const passport = require("passport");
 const blockUsers = require("./routes/userBlockRoutes");
 const Blocklist = require("./models/Blocklist");
 const sendEmail = require("./utils/sendEmail");
+const paypalRoutes = require('./routes/paypalRoutes');
 
 
 // Connect to DB
@@ -77,7 +78,7 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/auth", googleRoutes);
 app.use("/api/users", blockUsers);
 app.use("/blocklist", require("./routes/blockList"))
-
+app.use('/api/paypal', paypalRoutes);
 
 app.use("/", (req, res) => {
   res.send("API is running.....");
