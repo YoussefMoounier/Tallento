@@ -51,18 +51,7 @@ const corsOptions = {
   app.use(cors(corsOptions));
 
 // Add this line with other route declarations
-app.use("/api/skills", skillsRoutes);
 
-app.use(session({
-    secret: "your-secret-key",
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      secure: false, // Set to true if using HTTPS
-      httpOnly: true,
-      sameSite: "lax", // Adjust based on your requirements
-    }
-  }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -81,9 +70,10 @@ app.use("/api/auth", googleRoutes);
 app.use("/api/users", blockUsers);
 app.use("/blocklist", require("./routes/blockList"))
 app.use('/api/paypal', paypalRoutes);
+app.use("/api/skills", skillsRoutes);
 
 app.use("/", (req, res) => {
-  res.send("API is PayPal.....");
+  res.send("API is سنهممس.....");
 });
 
 
