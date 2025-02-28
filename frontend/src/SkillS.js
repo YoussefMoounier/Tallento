@@ -1,36 +1,24 @@
-import React, { useState } from "react";
-
-const categories = {
-  Programming: [
-    "React",
-    "Node.js",
-    "MongoDB",
-    "Express.js",
-    "JavaScript",
-    "HTML",
-    "CSS",
-    "Python",
-    "Django",
-    "Flask",
-    "Angular",
-    "Vue.js",
-    "TypeScript",
-    "GraphQL",
-  ],
-  Editing: [
-    "Video Editing",
-    "Photo Editing",
-    "Audio Editing",
-    "Content Editing",
-  ],
-  VoiceOver: ["Narration", "Character Voices", "Commercials", "Audiobooks"],
-  // Add more categories as needed
-};
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllSkills } from "./redux/apiCalls/skillApiCall";
 
 const SkillSelector = ({ selectedSkills, onSkillChange }) => {
-  const [selectedCategory, setSelectedCategory] = useState(
-    Object.keys(categories)[0]
-  );
+  const dispatch = useDispatch();
+  const { skills } = useSelector((state) => state.skill || { skills: [] });
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  useEffect(() => {
+    dispatch(fetchAllSkills());
+  }, [dispatch]);
+
+  // Group skills by category
+  const categories = skills.reduce((acc, skill) => {
+    if (!acc[skill.category]) {
+      acc[skill.category] = [];
+    }
+    acc[skill.category].push(skill.name);
+    return acc;
+  }, {});
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
@@ -56,6 +44,7 @@ const SkillSelector = ({ selectedSkills, onSkillChange }) => {
         value={selectedCategory}
         onChange={handleCategoryChange}
       >
+        <option value="">Select Category</option>
         {Object.keys(categories).map((category) => (
           <option key={category} value={category}>
             {category}
@@ -64,7 +53,7 @@ const SkillSelector = ({ selectedSkills, onSkillChange }) => {
       </select>
 
       <div className="skills-list">
-        {categories[selectedCategory].map((skill) => (
+        {selectedCategory && categories[selectedCategory]?.map((skill) => (
           <div className="skill-item" key={skill}>
             <input
               type="checkbox"
