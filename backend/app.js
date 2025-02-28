@@ -23,7 +23,7 @@ const blockUsers = require("./routes/userBlockRoutes");
 const Blocklist = require("./models/Blocklist");
 const sendEmail = require("./utils/sendEmail");
 const paypalRoutes = require('./routes/paypalRoutes');
-
+const skillsRoutes = require("./routes/skillsRoute");
 
 // Connect to DB
 connectToDb();
@@ -50,6 +50,8 @@ const corsOptions = {
 
   app.use(cors(corsOptions));
 
+// Add this line with other route declarations
+app.use("/api/skills", skillsRoutes);
 
 app.use(session({
     secret: "your-secret-key",
