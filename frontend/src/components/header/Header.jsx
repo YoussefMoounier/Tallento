@@ -172,7 +172,7 @@ const Header = () => {
             <Link to="/projects" className="hover:text-purple-600">
               {translations[language].browseProjects}
             </Link>
-            <Link to={"/"}>
+            <Link to={"/home"}>
               <img src={logo} className="h-14 w-14 rounded-full" alt="logo" />
             </Link>
             <Link to="/my-projects" className="hover:text-purple-600">

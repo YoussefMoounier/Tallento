@@ -52,7 +52,8 @@ function App() {
         <ToastContainer theme="colored" position="top-center" />
         <div className="main-container bg-bg">
           <Routes>
-            <Route path="/" element={<PostsPage />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<HomePage />} />
             <Route path="/posts" element={<Home />} />
             <Route path="/posts-page" element={<PostsPage />} />
             <Route path="/search" element={<SearchableComponent />} />
