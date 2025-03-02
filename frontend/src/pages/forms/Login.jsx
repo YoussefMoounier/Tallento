@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react"; // Import useContext
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/apiCalls/authApiCall";
@@ -17,12 +17,14 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
-  const { language } = useContext(LanguageContext); // Use context for language
+  const navigate = useNavigate();
+  const { language } = useContext(LanguageContext);
 
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
     if (userInfo) {
       dispatch(authActions.login(JSON.parse(userInfo)));
+      navigate("/posts");
     }
 
     const query = new URLSearchParams(location.search);
@@ -43,13 +45,14 @@ const Login = () => {
 
       dispatch(authActions.login(parsedUser));
       localStorage.setItem("userInfo", JSON.stringify(parsedUser));
+      navigate("/posts");
     }
     const qerror = query.get("error");
     if (qerror) {
       const parsedError = decodeURIComponent(qerror);
       toast.error(parsedError);
     }
-  }, [dispatch, location.search]);
+  }, [dispatch, location.search, navigate]);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -62,12 +65,19 @@ const Login = () => {
 
   const formSubmitHandler = async (e) => {
     e.preventDefault();
-    if (email.trim() === "") return toast.error(language === "en" ? "Email is required" : "البريد الالكتروني مطلوب");
-    if (password.trim() === "") return toast.error(language === "en" ? "Password is required" : "كلمة السر مطلوبة");
+    if (email.trim() === "")
+      return toast.error(
+        language === "en" ? "Email is required" : "البريد الالكتروني مطلوب"
+      );
+    if (password.trim() === "")
+      return toast.error(
+        language === "en" ? "Password is required" : "كلمة السر مطلوبة"
+      );
 
     setIsLoading(true);
     try {
       await dispatch(loginUser({ email, password }));
+      navigate("/posts");
     } catch (error) {
       toast.error(language === "en" ? "Failed to login" : "فشل تسجيل الدخول");
     } finally {
@@ -77,7 +87,9 @@ const Login = () => {
 
   return (
     <section className="form-container">
-      <h1 className="form-title">{language === "en" ? "Login" : "تسجيل الدخول"}</h1>
+      <h1 className="form-title">
+        {language === "en" ? "Login" : "تسجيل الدخول"}
+      </h1>
       <form onSubmit={formSubmitHandler} className="form">
         <div className="form-group">
           <label htmlFor="email" className="form-label">
@@ -87,7 +99,11 @@ const Login = () => {
             type="email"
             className="form-input"
             id="email"
-            placeholder={language === "en" ? "Enter your email here" : "ادخل البريد الالكتروني هنا"}
+            placeholder={
+              language === "en"
+                ? "Enter your email here"
+                : "ادخل البريد الالكتروني هنا"
+            }
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -101,7 +117,9 @@ const Login = () => {
               type={showPassword ? "text" : "password"}
               className="form-input"
               id="password"
-              placeholder={language === "en" ? "Enter your password" : "ادخل كلمة السر"}
+              placeholder={
+                language === "en" ? "Enter your password" : "ادخل كلمة السر"
+              }
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -111,20 +129,33 @@ const Login = () => {
           </div>
         </div>
         <button className="form-btn" type="submit" disabled={isLoading}>
-          {isLoading ? <LoadingSpinner /> : (language === "en" ? "Login" : "تسجيل الدخول")}
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : language === "en" ? (
+            "Login"
+          ) : (
+            "تسجيل الدخول"
+          )}
         </button>
         <button
           className="google_btn"
           onClick={googleAuth}
           disabled={isLoading}
         >
-          <span>{language === "en" ? "Login with Google" : "تسجيل الدخول باستخدام Google"}</span>
+          <span>
+            {language === "en"
+              ? "Login with Google"
+              : "تسجيل الدخول باستخدام Google"}
+          </span>
           <img src={google} alt="google icon" />
         </button>
       </form>
 
       <div className="form-footer">
-        {language === "en" ? "Forgot Password?" : "نسيت كلمة المرور?"} <Link to="/forgot-password">{language === "en" ? "Click here" : "اضغط هنا"}</Link>
+        {language === "en" ? "Forgot Password?" : "نسيت كلمة المرور?"}{" "}
+        <Link to="/forgot-password">
+          {language === "en" ? "Click here" : "اضغط هنا"}
+        </Link>
       </div>
     </section>
   );

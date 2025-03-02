@@ -1,17 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useContext } from "react"; // Import useContext
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { toggleLikePost } from "../../redux/apiCalls/postApiCall";
-import CommentList from "../comments/CommentList";
 import { toast } from "react-toastify";
-import { LanguageContext } from "../../context/LanguageContext"; // Import the context
+import { LanguageContext } from "../../context/LanguageContext";
 
 const PostItem = ({ post, username, userId }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const { language } = useContext(LanguageContext); // Use context for language
+  const { language } = useContext(LanguageContext);
 
-  // Local state for likes
   const [likes, setLikes] = useState(post.likes);
   const [liked, setLiked] = useState(post.likes.includes(user?._id));
 
@@ -23,13 +21,12 @@ const PostItem = ({ post, username, userId }) => {
     if (user) {
       dispatch(toggleLikePost(post._id))
         .then(() => {
-          // Update local state after successful operation
           if (liked) {
-            setLikes(likes.filter((id) => id !== user._id)); // Remove user's like
+            setLikes(likes.filter((id) => id !== user._id));
           } else {
-            setLikes([...likes, user._id]); // Add user's like
+            setLikes([...likes, user._id]);
           }
-          setLiked(!liked); // Toggle like state
+          setLiked(!liked);
         })
         .catch((error) => {
           console.error("Error toggling like:", error);
@@ -51,7 +48,9 @@ const PostItem = ({ post, username, userId }) => {
           controls
           src={post.media?.url}
           alt="Post video"
+          data-video-id={post._id}
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          playsInline
         />
       );
     } else if (post.media?.resourceType === "image") {
@@ -81,8 +80,7 @@ const PostItem = ({ post, username, userId }) => {
           to={`/posts/details/${post._id}`}
           className="post-item-image-link"
         >
-
-        {renderMedia()}
+          {renderMedia()}
         </Link>
       </div>
       <div className="post-item-info-wrapper">
