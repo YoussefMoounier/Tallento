@@ -152,7 +152,7 @@ module.exports.getSinglePostCtrl = asyncHandler(async (req, res) => {
  * @access  public
  ------------------------------------------------*/
 module.exports.getPostCountCtrl = asyncHandler(async (req, res) => {
-  const count = await Post.count();
+  const count = await Post.countDocuments();
   res.status(200).json(count);
 });
 
