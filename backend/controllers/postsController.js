@@ -79,9 +79,6 @@ module.exports.createPostCtrl = asyncHandler(async (req, res) => {
     res.status(500).json({ message: "Error creating post", error: error.message });
   }
 });
-  fs.unlinkSync(filePath);
-});
-
 
 /**-----------------------------------------------
  * @desc    Get All Posts
