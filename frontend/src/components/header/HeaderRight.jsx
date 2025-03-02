@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { logoutUser } from "../../redux/apiCalls/authApiCall";
+import NotificationIcon from "./NotificationIcon";
 
 const HeaderRight = () => {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ const HeaderRight = () => {
     <div className="header-right">
       {user ? (
         <>
+          <NotificationIcon />
           <div
             className="header-right-user-info"
             onClick={() => setDropdown((prev) => !prev)}

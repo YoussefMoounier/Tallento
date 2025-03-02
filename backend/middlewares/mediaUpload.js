@@ -1,13 +1,18 @@
 const multer = require("multer");
-
 const path = require("path");
+const fs = require("fs");
+
+// Ensure uploads directory exists
+const uploadsDir = "uploads";
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+}
 
 // Set storage engine
 const storage = multer.diskStorage({
-
   destination: (req, file, cb) => {
-    console.log(file)
-    cb(null, "uploads/"); // Change to your preferred directory
+    console.log(file);
+    cb(null, uploadsDir); // Use the constant defined above
   },
   filename: (req, file, cb) => {
     cb(
@@ -31,7 +36,6 @@ const fileFilter = (req, file, cb) => {
     );
   }
 };
-
 
 // Initialize upload
 const mediaUpload = multer({
