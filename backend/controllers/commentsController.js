@@ -5,6 +5,8 @@ const {
   validateUpdateComment,
 } = require("../models/Comment");
 const { User } = require("../models/User");
+const { Post } = require("../models/Post");
+const sendEmail = require("../utils/sendEmail");
 
 /**-----------------------------------------------
  * @desc    Create New Comment
@@ -24,6 +26,11 @@ module.exports.createCommentCtrl = asyncHandler(async (req, res) => {
   }
 
   const profile = await User.findById(req.user.id);
+  const post = await Post.findById(req.body.postId).populate("user");
+
+  if (!post) {
+    return res.status(404).json({ message: "Post not found" });
+  }
 
   const comment = await Comment.create({
     postId: req.body.postId,
@@ -31,6 +38,24 @@ module.exports.createCommentCtrl = asyncHandler(async (req, res) => {
     user: req.user.id,
     username: profile.username,
   });
+
+  // Send email notification to post owner
+  const emailTemplate = `
+    <h3>New Comment Notification</h3>
+    <p>${profile.username} commented on your post "${post.title}"</p>
+    <p>Comment: "${req.body.text}"</p>
+    <p>View your post: ${process.env.CLIENT_URL}/posts/details/${post._id}</p>
+  `;
+
+  try {
+    await sendEmail(
+      post.user.email,
+      "New Comment on Your Post",
+      emailTemplate
+    );
+  } catch (error) {
+    console.log("Email notification failed:", error);
+  }
 
   res.status(201).json(comment);
 });

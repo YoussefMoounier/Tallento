@@ -21,39 +21,64 @@ const { Comment } = require("../models/Comment");
  ------------------------------------------------*/
 
 module.exports.createPostCtrl = asyncHandler(async (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ message: "No file provided" });
+  try {
+    // Check if file exists
+    if (!req.file) {
+      return res.status(400).json({ message: "No file provided" });
+    }
+
+    // Validate request body
+    const { error } = validateCreatePost(req.body);
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
+
+    const filePath = path.join(__dirname, `../uploads/${req.file.filename}`);
+
+    // Check if file exists at the path
+    if (!fs.existsSync(filePath)) {
+      return res.status(500).json({ message: "File upload failed - file not found" });
+    }
+
+    let result;
+    try {
+      if (req.file.mimetype.startsWith("image")) {
+        result = await cloudinaryUploadImage(filePath);
+      } else if (req.file.mimetype.startsWith("video")) {
+        result = await cloudinaryUploadVideo(filePath);
+      } else {
+        return res.status(400).json({ message: "Unsupported file type" });
+      }
+    } catch (uploadError) {
+      console.error("Cloudinary upload error:", uploadError);
+      return res.status(500).json({ message: "File upload to cloud failed" });
+    }
+
+    const post = await Post.create({
+      title: req.body.title,
+      description: req.body.description,
+      category: req.body.category,
+      user: req.user.id,
+      media: {
+        url: result.secure_url,
+        publicId: result.public_id,
+        resourceType: req.file.mimetype.startsWith("image") ? "image" : "video",
+      },
+    });
+
+    res.status(201).json(post);
+
+    // Clean up the uploaded file
+    try {
+      fs.unlinkSync(filePath);
+    } catch (unlinkError) {
+      console.error("Error deleting temporary file:", unlinkError);
+    }
+  } catch (error) {
+    console.error("Post creation error:", error);
+    res.status(500).json({ message: "Error creating post", error: error.message });
   }
-
-  const { error } = validateCreatePost(req.body);
-  if (error) {
-    return res.status(400).json({ message: error.details[0].message });
-  }
-
-  const filePath = path.join(__dirname, `../uploads/${req.file.filename}`);
-
-  let result;
-  if (req.file.mimetype.startsWith("image")) {
-    result = await cloudinaryUploadImage(filePath);
-  } else if (req.file.mimetype.startsWith("video")) {
-    result = await cloudinaryUploadVideo(filePath);
-  } else {
-    return res.status(400).json({ message: "Unsupported file type" });
-  }
-
-  const post = await Post.create({
-    title: req.body.title,
-    description: req.body.description,
-    category: req.body.category,
-    user: req.user.id,
-    media: {
-      url: result.secure_url,
-      publicId: result.public_id,
-      resourceType: req.file.mimetype.startsWith("image") ? "image" : "video",
-    },
-  });
-
-  res.status(201).json(post);
+});
   fs.unlinkSync(filePath);
 });
 
@@ -287,11 +312,13 @@ module.exports.updatePostImageCtrl = asyncHandler(async (req, res) => {
  * @method  PUT
  * @access  private (only logged in user)
  ------------------------------------------------*/
+const sendEmail = require("../utils/sendEmail");
+
 module.exports.toggleLikeCtrl = asyncHandler(async (req, res) => {
   const loggedInUser = req.user.id;
   const { id: postId } = req.params;
 
-  let post = await Post.findById(postId);
+  let post = await Post.findById(postId).populate("user");
   if (!post) {
     return res.status(404).json({ message: "post not found" });
   }
@@ -299,6 +326,8 @@ module.exports.toggleLikeCtrl = asyncHandler(async (req, res) => {
   const isPostAlreadyLiked = post.likes.find(
     (user) => user.toString() === loggedInUser
   );
+
+  const likeUser = await User.findById(loggedInUser);
 
   if (isPostAlreadyLiked) {
     post = await Post.findByIdAndUpdate(
@@ -316,6 +345,23 @@ module.exports.toggleLikeCtrl = asyncHandler(async (req, res) => {
       },
       { new: true }
     );
+
+    // Send email notification to post owner
+    const emailTemplate = `
+      <h3>New Like Notification</h3>
+      <p>${likeUser.username} liked your post "${post.title}"</p>
+      <p>View your post: ${process.env.CLIENT_URL}/posts/details/${post._id}</p>
+    `;
+
+    try {
+      await sendEmail(
+        post.user.email,
+        "New Like on Your Post",
+        emailTemplate
+      );
+    } catch (error) {
+      console.log("Email notification failed:", error);
+    }
   }
 
   res.status(200).json(post);
