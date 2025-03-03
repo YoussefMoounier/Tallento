@@ -4,9 +4,11 @@ import AdminSidebar from "./AdminSidebar";
 
 const AdminDashboard = () => {
     return ( 
-    <section className="admin-dashboard mt-14">
-       <AdminSidebar />
-       <AdminMain />
+    <section className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
+      <AdminSidebar />
+      <div className="flex-1 p-8 overflow-hidden">
+        <AdminMain />
+      </div>
     </section> );
 }
  
