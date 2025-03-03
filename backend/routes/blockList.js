@@ -1,60 +1,76 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const Blocklist = require("../models/Blocklist");
+const BlockedUser = require('../models/BlockedUser');
+const { verifyToken } = require('../middlewares/verifyToken');
 
 // Get all blocked users
-router.get("/", async (req, res) => {
+router.get('/',  async (req, res) => {
   try {
-    const blockedUsers = await Blocklist.find().populate("userId", "username email");
-    res.status(200).json(blockedUsers);
+    const blockedUsers = await BlockedUser.find()
+      .populate('userId', 'username email profilePhoto')
+      .populate('blockedUserId', 'username email profilePhoto');
+    res.json(blockedUsers);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-// Get a specific blocked user
-router.get("/:userId", async (req, res) => {
+// Block a user
+router.post('/:userId',  async (req, res) => {
   try {
-    const blockedUser = await Blocklist.findOne({ userId: req.params.userId }).populate("userId", "username email");
-    if (!blockedUser) {
-      return res.status(404).json({ message: "User not found in blocklist" });
-    }
-    res.status(200).json(blockedUser);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-// Add a user to blocklist
-router.post("/", async (req, res) => {
-  try {
-    const { userId, reason } = req.body;
-    const existingBlock = await Blocklist.findOne({ userId });
-    
-    if (existingBlock) {
-      return res.status(400).json({ message: "User is already blocked" });
-    }
-
-    const newBlock = new Blocklist({
-      userId,
-      reason
+    // Check if block already exists
+    const existingBlock = await BlockedUser.findOne({
+      userId: req.user.id,
+      blockedUserId: req.params.userId
     });
 
+    if (existingBlock) {
+      return res.status(400).json({ message: 'User is already blocked' });
+    }
+
+    const newBlock = new BlockedUser({
+      userId: req.user.id,
+      blockedUserId: req.params.userId
+    });
     await newBlock.save();
-    res.status(201).json(newBlock);
+    
+    // Return the populated block data
+    const populatedBlock = await BlockedUser.findById(newBlock._id)
+      .populate('userId', 'username email profilePhoto')
+      .populate('blockedUserId', 'username email profilePhoto');
+      
+    res.status(201).json(populatedBlock);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// Unblock a user
+router.delete('/:userId',  async (req, res) => {
+  try {
+    const result = await BlockedUser.findOneAndDelete({
+      userId: req.user.id,
+      blockedUserId: req.params.userId
+    });
+
+    if (!result) {
+      return res.status(404).json({ message: 'Block not found' });
+    }
+
+    res.json({ message: 'User unblocked successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-// Remove a user from blocklist
-router.delete("/:userId", async (req, res) => {
+// Check if a user is blocked
+router.get('/check/:userId',  async (req, res) => {
   try {
-    const deletedBlock = await Blocklist.findOneAndDelete({ userId: req.params.userId });
-    if (!deletedBlock) {
-      return res.status(404).json({ message: "User not found in blocklist" });
-    }
-    res.status(200).json({ message: "User removed from blocklist successfully" });
+    const block = await BlockedUser.findOne({
+      userId: req.user.id,
+      blockedUserId: req.params.userId
+    });
+    res.json({ isBlocked: !!block });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
