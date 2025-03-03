@@ -90,7 +90,7 @@ app.use('/api/paypal', paypalRoutes);
 app.use("/api/skills", skillsRoutes);
 
 app.use("/", (req, res) => {
-  res.send("API is سنهممس.....");
+  res.send("API is.....");
 });
 
 
