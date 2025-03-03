@@ -11,6 +11,10 @@ const UserSchema = new mongoose.Schema(
       unique: true,
       sparse: true, // Allows multiple documents to have googleId as null
     },
+    isBlocked: {
+      type: Boolean,
+      default: false
+    },
     username: {
       type: String,
       required: true,
