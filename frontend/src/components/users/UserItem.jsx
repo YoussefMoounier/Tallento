@@ -2,6 +2,10 @@ import React from "react";
 import "./user.css"; // Import CSS
 
 const UserItem = ({ user, blockedUserId, onRemoveBlock, createdAt }) => {
+  if (!user) {
+    return null; // Don't render anything if user is null
+  }
+
   const handleRemoveClick = () => {
     onRemoveBlock(user._id, blockedUserId);
   };
@@ -14,7 +18,7 @@ const UserItem = ({ user, blockedUserId, onRemoveBlock, createdAt }) => {
   return (
     <div className="user-item">
       <p>{user.username}</p>
-      <img src={user?.profilePhoto?.url} alt={`${user.username}'s profile`} />
+      <img src={user?.profilePhoto?.url || "/default-avatar.png"} alt={`${user.username}'s profile`} />
       <p>Blocked {daysSinceBlocked} days ago</p>
       <button onClick={handleRemoveClick}>Unblock</button>
     </div>

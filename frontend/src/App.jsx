@@ -50,7 +50,7 @@ function App() {
       <Router>
         <Header />
         <ToastContainer theme="colored" position="top-center" />
-        <div className="main-container bg-bg">
+        <div className="main-container bg-bg mt-5">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<HomePage />} />
