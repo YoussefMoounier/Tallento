@@ -65,10 +65,10 @@ const UserList = () => {
                       onClick={async () => {
                         try {
                           if (user.isBlocked) {
-                            await request.delete(`/api/blocklist/${user._id}`);
+                            await request.delete(`/api/block/${user._id}`);
                             user.isBlocked = false;
                           } else {
-                            await request.post(`/api/blocklist/${user._id}`);
+                            await request.post(`/api/block/${user._id}`);
                             user.isBlocked = true;
                           }
                           setIsLoading(false);

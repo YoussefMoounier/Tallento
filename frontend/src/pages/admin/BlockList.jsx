@@ -6,7 +6,7 @@ import { Spinner } from 'flowbite-react';
 
 export default function BlockList() {
   const dispatch = useDispatch();
-  const { blockedUsers, loading, error } = useSelector((state) => state.block);
+  const { blocklist: blockedUsers = [], loading, error } = useSelector((state) => state.block);
 
   useEffect(() => {
     dispatch(fetchBlockedUsers());
@@ -66,7 +66,7 @@ export default function BlockList() {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {blockedUsers.map((user) => (
+                  {Array.isArray(blockedUsers) && blockedUsers?.map((user) => (
                     <tr
                       key={user._id}
                       className="hover:bg-gray-50 transition-colors duration-200"
