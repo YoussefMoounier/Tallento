@@ -49,7 +49,7 @@ const MessagesTable = () => {
               {messages.map((item, index) => (
                 <tr key={item._id} className="hover:bg-gray-100">
                   <td className="px-4 py-2 border-b text-center">{index + 1}</td>
-                  <td className="px-4 py-2 border-b">{item.sender.username}</td>
+                  <td className="px-4 py-2 border-b">{item.sender?.username || 'Unknown User'}</td>
                   <td className="px-4 py-2 border-b">{item.content}</td>
                   <td className="px-4 py-2 border-b">
                     <button

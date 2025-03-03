@@ -31,7 +31,7 @@ const UserList = () => {
   }
 
   return (
-    <section className="flex flex-col md:flex-row">
+    <section className="flex flex-col md:flex-row mt-12">
       <AdminSidebar />
       <div className="flex-1 p-4">
         <h1 className="text-2xl font-bold mb-4">User List</h1>

@@ -22,7 +22,7 @@ const AdminMain = () => {
   }, [dispatch]);
 
   return (
-    <div className="admin-main">
+    <div className="admin-main mt-12">
       <div className="admin-main-header">
         <div className="admin-main-card">
           <h5 className="admin-card-title">المستخدمين</h5>

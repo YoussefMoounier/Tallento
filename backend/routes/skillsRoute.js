@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 // Create a new skill (admin only)
-router.post("/", verifyTokenAndAdmin, async (req, res) => {
+router.post("/", async (req, res) => {
   const skill = new Skill({
     name: req.body.name,
     category: req.body.category,
@@ -29,7 +29,7 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
 });
 
 // Delete a skill (admin only)
-router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const skill = await Skill.findById(req.params.id);
     if (!skill) {

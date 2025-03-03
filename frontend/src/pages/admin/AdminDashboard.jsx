@@ -4,7 +4,7 @@ import AdminSidebar from "./AdminSidebar";
 
 const AdminDashboard = () => {
     return ( 
-    <section className="admin-dashboard">
+    <section className="admin-dashboard mt-14">
        <AdminSidebar />
        <AdminMain />
     </section> );

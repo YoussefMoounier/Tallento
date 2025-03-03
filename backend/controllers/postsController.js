@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 const asyncHandler = require("express-async-handler");
-const { User } = require("../models/User");
 const {
   Post,
   validateCreatePost,
