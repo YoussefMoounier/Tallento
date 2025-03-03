@@ -1,53 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const Blocklist = require("../models/Blocklist");
+const { blockUser, unblockUser, getBlockedUsers } = require("../controllers/block");
+const { verifyToken, verifyTokenAndAdmin } = require("../middlewares/verifyToken");
 
-// Get all blocked users
-router.get("/", async (req, res) => {
-  try {
-    const blockedUsers = await Blocklist.find()
-      .populate("userId", "username email") // Populate blockedUserId
+// Get all blocked users (admin only)
+router.get("/", verifyTokenAndAdmin, getBlockedUsers);
 
-    res.status(200).json(blockedUsers);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+// Block a user (admin only)
+router.post("/block", verifyTokenAndAdmin, blockUser);
 
-// Get a specific user's blocklist entry
-router.get("/:userId", async (req, res) => {
-  try {
-    const blocklistEntries = await Blocklist.find({ userId: req.params.userId })
-      .populate("userId", "username email")
-      .populate("blockedUserId", "username email");
-
-    if (blocklistEntries.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No blocklist entries found for this user" });
-    }
-
-    res.status(200).json(blocklistEntries);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-// Delete a blocklist entry
-router.delete("/:userId/:blockedUserId", async (req, res) => {
-  try {
-    const { userId, blockedUserId } = req.params;
-
-    const result = await Blocklist.deleteOne({ userId, blockedUserId });
-
-    if (result.deletedCount === 0) {
-      return res.status(404).json({ message: "Blocklist entry not found" });
-    }
-
-    res.status(200).json({ message: "Blocklist entry removed successfully" });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+// Unblock a user (admin only)
+router.post("/unblock", verifyTokenAndAdmin, unblockUser);
 
 module.exports = router;
