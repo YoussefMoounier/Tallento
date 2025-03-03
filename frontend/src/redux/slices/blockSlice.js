@@ -5,7 +5,7 @@ import { blockUser, unblockUser } from "./userSlice";
 const blockSlice = createSlice({
   name: "block",
   initialState: {
-    blockedUsers: [],
+    blocklist: [],
     loading: false,
     error: null,
   },
@@ -16,7 +16,7 @@ const blockSlice = createSlice({
     },
     fetchBlockedUsersSuccess: (state, action) => {
       state.loading = false;
-      state.blockedUsers = action.payload;
+      state.blocklist = action.payload;
       state.error = null;
     },
     fetchBlockedUsersFailure: (state, action) => {
@@ -24,7 +24,7 @@ const blockSlice = createSlice({
       state.error = action.payload;
     },
     unblockUserSuccess: (state, action) => {
-      state.blockedUsers = state.blockedUsers.filter(
+      state.blocklist = state.blocklist.filter(
         (user) => user._id !== action.payload
       );
     },
@@ -32,13 +32,13 @@ const blockSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchBlockedUsers.fulfilled, (state, action) => {
-        state.blockedUsers = action.payload;
+        state.blocklist = action.payload;
       })
       .addCase(blockUser.fulfilled, (state, action) => {
-        state.blockedUsers.push(action.payload);
+        state.blocklist.push(action.payload);
       })
       .addCase(unblockUser.fulfilled, (state, action) => {
-        state.blockedUsers = state.blockedUsers.filter(
+        state.blocklist = state.blocklist.filter(
           (user) => user._id !== action.payload._id
         );
       });
@@ -58,7 +58,7 @@ export const fetchBlockedUsers = createAsyncThunk(
     try {
       dispatch(setLoading());
       const { data } = await axios.get("/api/users/blocked");
-      dispatch(fetchBlockedUsersSuccess(data));
+      dispatch(fetchBlockedUsersSuccess(data.blockedUsers || []));
     } catch (error) {
       dispatch(
         fetchBlockedUsersFailure(error.response?.data?.message || error.message)
