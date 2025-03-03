@@ -39,6 +39,7 @@ import UserList from "./components/users/UserList";
 import HomePage from "./pages/HomePage";
 import MessagesTable from "./pages/admin/MessagesTable";
 import SkillsTable from "./pages/admin/SkillsTable";
+import BlockList from "./pages/admin/BlockList";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -138,7 +139,7 @@ function App() {
             />
             <Route
               path="/admin-dashboard/block"
-              element={user?.isAdmin ? <UserList /> : <Navigate to="/" />}
+              element={user?.isAdmin ? <BlockList /> : <Navigate to="/" />}
             />
             <Route
               path="/admin-dashboard/posts-table"
