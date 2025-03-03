@@ -10,6 +10,10 @@ import chatReducer from "./slices/chatSlice";
 import userReducer from "./slices/userSlice";
 import messageReducer from "./slices/messageSlice";
 import skillReducer from "./slices/skillSlice";
+import blockReducer from "./slices/blockSlice";
+import createSagaMiddleware from "redux-saga";
+
+const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
   reducer: {
@@ -24,8 +28,12 @@ const store = configureStore({
     user: userReducer,
     message: messageReducer,
     skill: skillReducer,
+    block: blockReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(sagaMiddleware),
 });
+
 
 export default store;
 

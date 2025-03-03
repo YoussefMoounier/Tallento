@@ -57,19 +57,7 @@ const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(blockUser.fulfilled, (state, action) => {
-        const index = state.users.findIndex((user) => user._id === action.payload._id);
-        if (index !== -1) {
-          state.users[index] = action.payload;
-        }
-      })
-      .addCase(unblockUser.fulfilled, (state, action) => {
-        const index = state.users.findIndex((user) => user._id === action.payload._id);
-        if (index !== -1) {
-          state.users[index] = action.payload;
-        }
-      });
+    // Block-related reducers moved to blockSlice
   },
 });
 
