@@ -118,7 +118,7 @@ module.exports.updateUserProfileCtrl = asyncHandler(async (req, res) => {
  * @access  private (only admin)
  ------------------------------------------------*/
 module.exports.getUsersCountCtrl = asyncHandler(async (req, res) => {
-  const count = await User.count();
+  const count = await User.countDocuments();
   res.status(200).json(count);
 });
 
